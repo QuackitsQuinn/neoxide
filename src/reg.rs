@@ -13,17 +13,17 @@ pub trait Register<T>{
     fn decr(&mut self);
 }
 /// A simple u8 register
-pub struct Reg {
+pub struct U8Register {
     value: u8,
 }
 
-impl Reg {
+impl U8Register {
     pub fn new(value: u8) -> Self {
-        Reg { value }
+        U8Register { value }
     }
 }
 
-impl Register<u8> for Reg {
+impl Register<u8> for U8Register {
     fn read(&self) -> u8 {
         self.value
     }
@@ -45,12 +45,17 @@ pub struct ProgramCounter {
 }
 
 impl ProgramCounter {
+    /// Create a new program counter
     pub fn new(pc: u16) -> Self {
         ProgramCounter { pc, pgrm_start: pc }
     }
-    
+    /// Reset the program counter to the start of the program
     pub fn reset(&mut self) {
         self.pc = self.pgrm_start;
+    }
+    /// Sets the entry point of the program
+    pub fn set_entry_point(&mut self, entry_point: u16) {
+        self.pgrm_start = entry_point;
     }
 }
 
