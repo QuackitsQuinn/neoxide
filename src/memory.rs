@@ -2,7 +2,7 @@
 use crate::mem_segment::MemorySegment;
 // TODO: mem mapping
 pub struct Memory {
-    mem : [MemorySegment; 0xFFFF],
+    pub mem : [MemorySegment; 0xFFFF],
 }
 
 impl Memory {
@@ -22,5 +22,11 @@ impl Memory {
 
     pub fn write(&mut self, addr: u16, value: u8) {
         self.mem[addr as usize].byte = value;
+    }
+
+    pub fn reset(&mut self) {
+        for i in 0..0xFFFF {
+            self.mem[i].reset();
+        }
     }
 }

@@ -9,6 +9,10 @@ impl MemorySegment {
     pub fn new(byte: u8) -> Self {
         MemorySegment { byte }
     }
+
+    pub fn reset(&mut self) {
+        self.byte = 0;
+    }
 }
 
 impl ops::BitAnd<u8> for MemorySegment {
