@@ -5,7 +5,7 @@ pub struct CPU {
     a: U8Register,
     x: U8Register,
     y: U8Register,
-    pc: ProgramCounter
+    pub pc: ProgramCounter
 }
 
 impl CPU {
