@@ -1,68 +1,26 @@
-use std::ops;
 
-
-struct MemorySegment {
-    byte: u8
+use crate::mem_segment::MemorySegment;
+// TODO: mem mapping
+pub struct Memory {
+    mem : [MemorySegment; 0xFFFF],
 }
 
-impl MemorySegment {
-    pub fn new(byte: u8) -> Self {
-        MemorySegment { byte }
+impl Memory {
+    pub fn new() -> Self {
+        Memory {
+            mem: [MemorySegment::new(0); 0xFFFF]
+        }
     }
-}
 
-impl ops::BitAnd<u8> for MemorySegment {
-    type Output = u8;
-
-    fn bitand(self, rhs: u8) -> Self::Output {
-        self.byte & rhs
+    pub fn read(&self, addr: u16) -> MemorySegment {
+        self.mem[addr as usize] 
     }
-}
 
-impl ops::BitAnd<MemorySegment> for MemorySegment {
-    type Output = MemorySegment;
-
-    fn bitand(self, rhs: MemorySegment) -> Self::Output {
-        MemorySegment { byte: self & rhs.byte}
+    pub fn read_u8(&self, addr: u16) -> u8 {
+        self.mem[addr as usize].byte
     }
-}
 
-impl ops::BitOr<u8> for MemorySegment {
-    type Output = u8;
-
-    fn bitor(self, rhs: u8) -> Self::Output {
-        self.byte | rhs
-    }
-}
-
-impl ops::BitOr<MemorySegment> for MemorySegment {
-    type Output = MemorySegment;
-
-    fn bitor(self, rhs: MemorySegment) -> Self::Output {
-        MemorySegment { byte: self | rhs.byte}
-    }
-}
-
-impl ops::Not for MemorySegment {
-    type Output = MemorySegment;
-
-    fn not(self) -> Self::Output {
-        MemorySegment { byte: !self.byte }
-    }
-}
-
-impl ops::BitXor<u8> for MemorySegment {
-    type Output = u8;
-
-    fn bitxor(self, rhs: u8) -> Self::Output {
-        self.byte ^ rhs
-    }
-}
-
-impl ops::BitXor<MemorySegment> for u8 {
-    type Output = MemorySegment;
-
-    fn bitxor(self, rhs: MemorySegment) -> Self::Output {
-        MemorySegment { byte: self ^ rhs.byte }
+    pub fn write(&mut self, addr: u16, value: u8) {
+        self.mem[addr as usize].byte = value;
     }
 }
