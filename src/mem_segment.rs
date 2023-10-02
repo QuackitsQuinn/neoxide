@@ -98,6 +98,6 @@ mod test_memsegment {
 
     #[test]
     fn test_not() {
-        assert_eq!(!new(0b1010), new(0b0101));
+        assert_eq!(!new(0), new(255));
     }
 }
