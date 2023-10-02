@@ -1,6 +1,6 @@
 use std::ops;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct MemorySegment {
     pub byte: u8
 }
@@ -68,5 +68,36 @@ impl ops::BitXor<MemorySegment> for u8 {
 
     fn bitxor(self, rhs: MemorySegment) -> Self::Output {
         MemorySegment { byte: self ^ rhs.byte }
+    }
+}
+
+#[cfg(test)]
+mod test_memsegment {
+    use super::*;
+    /// shorthand for MemorySegment::new
+    fn new(val: u8) -> MemorySegment {
+        MemorySegment::new(val)
+    }
+
+    #[test]
+    fn test_bitand() {
+        assert_eq!(new(0b1010) & 0b1111, 0b1010);
+        assert_eq!(new(0b1010) & new(0b1111), new(0b1010));
+    }
+
+    #[test]
+    fn test_bitxor() {
+        assert_eq!(new(0b1010) ^ 0b1111, 0b0101);
+        assert_eq!(0b1010 ^ new(0b1111), new(0b0101));
+    }
+    #[test]
+    fn test_bitor() {
+        assert_eq!(new(0b1010) | 0b1111, 0b1111);
+        assert_eq!(new(0b1100)| new(0b0011), new(0b1111));
+    }
+
+    #[test]
+    fn test_not() {
+        assert_eq!(!new(0b1010), new(0b0101));
     }
 }
