@@ -52,6 +52,11 @@ impl Register<u8> for U8Register {
         self.value-=1;
     }
 }
+impl Into<u8> for U8Register {
+    fn into(self) -> u8 {
+        self.value
+    }
+}
 /// U16 register intended to be used as a program counter
 pub struct ProgramCounter {
     pc: u16,
@@ -98,6 +103,12 @@ impl Register<u16> for ProgramCounter {
 
     fn decr(&mut self) {
         self.pc -= 1;
+    }
+}
+
+impl Into<u16> for ProgramCounter {
+    fn into(self) -> u16 {
+        self.pc
     }
 }
 
