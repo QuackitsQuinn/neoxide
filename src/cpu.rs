@@ -2,11 +2,11 @@ use crate::{reg::{U8Register, ProgramCounter, Register}, memory::Memory};
 
 
 pub struct CPU {
-    a: U8Register,
-    x: U8Register,
-    y: U8Register,
+    pub a: U8Register,
+    pub x: U8Register,
+    pub y: U8Register,
     pub pc: ProgramCounter,
-    mem: Memory
+    pub mem: Memory
 }
 
 impl CPU {
@@ -26,6 +26,11 @@ impl CPU {
         self.y.write(0);
         self.pc.reset();
         self.mem.reset()
+    }
+
+    pub fn read_opbyte(&mut self) -> u8 {
+        self.pc.incr();
+        self.mem.read_u8(self.pc.read()) // this is a bit weird but it works
     }
 }
 

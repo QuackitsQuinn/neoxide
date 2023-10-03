@@ -111,7 +111,12 @@ impl Into<u16> for ProgramCounter {
         self.pc
     }
 }
-
+impl Into<u16> for &ProgramCounter {
+    fn into(self) -> u16 {
+        self.pc
+    }
+}
+    
 #[cfg(test)]
 mod test_pgrm_counter {
     use super::*;
