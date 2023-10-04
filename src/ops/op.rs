@@ -28,8 +28,8 @@ fn nop(cpu: &mut CPU) {
     return;
 }
 
-pub fn read_addr(cpu: &mut CPU) -> u16 {
+pub fn read_u16(cpu: &mut CPU) -> u16 {
     let addr1 = cpu.read_opbyte();
     let addr2 = cpu.read_opbyte();
-    ((addr2 as u16) << 8) | addr1 as u16
+    ((addr2 as u16) << 8) | addr1 as u16 
 }

@@ -39,21 +39,21 @@ pub mod lda {
     }
 
     pub fn lda_abs(cpu: &mut CPU) {
-        let addr = read_addr(cpu);
+        let addr = read_u16(cpu);
         let data = cpu.read(addr);
         cpu.a.write(data);
         write_a(cpu, data)
     }
 
     pub fn lda_abs_x(cpu: &mut CPU) {
-        let addr = read_addr(cpu);
+        let addr = read_u16(cpu);
         let data = cpu.read(addr + cpu.x.read() as u16);
         cpu.a.write(data);
         write_a(cpu, data)
     }
 
     pub fn lda_abs_y(cpu: &mut CPU) {
-        let addr = read_addr(cpu);
+        let addr = read_u16(cpu);
         let data = cpu.read(addr + cpu.y.read() as u16);
         cpu.a.write(data);
         write_a(cpu, data)
@@ -61,7 +61,7 @@ pub mod lda {
 }
 
 pub mod ldx {
-    use crate::{cpu::CPU, reg::Register, ops::op::read_addr};
+    use crate::{cpu::CPU, reg::Register, ops::op::read_u16};
 
     use super::check_flags;
 
@@ -88,13 +88,13 @@ pub mod ldx {
     }
 
     pub fn ldx_abs(cpu: &mut CPU) {
-        let addr = read_addr(cpu);
+        let addr = read_u16(cpu);
         let data = cpu.read(addr);
         cpu.x.write(data);
     }
 
     pub fn ldx_abs_y(cpu: &mut CPU) {
-        let addr = read_addr(cpu);
+        let addr = read_u16(cpu);
         let data = cpu.read(addr + cpu.y.read() as u16);
         cpu.x.write(data);
     }
