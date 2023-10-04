@@ -6,7 +6,7 @@ pub struct CPU {
     pub x: U8Register,
     pub y: U8Register,
     pub pc: ProgramCounter,
-    pub mem: Memory,
+    mem: Memory,
     pub status: CPUStatus
 }
 
@@ -33,6 +33,14 @@ impl CPU {
     pub fn read_opbyte(&mut self) -> u8 {
         self.pc.incr();
         self.mem.read_u8(self.pc.read()) // this is a bit weird but it works
+    }
+
+    pub fn read(&mut self, addr: u16) -> u8 {
+        self.mem.read_u8(addr)
+    }
+
+    pub fn write(&mut self, addr: u16, data: u8) {
+        self.mem.write(addr, data);
     }
 }
 
