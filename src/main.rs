@@ -3,7 +3,7 @@ mod reg;
 mod cpu;
 mod mem_segment;
 mod memory;
-mod op;
+mod ops;
 mod cpu_flags;
 fn main() {
     //
