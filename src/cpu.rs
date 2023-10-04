@@ -1,4 +1,4 @@
-use crate::{reg::{U8Register, ProgramCounter, Register}, memory::Memory};
+use crate::{reg::{U8Register, ProgramCounter, Register}, memory::Memory, cpu_flags::CPUStatus};
 
 
 pub struct CPU {
@@ -6,7 +6,8 @@ pub struct CPU {
     pub x: U8Register,
     pub y: U8Register,
     pub pc: ProgramCounter,
-    pub mem: Memory
+    pub mem: Memory,
+    pub status: CPUStatus
 }
 
 impl CPU {
@@ -16,7 +17,8 @@ impl CPU {
             x: U8Register::new(0),
             y: U8Register::new(0),
             pc: ProgramCounter::new(0),
-            mem: Memory::new()
+            mem: Memory::new(),
+            status: CPUStatus::new()
         }
     }
     /// Reset the CPU to its initial state
