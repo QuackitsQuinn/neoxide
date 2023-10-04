@@ -9,7 +9,7 @@ pub fn exec_op(cpu: &mut CPU) {
     let op = cpu.read_opbyte();
 
     match op {
-        0x00 => nop(cpu),
+        0xEA => nop(cpu),
         0xA9 => lda::lda_im(cpu),
         0xA5 => lda::lda_zp(cpu),
         0xAD => lda::lda_abs(cpu),

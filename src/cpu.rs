@@ -1,4 +1,4 @@
-use crate::{reg::{U8Register, ProgramCounter, Register}, memory::Memory, cpu_flags::CPUStatus};
+use crate::{reg::{U8Register, ProgramCounter, Register}, memory::Memory, cpu_flags::CPUStatus, addressing::AddressingMode};
 
 
 pub struct CPU {
@@ -35,12 +35,55 @@ impl CPU {
         self.mem.read_u8(self.pc.read()) // this is a bit weird but it works
     }
 
+    pub fn read_u16(&mut self) -> u16 {
+        self.pc.incr();
+        let low = self.mem.read_u8(self.pc.read()) as u16;
+        self.pc.incr();
+        let high = self.mem.read_u8(self.pc.read()) as u16;
+        (high << 8) | low
+    }
+
+    }
+
     pub fn read(&mut self, addr: u16) -> u8 {
         self.mem.read_u8(addr)
     }
 
     pub fn write(&mut self, addr: u16, data: u8) {
         self.mem.write(addr, data);
+    }
+
+    pub fn read_addr(&mut self, admod: AddressingMode) -> u16 {
+        match admod {
+            AddressingMode::Immediate => self.read_opbyte() as u16,
+            AddressingMode::ZeroPage => self.read_opbyte() as u16,
+            AddressingMode::ZeroPageX => (self.read_opbyte() as u16).wrapping_add(self.x.read() as u16),
+            AddressingMode::ZeroPageY => (self.read_opbyte() as u16).wrapping_add(self.y.read() as u16),
+            AddressingMode::Absolute => self.read_u16() as u16,
+            AddressingMode::AbsoluteX => (self.read_u16() as u16).wrapping_add(self.x.read()) as u16,
+            AddressingMode::AbsoluteY => (self.read_u16() as u16).wrapping_add(self.y.read()) as u16,
+            AddressingMode::IndirectX => {
+                // src: https://bugzmanov.github.io/nes_ebook/chapter_3_2.html (genuinely have no clue how indirect addressing works)
+                let base = self.read_opbyte();
+
+                let ptr: u8 = (base as u8).wrapping_add(self.x.read());
+                let lo = self.read(ptr as u16);
+                let hi = self.read(ptr.wrapping_add(1) as u16);
+                (hi as u16) << 8 | (lo as u16)
+            }
+            AddressingMode::IndirectY => {
+                let base = self.read_opbyte();
+
+                let ptr: u8 = (base as u8).wrapping_add(self.y.read());
+                let lo = self.read(ptr as u16);
+                let hi = self.read(ptr.wrapping_add(1) as u16);
+                (hi as u16) << 8 | (lo as u16)
+            }
+            AddressingMode::NoneAddressing => {
+                panic!("No addressing mode specified")
+            }
+
+        }
     }
 }
 
