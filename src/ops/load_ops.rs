@@ -101,5 +101,41 @@ pub mod ldx {
 }
 
 pub mod ldy {
+    use crate::{cpu::CPU, reg::Register, ops::op::read_u16};
 
+    use super::check_flags;
+
+    fn write(cpu: &mut CPU, data: u8) {
+        cpu.y.write(data);
+        check_flags(cpu, data)
+    }
+
+    pub fn ldy_im(cpu: &mut CPU) {
+        let data = cpu.read_opbyte();
+        cpu.y.write(data);
+    }
+
+    pub fn ldy_zp(cpu: &mut CPU) {
+        let addr = cpu.read_opbyte();
+        let data = cpu.read(addr as u16);
+        cpu.y.write(data);
+    }
+
+    pub fn ldy_zp_x(cpu: &mut CPU) {
+        let addr = cpu.read_opbyte();
+        let data = cpu.read(addr as u16 + cpu.x.read() as u16);
+        cpu.y.write(data);
+    }
+
+    pub fn ldy_abs(cpu: &mut CPU) {
+        let addr = read_u16(cpu);
+        let data = cpu.read(addr);
+        cpu.y.write(data);
+    }
+
+    pub fn ldy_abs_x(cpu: &mut CPU) {
+        let addr = read_u16(cpu);
+        let data = cpu.read(addr + cpu.x.read() as u16);
+        cpu.y.write(data);
+    }
 }
