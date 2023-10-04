@@ -63,9 +63,11 @@ pub mod lda {
 pub mod ldx {
     use crate::{cpu::CPU, reg::Register, ops::op::read_addr};
 
+    use super::check_flags;
+
     fn write(cpu: &mut CPU, data: u8) {
         cpu.x.write(data);
-        
+        check_flags(cpu, data)
     }
 
     pub fn ldx_im(cpu: &mut CPU) {
@@ -96,4 +98,8 @@ pub mod ldx {
         let data = cpu.read(addr + cpu.y.read() as u16);
         cpu.x.write(data);
     }
+}
+
+pub mod ldy {
+
 }
