@@ -1,5 +1,9 @@
-use crate::{reg::{U8Register, ProgramCounter, Register}, memory::Memory, cpu_flags::CPUStatus, addressing::AddressingMode};
-
+use crate::{
+    addressing::AddressingMode,
+    cpu_flags::CPUStatus,
+    memory::Memory,
+    reg::{ProgramCounter, Register, U8Register},
+};
 
 pub struct CPU {
     pub a: U8Register,
@@ -7,7 +11,7 @@ pub struct CPU {
     pub y: U8Register,
     pub pc: ProgramCounter,
     mem: Memory,
-    pub status: CPUStatus
+    pub status: CPUStatus,
 }
 
 impl CPU {
@@ -18,7 +22,7 @@ impl CPU {
             y: U8Register::new(0),
             pc: ProgramCounter::new(0),
             mem: Memory::new(),
-            status: CPUStatus::new()
+            status: CPUStatus::new(),
         }
     }
     /// Reset the CPU to its initial state
@@ -43,7 +47,6 @@ impl CPU {
         (high << 8) | low
     }
 
-
     pub fn read(&mut self, addr: u16) -> u8 {
         self.mem.read_u8(addr)
     }
@@ -56,29 +59,25 @@ impl CPU {
         match admod {
             AddressingMode::Immediate => {
                 panic!("Immediate addressing mode does not have an address")
-            }, // 
-            AddressingMode::ZeroPage => { 
-                self.read_opbyte() as u16
-            },
-            AddressingMode::ZeroPageX => { 
+            } //
+            AddressingMode::ZeroPage => self.read_opbyte() as u16,
+            AddressingMode::ZeroPageX => {
                 let opbyte = self.read_opbyte();
                 (opbyte.wrapping_add(self.x.read())) as u16
-            },
+            }
             AddressingMode::ZeroPageY => {
                 let opbyte = self.read_opbyte();
                 (opbyte.wrapping_add(self.y.read())) as u16
-            },
-            AddressingMode::Absolute => {
-               self.read_u16()
-            },
+            }
+            AddressingMode::Absolute => self.read_u16(),
             AddressingMode::AbsoluteX => {
                 let addr = self.read_u16();
                 addr.wrapping_add(self.x.read() as u16)
-            },
-            AddressingMode::AbsoluteY => { 
+            }
+            AddressingMode::AbsoluteY => {
                 let addr = self.read_u16();
                 addr.wrapping_add(self.y.read() as u16)
-            },
+            }
             AddressingMode::IndirectX => {
                 // i like ptrptr
                 let ptrptr = self.read_opbyte().wrapping_add(self.x.read());
@@ -86,15 +85,14 @@ impl CPU {
                 let low = self.read(ptr) as u16;
                 let high = self.read(ptr.wrapping_add(1)) as u16;
                 (high << 8) | low
-            },
+            }
             AddressingMode::IndirectY => {
                 let ptrptr = self.read_opbyte().wrapping_add(self.y.read());
                 let ptr = self.read(ptrptr as u16) as u16;
                 let low = self.read(ptr) as u16;
                 let high = self.read(ptr.wrapping_add(1)) as u16;
-                (high << 8) | low   
+                (high << 8) | low
             }
-
         }
     }
     /// Read the value at the address specified by the addressing mode and the program counter
@@ -105,7 +103,6 @@ impl CPU {
                 let addr = self.read_addr(admod);
                 self.read(addr)
             }
-        
         }
     }
 }

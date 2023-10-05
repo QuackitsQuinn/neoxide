@@ -2,8 +2,8 @@ use std::ops;
 
 ///
 /// Register trait
-/// 
-/// This trait is used to define the interface for registers. 
+///
+/// This trait is used to define the interface for registers.
 pub trait Register<T>: ops::AddAssign<T> + ops::SubAssign<T> {
     /// Read the value of the register
     fn read(&self) -> T;
@@ -46,15 +46,15 @@ impl Register<u8> for U8Register {
         self.value = value;
     }
     fn incr(&mut self) {
-        self.value+=1;
+        self.value += 1;
     }
     fn decr(&mut self) {
-        self.value-=1;
+        self.value -= 1;
     }
 }
-impl Into<u8> for U8Register {
-    fn into(self) -> u8 {
-        self.value
+impl From<U8Register> for u8 {
+    fn from(val: U8Register) -> Self {
+        val.value
     }
 }
 /// U16 register intended to be used as a program counter
@@ -106,22 +106,22 @@ impl Register<u16> for ProgramCounter {
     }
 }
 
-impl Into<u16> for ProgramCounter {
-    fn into(self) -> u16 {
-        self.pc
+impl From<ProgramCounter> for u16 {
+    fn from(val: ProgramCounter) -> Self {
+        val.pc
     }
 }
-impl Into<u16> for &ProgramCounter {
-    fn into(self) -> u16 {
-        self.pc
+impl From<&ProgramCounter> for u16 {
+    fn from(val: &ProgramCounter) -> Self {
+        val.pc
     }
 }
-    
+
 #[cfg(test)]
 mod test_pgrm_counter {
     use super::*;
 
-    fn new(start: u16) -> ProgramCounter {
+    fn new(_start: u16) -> ProgramCounter {
         ProgramCounter::new(0)
     }
 }

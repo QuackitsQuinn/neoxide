@@ -1,19 +1,18 @@
-
 use crate::mem_segment::MemorySegment;
 // TODO: mem mapping
 pub struct Memory {
-    pub mem : [MemorySegment; 0xFFFF],
+    pub mem: [MemorySegment; 0xFFFF],
 }
 
 impl Memory {
     pub fn new() -> Self {
         Memory {
-            mem: [MemorySegment::new(0); 0xFFFF]
+            mem: [MemorySegment::new(0); 0xFFFF],
         }
     }
 
     pub fn read(&self, addr: u16) -> MemorySegment {
-        self.mem[addr as usize] 
+        self.mem[addr as usize]
     }
 
     pub fn read_u8(&self, addr: u16) -> u8 {

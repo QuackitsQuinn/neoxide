@@ -1,7 +1,6 @@
-use crate::{cpu::CPU, reg::Register};
+use crate::cpu::CPU;
 
 use super::load_ops::{lda, ldx, ldy};
-
 
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
@@ -25,17 +24,14 @@ pub fn exec_op(cpu: &mut CPU) {
         0xB4 => ldy::ldy_zp_x(cpu),
         0xAC => ldy::ldy_abs(cpu),
         0xBC => ldy::ldy_abs_x(cpu),
-        _ => todo!("Implement op: {:X}", op)
+        _ => todo!("Implement op: {:X}", op),
     }
-
 }
 /// No op - does nothing
-fn nop(cpu: &mut CPU) {
-    return;
-}
+fn nop(_cpu: &mut CPU) {}
 
 pub fn read_u16(cpu: &mut CPU) -> u16 {
     let addr1 = cpu.read_opbyte();
     let addr2 = cpu.read_opbyte();
-    ((addr2 as u16) << 8) | addr1 as u16 
+    ((addr2 as u16) << 8) | addr1 as u16
 }

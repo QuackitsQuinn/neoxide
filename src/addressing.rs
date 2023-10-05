@@ -1,4 +1,3 @@
-
 pub enum AddressingMode {
     Immediate,
     ZeroPage,

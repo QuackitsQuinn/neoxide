@@ -1,5 +1,4 @@
-use crate::{reg::{Register, U8Register}, cpu::CPU};
-
+use crate::cpu::CPU;
 
 fn check_flags(cpu: &mut CPU, data: u8) {
     if data == 0 {
@@ -16,7 +15,7 @@ fn check_flags(cpu: &mut CPU, data: u8) {
 }
 
 pub mod lda {
-    use crate::{ops::op::*, cpu::CPU, reg::Register};
+    use crate::{cpu::CPU, ops::op::*, reg::Register};
 
     use super::check_flags;
 
@@ -61,7 +60,7 @@ pub mod lda {
 }
 
 pub mod ldx {
-    use crate::{cpu::CPU, reg::Register, ops::op::read_u16};
+    use crate::{cpu::CPU, ops::op::read_u16, reg::Register};
 
     use super::check_flags;
 
@@ -101,7 +100,7 @@ pub mod ldx {
 }
 
 pub mod ldy {
-    use crate::{cpu::CPU, reg::Register, ops::op::read_u16};
+    use crate::{cpu::CPU, ops::op::read_u16, reg::Register};
 
     use super::check_flags;
 

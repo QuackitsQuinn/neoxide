@@ -2,7 +2,7 @@ use std::ops;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct MemorySegment {
-    pub byte: u8
+    pub byte: u8,
 }
 
 impl MemorySegment {
@@ -27,7 +27,9 @@ impl ops::BitAnd<MemorySegment> for MemorySegment {
     type Output = MemorySegment;
 
     fn bitand(self, rhs: MemorySegment) -> Self::Output {
-        MemorySegment { byte: self & rhs.byte}
+        MemorySegment {
+            byte: self & rhs.byte,
+        }
     }
 }
 
@@ -43,7 +45,9 @@ impl ops::BitOr<MemorySegment> for MemorySegment {
     type Output = MemorySegment;
 
     fn bitor(self, rhs: MemorySegment) -> Self::Output {
-        MemorySegment { byte: self | rhs.byte}
+        MemorySegment {
+            byte: self | rhs.byte,
+        }
     }
 }
 
@@ -67,7 +71,9 @@ impl ops::BitXor<MemorySegment> for u8 {
     type Output = MemorySegment;
 
     fn bitxor(self, rhs: MemorySegment) -> Self::Output {
-        MemorySegment { byte: self ^ rhs.byte }
+        MemorySegment {
+            byte: self ^ rhs.byte,
+        }
     }
 }
 
@@ -93,7 +99,7 @@ mod test_memsegment {
     #[test]
     fn test_bitor() {
         assert_eq!(new(0b1010) | 0b1111, 0b1111);
-        assert_eq!(new(0b1100)| new(0b0011), new(0b1111));
+        assert_eq!(new(0b1100) | new(0b0011), new(0b1111));
     }
 
     #[test]

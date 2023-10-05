@@ -1,7 +1,6 @@
-
 /// CPU Status Flags
 pub struct CPUStatus {
-    pub status: u8
+    pub status: u8,
 }
 //TODO: good doc comments
 impl CPUStatus {
@@ -62,4 +61,3 @@ impl CPUStatus {
         self.set_bit(0b1000_0000, value);
     }
 }
-    
