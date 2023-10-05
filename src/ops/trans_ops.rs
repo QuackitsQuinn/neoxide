@@ -2,8 +2,6 @@ use crate::{cpu::CPU, reg::Register};
 
 use super::op::check_flags;
 
-
-
 pub fn tax(cpu: &mut CPU) {
     let data = cpu.a.read();
     cpu.x.write(data);
@@ -39,4 +37,3 @@ pub fn txs(cpu: &mut CPU) {
     cpu.stack.sp.write(data);
     check_flags(cpu, data);
 }
-

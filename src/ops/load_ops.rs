@@ -1,7 +1,6 @@
-use crate::{cpu::CPU, addressing::AddressingMode, reg::Register};
+use crate::{addressing::AddressingMode, cpu::CPU, reg::Register};
 
 use super::op::check_flags;
-
 
 /// Executes the LDA instruction with the given addressing mode and CPU
 pub fn lda(cpu: &mut CPU, mode: AddressingMode) {
@@ -21,5 +20,3 @@ pub fn ldy(cpu: &mut CPU, mode: AddressingMode) {
     cpu.y.write(data);
     check_flags(cpu, data);
 }
-
-

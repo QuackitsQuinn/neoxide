@@ -1,17 +1,15 @@
-use crate::reg::{U8Register, Register};
-
-
+use crate::reg::{Register, U8Register};
 
 pub struct Stack {
     stack: [u8; 0x100],
-    pub sp: U8Register
+    pub sp: U8Register,
 }
 
 impl Stack {
     pub fn new() -> Self {
         Self {
             stack: [0; 0x100],
-            sp: U8Register::new(0xFF)
+            sp: U8Register::new(0xFF),
         }
     }
 
@@ -47,5 +45,4 @@ mod testStack {
         assert_eq!(stack.pop(), 0x12);
         assert_eq!(stack.sp.read(), 0xFF);
     }
-
 }

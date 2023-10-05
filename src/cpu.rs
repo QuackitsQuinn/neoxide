@@ -2,7 +2,8 @@ use crate::{
     addressing::AddressingMode,
     cpu_flags::CPUStatus,
     memory::Memory,
-    reg::{ProgramCounter, Register, U8Register}, stack::Stack,
+    reg::{ProgramCounter, Register, U8Register},
+    stack::Stack,
 };
 /// A struct representing the CPU of the NES
 pub struct CPU {
