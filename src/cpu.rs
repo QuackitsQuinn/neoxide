@@ -2,7 +2,7 @@ use crate::{
     addressing::AddressingMode,
     cpu_flags::CPUStatus,
     memory::Memory,
-    reg::{ProgramCounter, Register, U8Register},
+    reg::{ProgramCounter, Register, U8Register}, stack::Stack,
 };
 
 pub struct CPU {
@@ -12,6 +12,7 @@ pub struct CPU {
     pub pc: ProgramCounter,
     mem: Memory,
     pub status: CPUStatus,
+    pub stack: Stack,
 }
 
 impl CPU {
@@ -23,6 +24,7 @@ impl CPU {
             pc: ProgramCounter::new(0),
             mem: Memory::new(),
             status: CPUStatus::new(),
+            stack: Stack::new(),
         }
     }
     /// Reset the CPU to its initial state

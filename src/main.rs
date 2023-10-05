@@ -5,6 +5,7 @@ mod mem_segment;
 mod memory;
 mod ops;
 mod reg;
+mod stack;
 fn main() {
     //
 }
