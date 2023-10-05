@@ -3,7 +3,7 @@ use crate::{addressing::AddressingMode, cpu::CPU};
 use super::{
     load_ops::{lda, ldx, ldy},
     stack_ops::{pha, php, pla, plp},
-    trans_ops::{tax, tay, tsx, txa, txs, tya},
+    trans_ops::{tax, tay, tsx, txa, txs, tya}, store_ops::{sta, stx, sty},
 };
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
@@ -46,6 +46,22 @@ pub fn exec_op(cpu: &mut CPU) {
         0x68 => pla(cpu),
         0x08 => php(cpu),
         0x28 => plp(cpu),
+        // STORE OPS
+        // STA
+        0x85 => sta(cpu, AddressingMode::ZeroPage),
+        0x95 => sta(cpu, AddressingMode::ZeroPageX),
+        0x8D => sta(cpu, AddressingMode::Absolute),
+        0x9D => sta(cpu, AddressingMode::AbsoluteX),
+        0x81 => sta(cpu, AddressingMode::IndirectX),
+        0x91 => sta(cpu, AddressingMode::IndirectY),
+        // STX
+        0x86 => stx(cpu, AddressingMode::ZeroPage),
+        0x96 => stx(cpu, AddressingMode::ZeroPageY),
+        0x8E => stx(cpu, AddressingMode::Absolute),
+        // STY
+        0x84 => sty(cpu, AddressingMode::ZeroPage),
+        0x94 => sty(cpu, AddressingMode::ZeroPageX),
+        0x8C => sty(cpu, AddressingMode::Absolute),
         _ => todo!("Unimplemented opcode: {:#X}", op),
     }
 }
