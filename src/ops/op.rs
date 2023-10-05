@@ -1,6 +1,6 @@
 use crate::{cpu::CPU, addressing::AddressingMode};
 
-use super::{load_ops::{lda, ldx, ldy}, trans_ops::{tax, tay, txa, tya}};
+use super::{load_ops::{lda, ldx, ldy}, trans_ops::{tax, tay, txa, tya, tsx, txs}};
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
 pub fn exec_op(cpu: &mut CPU) {
@@ -35,12 +35,15 @@ pub fn exec_op(cpu: &mut CPU) {
         0xA8 => tay(cpu),
         0x8A => txa(cpu),
         0x98 => tya(cpu),
-        _ => todo!("Implement op: {:X}", op),
+        0xBA => tsx(cpu),
+        0x9A => txs(cpu),
+        _ => panic!("Unimplemented opcode: {:#X}", op),
     }
 }
 /// No op - does nothing
 fn nop(_cpu: &mut CPU) {}
 
+/// Checks the data for zero and negative flags and sets them accordingly
 pub fn check_flags(cpu: &mut CPU, data: u8) {
     if data == 0 {
         cpu.status.set_zero(true);

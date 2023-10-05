@@ -31,7 +31,7 @@
 - [x] LDX
 - [x] LDY
 - [ ] LSR
-- [ ] NOP
+- [x] NOP
 - [ ] ORA
 - [ ] PHA
 - [ ] PHP
@@ -50,8 +50,7 @@
 - [ ] STY
 - [x] TAX
 - [x] TAY
-- [ ] TSX
+- [x] TSX
 - [x] TXA
-- [ ] TXS
+- [x] TXS
 - [x] TYA
-- 

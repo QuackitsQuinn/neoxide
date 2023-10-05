@@ -28,3 +28,15 @@ pub fn tya(cpu: &mut CPU) {
     check_flags(cpu, data);
 }
 
+pub fn tsx(cpu: &mut CPU) {
+    let data = cpu.stack.sp.read();
+    cpu.x.write(data);
+    check_flags(cpu, data);
+}
+
+pub fn txs(cpu: &mut CPU) {
+    let data = cpu.x.read();
+    cpu.stack.sp.write(data);
+    check_flags(cpu, data);
+}
+
