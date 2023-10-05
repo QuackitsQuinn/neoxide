@@ -55,7 +55,7 @@ impl CPU {
         self.mem.write(addr, data);
     }
     /// Read the value at the address specified by the addressing mode and the program counter
-    pub fn read_addr(&mut self, admod: AddressingMode) -> u16 {
+    pub fn get_addr(&mut self, admod: AddressingMode) -> u16 {
         match admod {
             AddressingMode::Immediate => {
                 panic!("Immediate addressing mode does not have an address")
@@ -96,11 +96,11 @@ impl CPU {
         }
     }
     /// Read the value at the address specified by the addressing mode and the program counter
-    fn read_opaddr(&mut self, admod: AddressingMode) -> u8 {
+    pub fn read_addr(&mut self, admod: AddressingMode) -> u8 {
         match admod {
             AddressingMode::Immediate => self.read_opbyte(),
             _ => {
-                let addr = self.read_addr(admod);
+                let addr = self.get_addr(admod);
                 self.read(addr)
             }
         }

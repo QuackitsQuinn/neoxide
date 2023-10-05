@@ -1,4 +1,4 @@
-use crate::cpu::CPU;
+use crate::{cpu::CPU, addressing::AddressingMode, reg::Register};
 
 fn check_flags(cpu: &mut CPU, data: u8) {
     if data == 0 {
@@ -13,91 +13,19 @@ fn check_flags(cpu: &mut CPU, data: u8) {
         cpu.status.set_negative(false);
     }
 }
-
-pub mod lda {
-    use crate::{cpu::CPU, ops::op::*, reg::Register};
-
-    use super::check_flags;
-
-    fn write_a(cpu: &mut CPU, data: u8) {
-        cpu.a.write(data);
-        check_flags(cpu, data)
-    }
-
-    pub fn lda_im(cpu: &mut CPU) {
-        let data = cpu.read_opbyte();
-        cpu.a.write(data);
-        write_a(cpu, data)
-    }
-
-    pub fn lda_zp(cpu: &mut CPU) {
-        let addr = cpu.read_opbyte();
-        let data = cpu.read(addr as u16);
-        cpu.a.write(data);
-        write_a(cpu, data)
-    }
-
-    pub fn lda_abs(cpu: &mut CPU) {
-        let addr = read_u16(cpu);
-        let data = cpu.read(addr);
-        cpu.a.write(data);
-        write_a(cpu, data)
-    }
-
-    pub fn lda_abs_x(cpu: &mut CPU) {
-        let addr = read_u16(cpu);
-        let data = cpu.read(addr + cpu.x.read() as u16);
-        cpu.a.write(data);
-        write_a(cpu, data)
-    }
-
-    pub fn lda_abs_y(cpu: &mut CPU) {
-        let addr = read_u16(cpu);
-        let data = cpu.read(addr + cpu.y.read() as u16);
-        cpu.a.write(data);
-        write_a(cpu, data)
-    }
+/// Executes the LDA instruction with the given addressing mode and CPU
+pub fn lda(cpu: &mut CPU, mode: AddressingMode) {
+    let data = cpu.read_addr(mode);
+    cpu.a.write(data);
+    check_flags(cpu, data);
 }
 
-pub mod ldx {
-    use crate::{cpu::CPU, ops::op::read_u16, reg::Register};
-
-    use super::check_flags;
-
-    fn write(cpu: &mut CPU, data: u8) {
-        cpu.x.write(data);
-        check_flags(cpu, data)
-    }
-
-    pub fn ldx_im(cpu: &mut CPU) {
-        let data = cpu.read_opbyte();
-        cpu.x.write(data);
-    }
-
-    pub fn ldx_zp(cpu: &mut CPU) {
-        let addr = cpu.read_opbyte();
-        let data = cpu.read(addr as u16);
-        cpu.x.write(data);
-    }
-
-    pub fn ldx_zp_y(cpu: &mut CPU) {
-        let addr = cpu.read_opbyte();
-        let data = cpu.read(addr as u16 + cpu.y.read() as u16);
-        cpu.x.write(data);
-    }
-
-    pub fn ldx_abs(cpu: &mut CPU) {
-        let addr = read_u16(cpu);
-        let data = cpu.read(addr);
-        cpu.x.write(data);
-    }
-
-    pub fn ldx_abs_y(cpu: &mut CPU) {
-        let addr = read_u16(cpu);
-        let data = cpu.read(addr + cpu.y.read() as u16);
-        cpu.x.write(data);
-    }
+pub fn ldx(cpu: &mut CPU, mode: AddressingMode) {
+    let data = cpu.read_addr(mode);
+    cpu.x.write(data);
+    check_flags(cpu, data);
 }
+
 
 pub mod ldy {
     use crate::{cpu::CPU, ops::op::read_u16, reg::Register};

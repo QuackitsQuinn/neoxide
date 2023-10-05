@@ -1,7 +1,6 @@
-use crate::cpu::CPU;
+use crate::{cpu::CPU, addressing::AddressingMode};
 
 use super::load_ops::{lda, ldx, ldy};
-
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
 pub fn exec_op(cpu: &mut CPU) {
@@ -9,16 +8,22 @@ pub fn exec_op(cpu: &mut CPU) {
 
     match op {
         0xEA => nop(cpu),
-        0xA9 => lda::lda_im(cpu),
-        0xA5 => lda::lda_zp(cpu),
-        0xAD => lda::lda_abs(cpu),
-        0xBD => lda::lda_abs_x(cpu),
-        0xB9 => lda::lda_abs_y(cpu),
-        0xA2 => ldx::ldx_im(cpu),
-        0xA6 => ldx::ldx_zp(cpu),
-        0xB6 => ldx::ldx_zp_y(cpu),
-        0xAE => ldx::ldx_abs(cpu),
-        0xBE => ldx::ldx_abs_y(cpu),
+        // LDA
+        0xA9 => lda(cpu, AddressingMode::Immediate),
+        0xA5 => lda(cpu, AddressingMode::ZeroPage),
+        0xB5 => lda(cpu, AddressingMode::ZeroPageX),
+        0xAD => lda(cpu, AddressingMode::Absolute),
+        0xBD => lda(cpu, AddressingMode::AbsoluteX),
+        0xB9 => lda(cpu, AddressingMode::AbsoluteY),
+        0xA1 => lda(cpu, AddressingMode::IndirectX),
+        0xB1 => lda(cpu, AddressingMode::IndirectY),
+        // LDX
+        0xA2 => ldx(cpu, AddressingMode::Immediate),
+        0xA6 => ldx(cpu, AddressingMode::ZeroPage),
+        0xB6 => ldx(cpu, AddressingMode::ZeroPageY),
+        0xAE => ldx(cpu, AddressingMode::Absolute),
+        0xBE => ldx(cpu, AddressingMode::AbsoluteY),
+        // LDY
         0xA0 => ldy::ldy_im(cpu),
         0xA4 => ldy::ldy_zp(cpu),
         0xB4 => ldy::ldy_zp_x(cpu),
