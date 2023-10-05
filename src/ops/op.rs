@@ -3,7 +3,9 @@ use crate::{addressing::AddressingMode, cpu::CPU};
 use super::{
     load_ops::{lda, ldx, ldy},
     stack_ops::{pha, php, pla, plp},
-    trans_ops::{tax, tay, tsx, txa, txs, tya}, store_ops::{sta, stx, sty},
+    trans_ops::{tax, tay, tsx, txa, txs, tya}, 
+    store_ops::{sta, stx, sty}, 
+    status_ops::{clc, sec, cli, sei, clv},
 };
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
@@ -34,18 +36,6 @@ pub fn exec_op(cpu: &mut CPU) {
         0xB4 => ldy(cpu, AddressingMode::ZeroPageX),
         0xAC => ldy(cpu, AddressingMode::Absolute),
         0xBC => ldy(cpu, AddressingMode::AbsoluteX),
-        // TRANSFER OPS
-        0xAA => tax(cpu),
-        0xA8 => tay(cpu),
-        0x8A => txa(cpu),
-        0x98 => tya(cpu),
-        0xBA => tsx(cpu),
-        0x9A => txs(cpu),
-        // STACK OPS
-        0x48 => pha(cpu),
-        0x68 => pla(cpu),
-        0x08 => php(cpu),
-        0x28 => plp(cpu),
         // STORE OPS
         // STA
         0x85 => sta(cpu, AddressingMode::ZeroPage),
@@ -62,6 +52,24 @@ pub fn exec_op(cpu: &mut CPU) {
         0x84 => sty(cpu, AddressingMode::ZeroPage),
         0x94 => sty(cpu, AddressingMode::ZeroPageX),
         0x8C => sty(cpu, AddressingMode::Absolute),
+        // TRANSFER OPS
+        0xAA => tax(cpu),
+        0xA8 => tay(cpu),
+        0x8A => txa(cpu),
+        0x98 => tya(cpu),
+        0xBA => tsx(cpu),
+        0x9A => txs(cpu),
+        // STACK OPS
+        0x48 => pha(cpu),
+        0x68 => pla(cpu),
+        0x08 => php(cpu),
+        0x28 => plp(cpu),
+        // STATUS OPS
+        0x18 => clc(cpu),
+        0x38 => sec(cpu),
+        0x58 => cli(cpu),
+        0x78 => sei(cpu),
+        0xB8 => clv(cpu),
         _ => todo!("Unimplemented opcode: {:#X}", op),
     }
 }
