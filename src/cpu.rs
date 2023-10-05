@@ -4,7 +4,7 @@ use crate::{
     memory::Memory,
     reg::{ProgramCounter, Register, U8Register}, stack::Stack,
 };
-
+/// A struct representing the CPU of the NES
 pub struct CPU {
     pub a: U8Register,
     pub x: U8Register,
@@ -16,6 +16,7 @@ pub struct CPU {
 }
 
 impl CPU {
+    /// Create a new CPU
     pub fn new() -> Self {
         CPU {
             a: U8Register::new(0),
@@ -35,12 +36,12 @@ impl CPU {
         self.pc.reset();
         self.mem.reset()
     }
-
+    /// Read the next byte from the program counter
     pub fn read_opbyte(&mut self) -> u8 {
         self.pc.incr();
         self.mem.read_u8(self.pc.read()) // this is a bit weird but it works
     }
-
+    /// Reads a u16 from the program counter
     pub fn read_u16(&mut self) -> u16 {
         self.pc.incr();
         let low = self.mem.read_u8(self.pc.read()) as u16;
@@ -48,11 +49,11 @@ impl CPU {
         let high = self.mem.read_u8(self.pc.read()) as u16;
         (high << 8) | low
     }
-
+    /// Read the value at the address specified by the parameter
     pub fn read(&mut self, addr: u16) -> u8 {
         self.mem.read_u8(addr)
     }
-
+    /// Write the value to the address specified by the parameter
     pub fn write(&mut self, addr: u16, data: u8) {
         self.mem.write(addr, data);
     }
