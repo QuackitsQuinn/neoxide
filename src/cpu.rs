@@ -43,7 +43,6 @@ impl CPU {
         (high << 8) | low
     }
 
-    }
 
     pub fn read(&mut self, addr: u16) -> u8 {
         self.mem.read_u8(addr)
@@ -52,37 +51,61 @@ impl CPU {
     pub fn write(&mut self, addr: u16, data: u8) {
         self.mem.write(addr, data);
     }
-
+    /// Read the value at the address specified by the addressing mode and the program counter
     pub fn read_addr(&mut self, admod: AddressingMode) -> u16 {
         match admod {
-            AddressingMode::Immediate => self.read_opbyte() as u16,
-            AddressingMode::ZeroPage => self.read_opbyte() as u16,
-            AddressingMode::ZeroPageX => (self.read_opbyte() as u16).wrapping_add(self.x.read() as u16),
-            AddressingMode::ZeroPageY => (self.read_opbyte() as u16).wrapping_add(self.y.read() as u16),
-            AddressingMode::Absolute => self.read_u16() as u16,
-            AddressingMode::AbsoluteX => (self.read_u16() as u16).wrapping_add(self.x.read()) as u16,
-            AddressingMode::AbsoluteY => (self.read_u16() as u16).wrapping_add(self.y.read()) as u16,
+            AddressingMode::Immediate => {
+                panic!("Immediate addressing mode does not have an address")
+            }, // 
+            AddressingMode::ZeroPage => { 
+                self.read_opbyte() as u16
+            },
+            AddressingMode::ZeroPageX => { 
+                let opbyte = self.read_opbyte();
+                (opbyte.wrapping_add(self.x.read())) as u16
+            },
+            AddressingMode::ZeroPageY => {
+                let opbyte = self.read_opbyte();
+                (opbyte.wrapping_add(self.y.read())) as u16
+            },
+            AddressingMode::Absolute => {
+               self.read_u16()
+            },
+            AddressingMode::AbsoluteX => {
+                let addr = self.read_u16();
+                addr.wrapping_add(self.x.read() as u16)
+            },
+            AddressingMode::AbsoluteY => { 
+                let addr = self.read_u16();
+                addr.wrapping_add(self.y.read() as u16)
+            },
             AddressingMode::IndirectX => {
-                // src: https://bugzmanov.github.io/nes_ebook/chapter_3_2.html (genuinely have no clue how indirect addressing works)
-                let base = self.read_opbyte();
-
-                let ptr: u8 = (base as u8).wrapping_add(self.x.read());
-                let lo = self.read(ptr as u16);
-                let hi = self.read(ptr.wrapping_add(1) as u16);
-                (hi as u16) << 8 | (lo as u16)
-            }
+                // i like ptrptr
+                let ptrptr = self.read_opbyte().wrapping_add(self.x.read());
+                let ptr = self.read(ptrptr as u16) as u16;
+                let low = self.read(ptr) as u16;
+                let high = self.read(ptr.wrapping_add(1)) as u16;
+                (high << 8) | low
+            },
             AddressingMode::IndirectY => {
-                let base = self.read_opbyte();
-
-                let ptr: u8 = (base as u8).wrapping_add(self.y.read());
-                let lo = self.read(ptr as u16);
-                let hi = self.read(ptr.wrapping_add(1) as u16);
-                (hi as u16) << 8 | (lo as u16)
-            }
-            AddressingMode::NoneAddressing => {
-                panic!("No addressing mode specified")
+                let ptrptr = self.read_opbyte().wrapping_add(self.y.read());
+                let ptr = self.read(ptrptr as u16) as u16;
+                let low = self.read(ptr) as u16;
+                let high = self.read(ptr.wrapping_add(1)) as u16;
+                (high << 8) | low   
             }
 
+        }
+    }
+    /// Read the value at the address specified by the addressing mode and the program counter
+    fn read_opaddr(&mut self, admod: AddressingMode) -> u8 {
+        match admod {
+            AddressingMode::Immediate => self.read_opbyte(),
+            _ => {
+                let addr = self.read_addr(admod);
+                self.read(addr)
+            }
+        
         }
     }
 }
