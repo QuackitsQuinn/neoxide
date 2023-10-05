@@ -48,10 +48,10 @@
 - [ ] STA
 - [ ] STX
 - [ ] STY
-- [ ] TAX
-- [ ] TAY
+- [x] TAX
+- [x] TAY
 - [ ] TSX
-- [ ] TXA
+- [x] TXA
 - [ ] TXS
-- [ ] TYA
+- [x] TYA
 - 

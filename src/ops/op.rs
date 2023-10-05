@@ -1,6 +1,6 @@
 use crate::{cpu::CPU, addressing::AddressingMode};
 
-use super::load_ops::{lda, ldx, ldy};
+use super::{load_ops::{lda, ldx, ldy}, trans_ops::{tax, tay, txa, tya}};
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
 pub fn exec_op(cpu: &mut CPU) {
@@ -8,6 +8,7 @@ pub fn exec_op(cpu: &mut CPU) {
 
     match op {
         0xEA => nop(cpu),
+        // LOAD OPS
         // LDA
         0xA9 => lda(cpu, AddressingMode::Immediate),
         0xA5 => lda(cpu, AddressingMode::ZeroPage),
@@ -24,19 +25,32 @@ pub fn exec_op(cpu: &mut CPU) {
         0xAE => ldx(cpu, AddressingMode::Absolute),
         0xBE => ldx(cpu, AddressingMode::AbsoluteY),
         // LDY
-        0xA0 => ldy::ldy_im(cpu),
-        0xA4 => ldy::ldy_zp(cpu),
-        0xB4 => ldy::ldy_zp_x(cpu),
-        0xAC => ldy::ldy_abs(cpu),
-        0xBC => ldy::ldy_abs_x(cpu),
+        0xA0 => ldy(cpu, AddressingMode::Immediate),
+        0xA4 => ldy(cpu, AddressingMode::ZeroPage),
+        0xB4 => ldy(cpu, AddressingMode::ZeroPageX),
+        0xAC => ldy(cpu, AddressingMode::Absolute),
+        0xBC => ldy(cpu, AddressingMode::AbsoluteX),
+        // TRANSFER OPS
+        0xAA => tax(cpu),
+        0xA8 => tay(cpu),
+        0x8A => txa(cpu),
+        0x98 => tya(cpu),
         _ => todo!("Implement op: {:X}", op),
     }
 }
 /// No op - does nothing
 fn nop(_cpu: &mut CPU) {}
 
-pub fn read_u16(cpu: &mut CPU) -> u16 {
-    let addr1 = cpu.read_opbyte();
-    let addr2 = cpu.read_opbyte();
-    ((addr2 as u16) << 8) | addr1 as u16
+pub fn check_flags(cpu: &mut CPU, data: u8) {
+    if data == 0 {
+        cpu.status.set_zero(true);
+    } else {
+        cpu.status.set_zero(false);
+    }
+
+    if data & 0x80 == 0x80 {
+        cpu.status.set_negative(true);
+    } else {
+        cpu.status.set_negative(false);
+    }
 }
