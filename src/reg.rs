@@ -59,7 +59,7 @@ impl From<U8Register> for u8 {
 }
 /// U16 register intended to be used as a program counter
 pub struct ProgramCounter {
-    pc: u16,
+    pub pc: u16,
     pgrm_start: u16,
 }
 

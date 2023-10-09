@@ -5,7 +5,7 @@ use super::{
     stack_ops::{pha, php, pla, plp},
     trans_ops::{tax, tay, tsx, txa, txs, tya}, 
     store_ops::{sta, stx, sty}, 
-    status_ops::{clc, sec, cli, sei, clv},
+    status_ops::{clc, sec, cli, sei, clv}, branch_ops::jmp,
 };
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
@@ -70,6 +70,9 @@ pub fn exec_op(cpu: &mut CPU) {
         0x58 => cli(cpu),
         0x78 => sei(cpu),
         0xB8 => clv(cpu),
+        // BRANCH OPS
+        0x4C => jmp(cpu, AddressingMode::Absolute),
+        0x6C => jmp(cpu, AddressingMode::Indirect),
         _ => todo!("Unimplemented opcode: {:#X}", op),
     }
 }
