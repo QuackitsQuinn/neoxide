@@ -11,10 +11,10 @@
 - [ ] BRK
 - [ ] BVC
 - [ ] BVS
-- [ ] CLC
+- [x] CLC
 - [ ] CLD
-- [ ] CLI
-- [ ] CLV
+- [x] CLI
+- [x] CLV
 - [ ] CMP
 - [ ] CPX
 - [ ] CPY
@@ -42,9 +42,9 @@
 - [ ] RTI
 - [ ] RTS
 - [ ] SBC
-- [ ] SEC
+- [x] SEC
 - [ ] SED
-- [ ] SEI
+- [x] SEI
 - [x] STA
 - [x] STX
 - [x] STY

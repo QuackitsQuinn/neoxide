@@ -8,4 +8,5 @@ pub enum AddressingMode {
     AbsoluteY,
     IndirectX,
     IndirectY,
+    Indirect
 }

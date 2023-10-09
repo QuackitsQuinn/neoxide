@@ -97,6 +97,12 @@ impl CPU {
                 let high = self.read(ptr.wrapping_add(1)) as u16;
                 (high << 8) | low
             }
+            AddressingMode::Indirect => {
+                let ptr = self.read_u16();
+                let low = self.read(ptr) as u16;
+                let high = self.read(ptr.wrapping_add(1)) as u16;
+                (high << 8) | low
+            }
         }
     }
     /// Read the value at the address specified by the addressing mode and the program counter
