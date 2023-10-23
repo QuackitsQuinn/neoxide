@@ -1,7 +1,7 @@
+mod branch_ops;
 mod load_ops;
+pub mod op;
 mod reg_ops;
 mod stack_ops;
-mod store_ops;
 mod status_ops;
-mod branch_ops;
-pub mod op;
+mod store_ops;

@@ -39,21 +39,21 @@ pub fn txs(cpu: &mut CPU) {
 }
 
 pub fn dex(cpu: &mut CPU) {
-    cpu.x-=1;
+    cpu.x -= 1;
     check_flags(cpu, cpu.x.read());
 }
 
 pub fn dey(cpu: &mut CPU) {
-    cpu.y-=1;
+    cpu.y -= 1;
     check_flags(cpu, cpu.y.read());
 }
 
 pub fn inx(cpu: &mut CPU) {
-    cpu.x+=1;
+    cpu.x += 1;
     check_flags(cpu, cpu.x.read());
 }
 
 pub fn iny(cpu: &mut CPU) {
-    cpu.y+=1;
+    cpu.y += 1;
     check_flags(cpu, cpu.y.read());
 }

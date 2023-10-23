@@ -1,7 +1,5 @@
 use crate::cpu::CPU;
 
-
-
 pub fn clc(cpu: &mut CPU) {
     cpu.status.set_carry(false);
 }

@@ -1,12 +1,12 @@
 use crate::{addressing::AddressingMode, cpu::CPU};
 
 use super::{
+    branch_ops::{bcc, bcs, beq, bmi, bne, bpl, bvc, bvs, jmp},
     load_ops::{lda, ldx, ldy},
+    reg_ops::{dex, dey, inx, iny, tax, tay, tsx, txa, txs, tya},
     stack_ops::{pha, php, pla, plp},
-    reg_ops::{tax, tay, tsx, txa, txs, tya, iny, inx, dex, dey}, 
-    store_ops::{sta, stx, sty}, 
-    status_ops::{clc, sec, cli, sei, clv}, 
-    branch_ops::{jmp, bne, beq, bpl, bmi, bvc, bvs, bcc, bcs},
+    status_ops::{clc, cli, clv, sec, sei},
+    store_ops::{sta, stx, sty},
 };
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
