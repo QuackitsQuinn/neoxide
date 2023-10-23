@@ -59,7 +59,7 @@ impl CPU {
         self.mem.write(addr, data);
     }
     /// Read the value at the address specified by the addressing mode and the program counter
-    pub fn get_addr(&mut self, admod: AddressingMode) -> u16 {
+    pub fn get_addr(&mut self, admod: AddressingMode) -> u16 { 
         match admod {
             AddressingMode::Immediate => {
                 panic!("Immediate addressing mode does not have an address")

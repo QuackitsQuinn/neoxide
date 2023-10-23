@@ -1,16 +1,16 @@
 - [ ] ADC
 - [ ] AND
 - [ ] ASL
-- [ ] BCC
-- [ ] BCS
-- [ ] BEQ
+- [x] BCC
+- [x] BCS
+- [x] BEQ
 - [ ] BIT
-- [ ] BMI
-- [ ] BNE
-- [ ] BPL
+- [x] BMI
+- [x] BNE
+- [x] BPL
 - [ ] BRK
-- [ ] BVC
-- [ ] BVS
+- [x] BVC
+- [x] BVS
 - [x] CLC
 - [ ] CLD
 - [x] CLI
@@ -25,7 +25,7 @@
 - [ ] INC
 - [ ] INX
 - [ ] INY
-- [ ] JMP
+- [x] JMP
 - [ ] JSR
 - [x] LDA
 - [x] LDX

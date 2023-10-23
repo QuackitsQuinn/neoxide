@@ -121,7 +121,7 @@ impl From<&ProgramCounter> for u16 {
 mod test_pgrm_counter {
     use super::*;
 
-    fn new(_start: u16) -> ProgramCounter {
-        ProgramCounter::new(0)
+    fn new(start: u16) -> ProgramCounter {
+        ProgramCounter::new(start)
     }
 }
