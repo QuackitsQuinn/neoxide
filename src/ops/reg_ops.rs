@@ -37,3 +37,23 @@ pub fn txs(cpu: &mut CPU) {
     cpu.stack.sp.write(data);
     check_flags(cpu, data);
 }
+
+pub fn dex(cpu: &mut CPU) {
+    cpu.x-=1;
+    check_flags(cpu, cpu.x.read());
+}
+
+pub fn dey(cpu: &mut CPU) {
+    cpu.y-=1;
+    check_flags(cpu, cpu.y.read());
+}
+
+pub fn inx(cpu: &mut CPU) {
+    cpu.x+=1;
+    check_flags(cpu, cpu.x.read());
+}
+
+pub fn iny(cpu: &mut CPU) {
+    cpu.y+=1;
+    check_flags(cpu, cpu.y.read());
+}

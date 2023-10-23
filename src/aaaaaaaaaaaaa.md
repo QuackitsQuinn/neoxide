@@ -19,12 +19,12 @@
 - [ ] CPX
 - [ ] CPY
 - [ ] DEC
-- [ ] DEX
-- [ ] DEY
+- [x] DEX
+- [x] DEY
 - [ ] EOR
 - [ ] INC
-- [ ] INX
-- [ ] INY
+- [x] INX
+- [x] INY
 - [x] JMP
 - [ ] JSR
 - [x] LDA

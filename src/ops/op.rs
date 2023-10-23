@@ -3,7 +3,7 @@ use crate::{addressing::AddressingMode, cpu::CPU};
 use super::{
     load_ops::{lda, ldx, ldy},
     stack_ops::{pha, php, pla, plp},
-    trans_ops::{tax, tay, tsx, txa, txs, tya}, 
+    reg_ops::{tax, tay, tsx, txa, txs, tya, iny, inx, dex, dey}, 
     store_ops::{sta, stx, sty}, 
     status_ops::{clc, sec, cli, sei, clv}, 
     branch_ops::{jmp, bne, beq, bpl, bmi, bvc, bvs, bcc, bcs},
@@ -60,6 +60,11 @@ pub fn exec_op(cpu: &mut CPU) {
         0x98 => tya(cpu),
         0xBA => tsx(cpu),
         0x9A => txs(cpu),
+        // REG OPS
+        0xE8 => inx(cpu),
+        0xC8 => iny(cpu),
+        0xCA => dex(cpu),
+        0x88 => dey(cpu),
         // STACK OPS
         0x48 => pha(cpu),
         0x68 => pla(cpu),
