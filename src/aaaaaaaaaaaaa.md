@@ -1,5 +1,5 @@
 - [ ] ADC
-- [ ] AND
+- [x] AND
 - [ ] ASL
 - [x] BCC
 - [x] BCS
@@ -21,7 +21,7 @@
 - [ ] DEC
 - [x] DEX
 - [x] DEY
-- [ ] EOR
+- [x] EOR
 - [ ] INC
 - [x] INX
 - [x] INY
@@ -32,7 +32,7 @@
 - [x] LDY
 - [ ] LSR
 - [x] NOP
-- [ ] ORA
+- [x] ORA
 - [x] PHA
 - [x] PHP
 - [x] PLA
@@ -43,7 +43,6 @@
 - [ ] RTS
 - [ ] SBC
 - [x] SEC
-- [ ] SED
 - [x] SEI
 - [x] STA
 - [x] STX

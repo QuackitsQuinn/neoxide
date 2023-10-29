@@ -6,7 +6,7 @@ use super::{
     reg_ops::{dex, dey, inx, iny, tax, tay, tsx, txa, txs, tya},
     stack_ops::{pha, php, pla, plp},
     status_ops::{clc, cli, clv, sec, sei},
-    store_ops::{sta, stx, sty},
+    store_ops::{sta, stx, sty}, bit_ops::{and, ora, eor},
 };
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
@@ -87,7 +87,34 @@ pub fn exec_op(cpu: &mut CPU) {
         0x70 => bvs(cpu),
         0x90 => bcc(cpu),
         0xB0 => bcs(cpu),
-
+        // BITWISE OPS
+        // AND
+        0x29 => and(cpu, AddressingMode::Immediate),
+        0x25 => and(cpu, AddressingMode::ZeroPage),
+        0x35 => and(cpu, AddressingMode::ZeroPageX),
+        0x2D => and(cpu, AddressingMode::Absolute),
+        0x3D => and(cpu, AddressingMode::AbsoluteX),
+        0x39 => and(cpu, AddressingMode::AbsoluteY),
+        0x21 => and(cpu, AddressingMode::IndirectX),
+        0x31 => and(cpu, AddressingMode::IndirectY),
+        // ORA
+        0x09 => ora(cpu, AddressingMode::Immediate),
+        0x05 => ora(cpu, AddressingMode::ZeroPage),
+        0x15 => ora(cpu, AddressingMode::ZeroPageX),
+        0x0D => ora(cpu, AddressingMode::Absolute),
+        0x1D => ora(cpu, AddressingMode::AbsoluteX),
+        0x19 => ora(cpu, AddressingMode::AbsoluteY),
+        0x01 => ora(cpu, AddressingMode::IndirectX),
+        0x11 => ora(cpu, AddressingMode::IndirectY),
+        // EOR
+        0x49 => eor(cpu, AddressingMode::Immediate),
+        0x45 => eor(cpu, AddressingMode::ZeroPage),
+        0x55 => eor(cpu, AddressingMode::ZeroPageX),
+        0x4D => eor(cpu, AddressingMode::Absolute),
+        0x5D => eor(cpu, AddressingMode::AbsoluteX),
+        0x59 => eor(cpu, AddressingMode::AbsoluteY),
+        0x41 => eor(cpu, AddressingMode::IndirectX),
+        0x51 => eor(cpu, AddressingMode::IndirectY),
         _ => todo!("Unimplemented opcode: {:#X}", op),
     }
 }
@@ -95,7 +122,7 @@ pub fn exec_op(cpu: &mut CPU) {
 fn nop(_cpu: &mut CPU) {}
 
 /// Checks the data for zero and negative flags and sets them accordingly
-pub fn check_flags(cpu: &mut CPU, data: u8) {
+pub(super) fn check_flags(cpu: &mut CPU, data: u8) {
     if data == 0 {
         cpu.status.set_zero(true);
     } else {
