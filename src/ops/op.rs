@@ -1,12 +1,13 @@
 use crate::{addressing::AddressingMode, cpu::CPU};
 
 use super::{
-    branch_ops::{bcc, bcs, beq, bmi, bne, bpl, bvc, bvs, jmp},
+    branch_ops::{bcc, bcs, beq, bmi, bne, bpl, bvc, bvs, jmp, jsr, rts},
     load_ops::{lda, ldx, ldy},
     reg_ops::{dex, dey, inx, iny, tax, tay, tsx, txa, txs, tya},
     stack_ops::{pha, php, pla, plp},
     status_ops::{clc, cli, clv, sec, sei},
-    store_ops::{sta, stx, sty}, bit_ops::{and, ora, eor},
+    store_ops::{sta, stx, sty}, 
+    bit_ops::{and, ora, eor},
 };
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
@@ -87,6 +88,9 @@ pub fn exec_op(cpu: &mut CPU) {
         0x70 => bvs(cpu),
         0x90 => bcc(cpu),
         0xB0 => bcs(cpu),
+        // SUBROUTINE OPS
+        0x20 => jsr(cpu),
+        0x60 => rts(cpu),
         // BITWISE OPS
         // AND
         0x29 => and(cpu, AddressingMode::Immediate),

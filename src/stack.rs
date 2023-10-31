@@ -18,6 +18,17 @@ impl Stack {
         self.sp -= 1;
     }
 
+    pub fn push_u16(&mut self, data: u16) {
+        self.push((data >> 8) as u8);
+        self.push(data as u8);
+    }
+
+    pub fn pop_u16(&mut self) -> u16 {
+        let low = self.pop() as u16;
+        let high = self.pop() as u16;
+        (high << 8) | low
+    }
+
     pub fn pop(&mut self) -> u8 {
         self.sp += 1;
         self.stack[self.sp.read() as usize]
