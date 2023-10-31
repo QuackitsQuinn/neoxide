@@ -28,4 +28,11 @@ impl Memory {
             self.mem[i].reset();
         }
     }
+
+    pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
+        for (i, byte) in pgrm.iter().enumerate() {
+            // TODO: check if this offset is correct
+            self.mem[0x2000 + i] = byte.clone().into();
+        }   
+    }
 }

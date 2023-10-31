@@ -115,6 +115,10 @@ impl CPU {
             }
         }
     }
+
+    pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
+        self.mem.load_pgrm(pgrm);
+    }
 }
 
 #[cfg(test)]
