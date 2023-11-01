@@ -1,6 +1,6 @@
 use crate::mem_segment::MemorySegment;
 use core::fmt::Debug;
-use std::{fs::File, io::Write};
+use std::{fs::File, io::{Write, self}};
 // TODO: mem mapping
 #[derive(Debug)]
 pub struct Memory {
@@ -39,7 +39,7 @@ impl Memory {
         }   
     }
 
-    pub fn dump(&self, file: &mut File) {
-        file.write_all(&self.mem.iter().map(|x| x.byte).collect::<Vec<u8>>());
+    pub fn dump(&self, file: &mut File) -> Result<(),io::Error> {
+        file.write_all(&self.mem.iter().map(|x| x.byte).collect::<Vec<u8>>())
     }
 }

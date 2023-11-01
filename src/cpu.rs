@@ -12,7 +12,7 @@ pub struct CPU {
     pub x: U8Register,
     pub y: U8Register,
     pub pc: ProgramCounter,
-    mem: Memory,
+    pub mem: Memory,
     pub status: CPUStatus,
     pub stack: Stack,
 }
