@@ -57,7 +57,7 @@ impl CPU {
         let low = self.mem.read_u8(self.pc.read()) as i16;
         self.pc.incr();
         let high = self.mem.read_u8(self.pc.read()) as i16;
-        ((high << 8) | low) as i16
+        (high << 8) | low
     }
     /// Read the value at the address specified by the parameter
     pub fn read(&mut self, addr: u16) -> u8 {

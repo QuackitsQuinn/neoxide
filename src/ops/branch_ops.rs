@@ -1,6 +1,6 @@
 use crate::{
     addressing::AddressingMode,
-    cpu::{self, CPU},
+    cpu::{CPU},
 };
 
 fn exec_branch(cpu: &mut CPU, condition: bool) {
@@ -8,7 +8,7 @@ fn exec_branch(cpu: &mut CPU, condition: bool) {
     //info!("Branching by {} bytes", offset);
     if condition {
         if offset < 0 {
-            cpu.pc.pc = cpu.pc.pc.wrapping_sub(offset.abs() as u16);
+            cpu.pc.pc = cpu.pc.pc.wrapping_sub(offset.unsigned_abs());
         } else {
             cpu.pc.pc = cpu.pc.pc.wrapping_add(offset as u16);
         }

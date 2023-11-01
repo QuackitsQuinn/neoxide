@@ -1,11 +1,11 @@
 #[macro_use] extern crate log;
-use std::{panic::{catch_unwind, AssertUnwindSafe, UnwindSafe}, error, fs::File, path::{self, Path}};
+use std::{panic::{catch_unwind, AssertUnwindSafe}, fs::File, path::{Path}};
 
 use cpu::CPU;
 use log::{info, LevelFilter, warn};
 use ops::op::exec_op;
 use reg::Register;
-use simplelog::{TerminalMode, TermLogger, Config, ConfigBuilder};
+use simplelog::{TerminalMode, TermLogger, ConfigBuilder};
 
 mod addressing;
 mod cpu;
@@ -26,7 +26,7 @@ fn main() {
     let p = AssertUnwindSafe(&mut cpu);
     let result = catch_unwind(|| {
         let inner = p;
-        let mut cpu = inner.0; // very weird way to get cpu in scope
+        let cpu = inner.0; // very weird way to get cpu in scope
         cpu.load_pgrm(vec![0xEA, 0xEA, 0xD0,0xFC,0xFF]);
         cpu.pc.reset();
         loop {
