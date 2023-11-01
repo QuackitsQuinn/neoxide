@@ -3,7 +3,7 @@ use crate::{
     cpu_flags::CPUStatus,
     memory::Memory,
     reg::{ProgramCounter, Register, U8Register},
-    stack::Stack,
+    stack::Stack, constant::PGRM_LOAD_OFFSET,
 };
 /// A struct representing the CPU of the NES
 #[derive(Debug)]
@@ -127,7 +127,7 @@ impl CPU {
 
     pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
         self.mem.load_pgrm(pgrm);
-        self.pc.set_entry_point(0x8000);
+        self.pc.set_entry_point(PGRM_LOAD_OFFSET);
     }
     // returns a 64 byte slice of the memory centered around the program counter
     pub fn get_pcounter_area(&self) -> Vec<u8> {

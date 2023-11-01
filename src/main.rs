@@ -15,6 +15,7 @@ mod memory;
 mod ops;
 mod reg;
 mod stack;
+mod constant;
 // no-op then jne to no op
 fn main() {
     TermLogger::init(LevelFilter::Debug, ConfigBuilder::new().set_location_level(LevelFilter::Error).build(), TerminalMode::Mixed,simplelog::ColorChoice::Auto).unwrap();

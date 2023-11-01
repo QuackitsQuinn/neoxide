@@ -1,4 +1,4 @@
-use crate::mem_segment::MemorySegment;
+use crate::{mem_segment::MemorySegment, constant::PGRM_LOAD_OFFSET};
 use core::fmt::Debug;
 use std::{fs::File, io::{Write, self}};
 // TODO: mem mapping
@@ -34,8 +34,7 @@ impl Memory {
 
     pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
         for (i, byte) in pgrm.iter().enumerate() {
-            // TODO: check if this offset is correct
-            self.mem[0x8000 + i] = byte.clone().into();
+            self.mem[PGRM_LOAD_OFFSET as usize + i] = byte.clone().into();
         }   
     }
 
