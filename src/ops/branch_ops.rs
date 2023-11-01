@@ -1,7 +1,4 @@
-use crate::{
-    addressing::AddressingMode,
-    cpu::{CPU},
-};
+use crate::{addressing::AddressingMode, cpu::CPU};
 
 fn exec_branch(cpu: &mut CPU, condition: bool) {
     let offset = cpu.read_i16();

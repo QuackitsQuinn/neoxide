@@ -1,7 +1,6 @@
-use crate::{cpu::CPU, addressing::AddressingMode, reg::Register};
+use crate::{addressing::AddressingMode, cpu::CPU, reg::Register};
 
 use super::op::check_flags;
-
 
 pub fn ora(cpu: &mut CPU, mode: AddressingMode) {
     let data = cpu.read_addr(mode);

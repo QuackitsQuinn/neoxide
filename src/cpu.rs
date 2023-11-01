@@ -1,9 +1,10 @@
 use crate::{
     addressing::AddressingMode,
+    constant::PGRM_LOAD_OFFSET,
     cpu_flags::CPUStatus,
     memory::Memory,
     reg::{ProgramCounter, Register, U8Register},
-    stack::Stack, constant::PGRM_LOAD_OFFSET,
+    stack::Stack,
 };
 /// A struct representing the CPU of the NES
 #[derive(Debug)]
@@ -133,7 +134,10 @@ impl CPU {
     pub fn get_pcounter_area(&self) -> Vec<u8> {
         let start = self.pc.read() - 32;
         let end = self.pc.read() + 32;
-        self.mem.mem[start as usize..end as usize].iter().map(|x| x.byte).collect::<Vec<u8>>()
+        self.mem.mem[start as usize..end as usize]
+            .iter()
+            .map(|x| x.byte)
+            .collect::<Vec<u8>>()
     }
 }
 

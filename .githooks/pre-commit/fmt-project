@@ -1,0 +1,7 @@
+#! /bin/bash
+
+cargo=$(which cargo)
+
+if [-n "$cargo"]; then
+    $cargo fmt
+fi
