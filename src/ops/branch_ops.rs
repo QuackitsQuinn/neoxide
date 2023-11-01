@@ -4,7 +4,8 @@ use crate::{
 };
 
 fn exec_branch(cpu: &mut CPU, condition: bool) {
-    let offset = cpu.read_u16() as i16;
+    let offset = cpu.read_i16();
+    //info!("Branching by {} bytes", offset);
     if condition {
         if offset < 0 {
             cpu.pc.pc = cpu.pc.pc.wrapping_sub(offset.abs() as u16);

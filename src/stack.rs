@@ -1,7 +1,7 @@
 use crate::reg::{Register, U8Register};
-
+#[derive(Debug)]
 pub struct Stack {
-    stack: [u8; 0x100],
+    pub stack: [u8; 0x100],
     pub sp: U8Register,
 }
 

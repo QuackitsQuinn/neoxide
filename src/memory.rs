@@ -1,5 +1,8 @@
 use crate::mem_segment::MemorySegment;
+use core::fmt::Debug;
+use std::{fs::File, io::Write};
 // TODO: mem mapping
+#[derive(Debug)]
 pub struct Memory {
     pub mem: [MemorySegment; 0xFFFF],
 }
@@ -32,7 +35,11 @@ impl Memory {
     pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
         for (i, byte) in pgrm.iter().enumerate() {
             // TODO: check if this offset is correct
-            self.mem[0x2000 + i] = byte.clone().into();
+            self.mem[0x8000 + i] = byte.clone().into();
         }   
+    }
+
+    pub fn dump(&self, file: &mut File) {
+        file.write_all(&self.mem.iter().map(|x| x.byte).collect::<Vec<u8>>());
     }
 }

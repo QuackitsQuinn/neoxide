@@ -15,6 +15,7 @@ pub trait Register<T>: ops::AddAssign<T> + ops::SubAssign<T> {
     fn decr(&mut self);
 }
 /// A simple u8 register
+#[derive(Debug)]
 pub struct U8Register {
     value: u8,
 }
@@ -58,6 +59,7 @@ impl From<U8Register> for u8 {
     }
 }
 /// U16 register intended to be used as a program counter
+#[derive(Debug)]
 pub struct ProgramCounter {
     pub pc: u16,
     pgrm_start: u16,

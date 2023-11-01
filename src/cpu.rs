@@ -6,6 +6,7 @@ use crate::{
     stack::Stack,
 };
 /// A struct representing the CPU of the NES
+#[derive(Debug)]
 pub struct CPU {
     pub a: U8Register,
     pub x: U8Register,
@@ -49,6 +50,14 @@ impl CPU {
         self.pc.incr();
         let high = self.mem.read_u8(self.pc.read()) as u16;
         (high << 8) | low
+    }
+
+    pub fn read_i16(&mut self) -> i16 {
+        self.pc.incr();
+        let low = self.mem.read_u8(self.pc.read()) as i16;
+        self.pc.incr();
+        let high = self.mem.read_u8(self.pc.read()) as i16;
+        ((high << 8) | low) as i16
     }
     /// Read the value at the address specified by the parameter
     pub fn read(&mut self, addr: u16) -> u8 {
@@ -118,6 +127,13 @@ impl CPU {
 
     pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
         self.mem.load_pgrm(pgrm);
+        self.pc.set_entry_point(0x8000);
+    }
+    // returns a 64 byte slice of the memory centered around the program counter
+    pub fn get_pcounter_area(&self) -> Vec<u8> {
+        let start = self.pc.read() - 32;
+        let end = self.pc.read() + 32;
+        self.mem.mem[start as usize..end as usize].iter().map(|x| x.byte).collect::<Vec<u8>>()
     }
 }
 

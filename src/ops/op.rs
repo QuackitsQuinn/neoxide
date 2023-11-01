@@ -13,7 +13,7 @@ use super::{
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
 pub fn exec_op(cpu: &mut CPU) {
     let op = cpu.read_opbyte();
-
+    //info!("Executing opcode: {:#X}", op);
     match op {
         0xEA => nop(cpu),
         // LOAD OPS

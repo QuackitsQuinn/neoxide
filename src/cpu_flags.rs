@@ -1,4 +1,5 @@
 /// CPU Status Flags
+#[derive(Debug)]
 pub struct CPUStatus {
     pub status: u8,
 }
