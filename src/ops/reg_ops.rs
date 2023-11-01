@@ -20,6 +20,12 @@ pub fn txa(cpu: &mut CPU) {
     check_flags(cpu, data);
 }
 
+
+
+
+
+
+
 pub fn tya(cpu: &mut CPU) {
     let data = cpu.y.read();
     cpu.a.write(data);
