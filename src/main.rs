@@ -1,5 +1,8 @@
 #[macro_use]
 extern crate log;
+#[macro_use]
+extern crate lazy_static;
+
 use std::{
     fs::File,
     panic::{catch_unwind, AssertUnwindSafe},

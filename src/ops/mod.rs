@@ -6,3 +6,5 @@ mod reg_ops;
 mod stack_ops;
 mod status_ops;
 mod store_ops;
+mod opcode;
+mod opcodes;

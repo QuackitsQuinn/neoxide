@@ -73,8 +73,8 @@ impl CPU {
     /// Read the value at the address specified by the addressing mode and the program counter
     pub fn get_addr(&mut self, admod: AddressingMode) -> u16 {
         match admod {
-            AddressingMode::Immediate => {
-                panic!("Immediate addressing mode does not have an address")
+            AddressingMode::Immediate | AddressingMode::Implied => {
+                panic!("{} addressing mode does not have an address", admod)
             } //
             AddressingMode::ZeroPage => self.read_opbyte() as u16,
             AddressingMode::ZeroPageX => {
