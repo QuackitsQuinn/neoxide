@@ -1,3 +1,5 @@
+use std::cmp::{max, min};
+
 use crate::{
     addressing::AddressingMode,
     constant::PGRM_LOAD_OFFSET,
@@ -127,17 +129,36 @@ impl CPU {
     }
 
     pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
+        let pgrm_len = pgrm.len();
         self.mem.load_pgrm(pgrm);
         self.pc.set_entry_point(PGRM_LOAD_OFFSET);
+        info!("Loaded program with length 0x{:X}", pgrm_len);
     }
     // returns a 64 byte slice of the memory centered around the program counter
-    pub fn get_pcounter_area(&self) -> Vec<u8> {
-        let start = self.pc.read() - 32;
-        let end = self.pc.read() + 32;
-        self.mem.mem[start as usize..end as usize]
+    // and the program counter's offset from the start of the slice
+    pub fn get_pcounter_area(&self) -> (Vec<u8>, u16) {
+        let mut start_offset = 32;
+        let start = if self.pc.read() < 32 {
+            start_offset = self.pc.read();
+            0
+        } else {
+            self.pc.read() - 32
+        };
+
+        let end = if self.pc.read() > self.mem.mem.len() as u16 - 32 {
+            self.mem.mem.len() as u16
+        } else {
+            self.pc.read() + 32
+        };
+
+        let is_start_off = start != 0;
+
+        let mem = self.mem.mem[start as usize..end as usize]
             .iter()
             .map(|x| x.byte)
-            .collect::<Vec<u8>>()
+            .collect::<Vec<u8>>();
+
+        (mem, start_offset)
     }
 }
 

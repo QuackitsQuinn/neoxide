@@ -13,7 +13,12 @@ fn exec_branch(cpu: &mut CPU, condition: bool) {
 }
 
 pub fn jmp(cpu: &mut CPU, mode: AddressingMode) {
-    let addr = cpu.get_addr(mode);
+    let addr = if AddressingMode::Absolute == mode {
+        cpu.read_u16()
+    } else {
+        cpu.get_addr(mode)
+    };
+    println!("JMP to {:X}", addr);
     cpu.pc.pc = addr;
 }
 

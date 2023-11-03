@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 /// CPU Status Flags
 #[derive(Debug)]
 pub struct CPUStatus {
@@ -63,5 +65,17 @@ impl CPUStatus {
     /// Sets the negative flag
     pub fn set_negative(&mut self, value: bool) {
         self.set_bit(0b1000_0000, value);
+    }
+}
+
+impl Display for CPUStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("CPUStatus")
+            .field("carry", &self.is_carry())
+            .field("zero", &self.is_zero())
+            .field("interrupt", &self.is_interrupt())
+            .field("overflow", &self.is_overflow())
+            .field("negative", &self.is_negative())
+            .finish()
     }
 }
