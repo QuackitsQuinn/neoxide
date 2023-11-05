@@ -22,47 +22,47 @@ pub fn jmp(cpu: &mut CPU, mode: AddressingMode) {
     cpu.pc.pc = addr;
 }
 
-pub fn bne(cpu: &mut CPU) {
+pub fn bne(cpu: &mut CPU, _: AddressingMode) {
     exec_branch(cpu, !cpu.status.is_zero());
 }
 
-pub fn beq(cpu: &mut CPU) {
+pub fn beq(cpu: &mut CPU, _: AddressingMode) {
     exec_branch(cpu, cpu.status.is_zero());
 }
 
-pub fn bpl(cpu: &mut CPU) {
+pub fn bpl(cpu: &mut CPU, _: AddressingMode) {
     exec_branch(cpu, !cpu.status.is_negative());
 }
 
-pub fn bmi(cpu: &mut CPU) {
+pub fn bmi(cpu: &mut CPU, _: AddressingMode) {
     exec_branch(cpu, cpu.status.is_negative());
 }
 
-pub fn bvc(cpu: &mut CPU) {
+pub fn bvc(cpu: &mut CPU, _: AddressingMode) {
     exec_branch(cpu, !cpu.status.is_overflow());
 }
 
-pub fn bvs(cpu: &mut CPU) {
+pub fn bvs(cpu: &mut CPU, _: AddressingMode) {
     exec_branch(cpu, cpu.status.is_overflow());
 }
 
-pub fn bcc(cpu: &mut CPU) {
+pub fn bcc(cpu: &mut CPU, _: AddressingMode) {
     exec_branch(cpu, !cpu.status.is_carry());
 }
 
-pub fn bcs(cpu: &mut CPU) {
+pub fn bcs(cpu: &mut CPU, _: AddressingMode) {
     exec_branch(cpu, cpu.status.is_carry());
 }
 
 // SUBROUTINE OPS
 
-pub fn jsr(cpu: &mut CPU) {
+pub fn jsr(cpu: &mut CPU, _: AddressingMode) {
     let jump_addr = cpu.read_u16();
     let return_addr = cpu.pc.pc.wrapping_sub(1);
     cpu.stack.push_u16(return_addr);
     cpu.pc.pc = jump_addr;
 }
 
-pub fn rts(cpu: &mut CPU) {
+pub fn rts(cpu: &mut CPU, _: AddressingMode) {
     cpu.pc.pc = cpu.stack.pop_u16().wrapping_add(1);
 }
