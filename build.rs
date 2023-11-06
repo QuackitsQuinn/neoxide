@@ -76,14 +76,16 @@ impl From<&JsonValue> for Op {
 struct JsonOp {
     name: String,
     doc: String,
+    optype: String,
     ops: Vec<Op>,
 }
 
 impl JsonOp {
-    fn new(name: &str, doc: &str, ops: Vec<Op>) -> Self {
+    fn new(name: &str, doc: &str, optype: &str, ops: Vec<Op>) -> Self {
         Self {
             name: name.to_owned(),
             doc: doc.to_owned(),
+            optype: optype.to_owned(),
             ops,
         }
     }
@@ -96,7 +98,7 @@ impl JsonOp {
         code.push_str(" use super::*;\n\n");
         code.push_str(" lazy_static! {\n");
         for op in &self.ops {
-            code.push_str(&format!("   pub static ref {}: Operation = Operation::new(\"{}\", {:#04X?}, {}, {}, {}, {}, AddressingMode::{});\n", op.addressing_mode_const, self.name, op.code, self.name.to_lowercase(), op.cycles, op.page_cross_incr, op.length, op.addressing_mode));
+            code.push_str(&format!("   pub static ref {}: Operation = Operation::new(\"{}\", \"{}\", {:#04X?}, {}, {}, {}, {}, AddressingMode::{});\n", op.addressing_mode_const, self.name, self.optype, op.code, self.name.to_lowercase(), op.cycles, op.page_cross_incr, op.length, op.addressing_mode));
         }
         code.push_str(" }\n}\n\n");
         code = code.replace(r"\n", "\n");
@@ -123,12 +125,13 @@ impl From<&JsonValue> for JsonOp {
     fn from(value: &JsonValue) -> Self {
         let name = value["name"].as_str().unwrap();
         let doc = value["long_name"].as_str().unwrap();
+        let optype = value["type"].as_str().unwrap();
         let mut ops: Vec<Op> = Vec::new();
         for mode in value["operands"].members() {
             let op: Op = mode.into();
             ops.push(op);
         }
-        Self::new(name, doc, ops)
+        Self::new(name, doc, optype,ops)
     }
 }
 // generates the code for the nes opcodes
@@ -153,6 +156,7 @@ fn main() {
     let undoc_op = JsonOp::new(
         "UNDOC_NOP",
         "Undocumented No-Op",
+        "no-op",
         vec![Op::new(0xEA, 2, 0,1, "Implied", "IMPLIED")],
     );
     code.push_str(&undoc_op.to_code());
