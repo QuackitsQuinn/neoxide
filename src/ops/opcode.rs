@@ -3,6 +3,7 @@ use crate::{addressing::AddressingMode, cpu::CPU};
 
 #[derive(Clone, Copy)]
 pub struct Operation {
+    pub name: &'static str,
     pub code: u8,
     pub op: fn(&mut CPU, AddressingMode),
     pub cycles: u8,
@@ -12,8 +13,9 @@ pub struct Operation {
 }
 
 impl Operation {
-    pub fn new(code:u8, op: fn(&mut CPU, AddressingMode), cycles: u8, page_cross_incr: u8, mode: AddressingMode) -> Self {
+    pub fn new(name:&'static str,code:u8, op: fn(&mut CPU, AddressingMode), cycles: u8, page_cross_incr: u8, mode: AddressingMode) -> Self {
         Self {
+            name,
             code,
             op,
             cycles,

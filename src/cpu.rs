@@ -6,7 +6,7 @@ use crate::{
     cpu_flags::CPUStatus,
     memory::Memory,
     reg::{ProgramCounter, Register, U8Register},
-    stack::Stack,
+    stack::Stack, mem_segment::MemorySegment,
 };
 /// A struct representing the CPU of the NES
 #[derive(Debug)]
@@ -128,9 +128,16 @@ impl CPU {
         }
     }
 
-    pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
+    pub fn load_vec(&mut self, pgrm: Vec<u8>) {
         let pgrm_len = pgrm.len();
         self.mem.load_pgrm(pgrm);
+        self.pc.set_entry_point(PGRM_LOAD_OFFSET);
+        info!("Loaded program with length 0x{:X}", pgrm_len);
+    }
+
+    pub fn load_array(&mut self, pgrm: &[u8]) {
+        let pgrm_len = pgrm.len();
+        self.mem.mem[0x8000..0x8000 + pgrm.len()].copy_from_slice(pgrm.into_iter().map(|x| MemorySegment::new(*x)).collect::<Vec<MemorySegment>>().as_slice());
         self.pc.set_entry_point(PGRM_LOAD_OFFSET);
         info!("Loaded program with length 0x{:X}", pgrm_len);
     }

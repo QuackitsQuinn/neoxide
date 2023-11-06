@@ -17,14 +17,14 @@ pub mod ADC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0x69, adc, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x65, adc, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x75, adc, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x6D, adc, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x7D, adc, 4, 1, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0x79, adc, 4, 1, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new(0x61, adc, 6, 0, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new(0x71, adc, 5, 1, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE: Operation = Operation::new("ADC", 0x69, adc, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("ADC", 0x65, adc, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("ADC", 0x75, adc, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("ADC", 0x6D, adc, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("ADC", 0x7D, adc, 4, 1, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("ADC", 0x79, adc, 4, 1, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X: Operation = Operation::new("ADC", 0x61, adc, 6, 0, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y: Operation = Operation::new("ADC", 0x71, adc, 5, 1, AddressingMode::IndirectY);
  }
 }
 
@@ -34,14 +34,14 @@ pub mod AND {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0x29, and, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x25, and, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x35, and, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x2D, and, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x3D, and, 4, 1, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0x39, and, 4, 1, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new(0x21, and, 6, 0, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new(0x31, and, 5, 1, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE: Operation = Operation::new("AND", 0x29, and, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("AND", 0x25, and, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("AND", 0x35, and, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("AND", 0x2D, and, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("AND", 0x3D, and, 4, 1, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("AND", 0x39, and, 4, 1, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X: Operation = Operation::new("AND", 0x21, and, 6, 0, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y: Operation = Operation::new("AND", 0x31, and, 5, 1, AddressingMode::IndirectY);
  }
 }
 
@@ -51,11 +51,11 @@ pub mod ASL {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x0A, asl, 2, 0, AddressingMode::Implied);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x06, asl, 5, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x16, asl, 6, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x0E, asl, 6, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x1E, asl, 7, 0, AddressingMode::AbsoluteX);
+   pub static ref IMPLIED: Operation = Operation::new("ASL", 0x0A, asl, 2, 0, AddressingMode::Implied);
+   pub static ref ZERO_PAGE: Operation = Operation::new("ASL", 0x06, asl, 5, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("ASL", 0x16, asl, 6, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("ASL", 0x0E, asl, 6, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("ASL", 0x1E, asl, 7, 0, AddressingMode::AbsoluteX);
  }
 }
 
@@ -65,8 +65,8 @@ pub mod BIT {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x24, bit, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x2C, bit, 4, 0, AddressingMode::Absolute);
+   pub static ref ZERO_PAGE: Operation = Operation::new("BIT", 0x24, bit, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ABSOLUTE: Operation = Operation::new("BIT", 0x2C, bit, 4, 0, AddressingMode::Absolute);
  }
 }
 
@@ -76,7 +76,7 @@ pub mod BPL {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x10, bpl, 2, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BPL", 0x10, bpl, 2, 1, AddressingMode::Implied);
  }
 }
 
@@ -86,7 +86,7 @@ pub mod BMI {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x30, bmi, 2, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BMI", 0x30, bmi, 2, 1, AddressingMode::Implied);
  }
 }
 
@@ -96,7 +96,7 @@ pub mod BVC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x50, bvc, 2, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BVC", 0x50, bvc, 2, 1, AddressingMode::Implied);
  }
 }
 
@@ -106,7 +106,7 @@ pub mod BVS {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x70, bvs, 2, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BVS", 0x70, bvs, 2, 1, AddressingMode::Implied);
  }
 }
 
@@ -116,7 +116,7 @@ pub mod BCC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x90, bcc, 2, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BCC", 0x90, bcc, 2, 1, AddressingMode::Implied);
  }
 }
 
@@ -126,7 +126,7 @@ pub mod BCS {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xB0, bcs, 2, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BCS", 0xB0, bcs, 2, 1, AddressingMode::Implied);
  }
 }
 
@@ -136,7 +136,7 @@ pub mod BNE {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xD0, bne, 2, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BNE", 0xD0, bne, 2, 1, AddressingMode::Implied);
  }
 }
 
@@ -146,7 +146,7 @@ pub mod BEQ {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xF0, beq, 2, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BEQ", 0xF0, beq, 2, 1, AddressingMode::Implied);
  }
 }
 
@@ -156,7 +156,7 @@ pub mod BRK {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x00, brk, 7, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("BRK", 0x00, brk, 7, 0, AddressingMode::Implied);
  }
 }
 
@@ -166,14 +166,14 @@ pub mod CMP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0xC9, cmp, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xC5, cmp, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0xD5, cmp, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xCD, cmp, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0xDD, cmp, 4, 1, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0xD9, cmp, 4, 1, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new(0xC1, cmp, 6, 0, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new(0xD1, cmp, 5, 1, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE: Operation = Operation::new("CMP", 0xC9, cmp, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("CMP", 0xC5, cmp, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("CMP", 0xD5, cmp, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("CMP", 0xCD, cmp, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("CMP", 0xDD, cmp, 4, 1, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("CMP", 0xD9, cmp, 4, 1, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X: Operation = Operation::new("CMP", 0xC1, cmp, 6, 0, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y: Operation = Operation::new("CMP", 0xD1, cmp, 5, 1, AddressingMode::IndirectY);
  }
 }
 
@@ -183,9 +183,9 @@ pub mod CPX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0xE0, cpx, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xE4, cpx, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xEC, cpx, 4, 0, AddressingMode::Absolute);
+   pub static ref IMMEDIATE: Operation = Operation::new("CPX", 0xE0, cpx, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("CPX", 0xE4, cpx, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ABSOLUTE: Operation = Operation::new("CPX", 0xEC, cpx, 4, 0, AddressingMode::Absolute);
  }
 }
 
@@ -195,9 +195,9 @@ pub mod CPY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0xC0, cpy, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xC4, cpy, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xCC, cpy, 4, 0, AddressingMode::Absolute);
+   pub static ref IMMEDIATE: Operation = Operation::new("CPY", 0xC0, cpy, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("CPY", 0xC4, cpy, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ABSOLUTE: Operation = Operation::new("CPY", 0xCC, cpy, 4, 0, AddressingMode::Absolute);
  }
 }
 
@@ -207,10 +207,10 @@ pub mod DEC {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xC6, dec, 5, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0xD6, dec, 6, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xCE, dec, 6, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0xDE, dec, 7, 0, AddressingMode::AbsoluteX);
+   pub static ref ZERO_PAGE: Operation = Operation::new("DEC", 0xC6, dec, 5, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("DEC", 0xD6, dec, 6, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("DEC", 0xCE, dec, 6, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("DEC", 0xDE, dec, 7, 0, AddressingMode::AbsoluteX);
  }
 }
 
@@ -220,14 +220,14 @@ pub mod EOR {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0x49, eor, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x45, eor, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x55, eor, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x4D, eor, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x5D, eor, 4, 1, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0x59, eor, 4, 1, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new(0x41, eor, 6, 0, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new(0x51, eor, 5, 1, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE: Operation = Operation::new("EOR", 0x49, eor, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("EOR", 0x45, eor, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("EOR", 0x55, eor, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("EOR", 0x4D, eor, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("EOR", 0x5D, eor, 4, 1, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("EOR", 0x59, eor, 4, 1, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X: Operation = Operation::new("EOR", 0x41, eor, 6, 0, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y: Operation = Operation::new("EOR", 0x51, eor, 5, 1, AddressingMode::IndirectY);
  }
 }
 
@@ -237,7 +237,7 @@ pub mod CLC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x18, clc, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("CLC", 0x18, clc, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -247,7 +247,7 @@ pub mod SEC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x38, sec, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("SEC", 0x38, sec, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -257,7 +257,7 @@ pub mod CLI {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x58, cli, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("CLI", 0x58, cli, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -267,7 +267,7 @@ pub mod SEI {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x78, sei, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("SEI", 0x78, sei, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -277,7 +277,7 @@ pub mod CLV {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xB8, clv, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("CLV", 0xB8, clv, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -287,7 +287,7 @@ pub mod CLD {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xD8, cld, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("CLD", 0xD8, cld, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -297,7 +297,7 @@ pub mod SED {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xF8, sed, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("SED", 0xF8, sed, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -307,10 +307,10 @@ pub mod INC {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xE6, inc, 5, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0xF6, inc, 6, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xEE, inc, 6, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0xFE, inc, 7, 0, AddressingMode::AbsoluteX);
+   pub static ref ZERO_PAGE: Operation = Operation::new("INC", 0xE6, inc, 5, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("INC", 0xF6, inc, 6, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("INC", 0xEE, inc, 6, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("INC", 0xFE, inc, 7, 0, AddressingMode::AbsoluteX);
  }
 }
 
@@ -320,8 +320,8 @@ pub mod JMP {
  use super::*;
 
  lazy_static! {
-   pub static ref ABSOLUTE: Operation = Operation::new(0x4C, jmp, 3, 0, AddressingMode::Absolute);
-   pub static ref INDIRECT: Operation = Operation::new(0x6C, jmp, 5, 0, AddressingMode::Indirect);
+   pub static ref ABSOLUTE: Operation = Operation::new("JMP", 0x4C, jmp, 3, 0, AddressingMode::Absolute);
+   pub static ref INDIRECT: Operation = Operation::new("JMP", 0x6C, jmp, 5, 0, AddressingMode::Indirect);
  }
 }
 
@@ -331,7 +331,7 @@ pub mod JSR {
  use super::*;
 
  lazy_static! {
-   pub static ref ABSOLUTE: Operation = Operation::new(0x20, jsr, 6, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE: Operation = Operation::new("JSR", 0x20, jsr, 6, 0, AddressingMode::Absolute);
  }
 }
 
@@ -341,14 +341,14 @@ pub mod LDA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0xA9, lda, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xA5, lda, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0xB5, lda, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xAD, lda, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0xBD, lda, 4, 1, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0xB9, lda, 4, 1, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new(0xA1, lda, 6, 0, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new(0xB1, lda, 5, 1, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE: Operation = Operation::new("LDA", 0xA9, lda, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("LDA", 0xA5, lda, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("LDA", 0xB5, lda, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("LDA", 0xAD, lda, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("LDA", 0xBD, lda, 4, 1, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("LDA", 0xB9, lda, 4, 1, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X: Operation = Operation::new("LDA", 0xA1, lda, 6, 0, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y: Operation = Operation::new("LDA", 0xB1, lda, 5, 1, AddressingMode::IndirectY);
  }
 }
 
@@ -358,11 +358,11 @@ pub mod LDX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0xA2, ldx, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xA6, ldx, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_Y: Operation = Operation::new(0xB6, ldx, 4, 0, AddressingMode::ZeroPageY);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xAE, ldx, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0xBE, ldx, 4, 1, AddressingMode::AbsoluteY);
+   pub static ref IMMEDIATE: Operation = Operation::new("LDX", 0xA2, ldx, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("LDX", 0xA6, ldx, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_Y: Operation = Operation::new("LDX", 0xB6, ldx, 4, 0, AddressingMode::ZeroPageY);
+   pub static ref ABSOLUTE: Operation = Operation::new("LDX", 0xAE, ldx, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("LDX", 0xBE, ldx, 4, 1, AddressingMode::AbsoluteY);
  }
 }
 
@@ -372,11 +372,11 @@ pub mod LDY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0xA0, ldy, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xA4, ldy, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0xB4, ldy, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xAC, ldy, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0xBC, ldy, 4, 1, AddressingMode::AbsoluteX);
+   pub static ref IMMEDIATE: Operation = Operation::new("LDY", 0xA0, ldy, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("LDY", 0xA4, ldy, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("LDY", 0xB4, ldy, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("LDY", 0xAC, ldy, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("LDY", 0xBC, ldy, 4, 1, AddressingMode::AbsoluteX);
  }
 }
 
@@ -386,11 +386,11 @@ pub mod LSR {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x4A, lsr, 2, 0, AddressingMode::Implied);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x46, lsr, 5, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x56, lsr, 6, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x4E, lsr, 6, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x5E, lsr, 7, 0, AddressingMode::AbsoluteX);
+   pub static ref IMPLIED: Operation = Operation::new("LSR", 0x4A, lsr, 2, 0, AddressingMode::Implied);
+   pub static ref ZERO_PAGE: Operation = Operation::new("LSR", 0x46, lsr, 5, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("LSR", 0x56, lsr, 6, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("LSR", 0x4E, lsr, 6, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("LSR", 0x5E, lsr, 7, 0, AddressingMode::AbsoluteX);
  }
 }
 
@@ -400,7 +400,7 @@ pub mod NOP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xEA, nop, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("NOP", 0xEA, nop, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -410,14 +410,14 @@ pub mod ORA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0x09, ora, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x05, ora, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x15, ora, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x0D, ora, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x1D, ora, 4, 1, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0x19, ora, 4, 1, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new(0x01, ora, 6, 0, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new(0x11, ora, 5, 1, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE: Operation = Operation::new("ORA", 0x09, ora, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("ORA", 0x05, ora, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("ORA", 0x15, ora, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("ORA", 0x0D, ora, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("ORA", 0x1D, ora, 4, 1, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("ORA", 0x19, ora, 4, 1, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X: Operation = Operation::new("ORA", 0x01, ora, 6, 0, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y: Operation = Operation::new("ORA", 0x11, ora, 5, 1, AddressingMode::IndirectY);
  }
 }
 
@@ -427,7 +427,7 @@ pub mod TAX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xAA, tax, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("TAX", 0xAA, tax, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -437,7 +437,7 @@ pub mod TXA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x8A, txa, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("TXA", 0x8A, txa, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -447,7 +447,7 @@ pub mod DEX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xCA, dex, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("DEX", 0xCA, dex, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -457,7 +457,7 @@ pub mod INX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xE8, inx, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("INX", 0xE8, inx, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -467,7 +467,7 @@ pub mod TAY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xA8, tay, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("TAY", 0xA8, tay, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -477,7 +477,7 @@ pub mod TYA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x98, tya, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("TYA", 0x98, tya, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -487,7 +487,7 @@ pub mod DEY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x88, dey, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("DEY", 0x88, dey, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -497,7 +497,7 @@ pub mod INY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xC8, iny, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("INY", 0xC8, iny, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -507,11 +507,11 @@ pub mod ROL {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x2A, rol, 2, 0, AddressingMode::Implied);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x26, rol, 5, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x36, rol, 6, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x2E, rol, 6, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x3E, rol, 7, 0, AddressingMode::AbsoluteX);
+   pub static ref IMPLIED: Operation = Operation::new("ROL", 0x2A, rol, 2, 0, AddressingMode::Implied);
+   pub static ref ZERO_PAGE: Operation = Operation::new("ROL", 0x26, rol, 5, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("ROL", 0x36, rol, 6, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("ROL", 0x2E, rol, 6, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("ROL", 0x3E, rol, 7, 0, AddressingMode::AbsoluteX);
  }
 }
 
@@ -521,11 +521,11 @@ pub mod ROR {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x6A, ror, 2, 0, AddressingMode::Implied);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x66, ror, 5, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x76, ror, 6, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x6E, ror, 6, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x7E, ror, 7, 0, AddressingMode::AbsoluteX);
+   pub static ref IMPLIED: Operation = Operation::new("ROR", 0x6A, ror, 2, 0, AddressingMode::Implied);
+   pub static ref ZERO_PAGE: Operation = Operation::new("ROR", 0x66, ror, 5, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("ROR", 0x76, ror, 6, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("ROR", 0x6E, ror, 6, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("ROR", 0x7E, ror, 7, 0, AddressingMode::AbsoluteX);
  }
 }
 
@@ -535,7 +535,7 @@ pub mod RTI {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x40, rti, 6, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("RTI", 0x40, rti, 6, 0, AddressingMode::Implied);
  }
 }
 
@@ -545,7 +545,7 @@ pub mod RTS {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x60, rts, 6, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("RTS", 0x60, rts, 6, 0, AddressingMode::Implied);
  }
 }
 
@@ -555,14 +555,14 @@ pub mod SBC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new(0xE9, sbc, 2, 0, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new(0xE5, sbc, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0xF5, sbc, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0xED, sbc, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0xFD, sbc, 4, 1, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0xF9, sbc, 4, 1, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new(0xE1, sbc, 6, 0, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new(0xF1, sbc, 5, 1, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE: Operation = Operation::new("SBC", 0xE9, sbc, 2, 0, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE: Operation = Operation::new("SBC", 0xE5, sbc, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("SBC", 0xF5, sbc, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("SBC", 0xED, sbc, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("SBC", 0xFD, sbc, 4, 1, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("SBC", 0xF9, sbc, 4, 1, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X: Operation = Operation::new("SBC", 0xE1, sbc, 6, 0, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y: Operation = Operation::new("SBC", 0xF1, sbc, 5, 1, AddressingMode::IndirectY);
  }
 }
 
@@ -572,13 +572,13 @@ pub mod STA {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x85, sta, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x95, sta, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x8D, sta, 4, 0, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new(0x9D, sta, 5, 0, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new(0x99, sta, 5, 0, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new(0x81, sta, 6, 0, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new(0x91, sta, 6, 0, AddressingMode::IndirectY);
+   pub static ref ZERO_PAGE: Operation = Operation::new("STA", 0x85, sta, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("STA", 0x95, sta, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("STA", 0x8D, sta, 4, 0, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X: Operation = Operation::new("STA", 0x9D, sta, 5, 0, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y: Operation = Operation::new("STA", 0x99, sta, 5, 0, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X: Operation = Operation::new("STA", 0x81, sta, 6, 0, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y: Operation = Operation::new("STA", 0x91, sta, 6, 0, AddressingMode::IndirectY);
  }
 }
 
@@ -588,7 +588,7 @@ pub mod TXS {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x9A, txs, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("TXS", 0x9A, txs, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -598,7 +598,7 @@ pub mod TSX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xBA, tsx, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("TSX", 0xBA, tsx, 2, 0, AddressingMode::Implied);
  }
 }
 
@@ -608,7 +608,7 @@ pub mod PHA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x48, pha, 3, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("PHA", 0x48, pha, 3, 0, AddressingMode::Implied);
  }
 }
 
@@ -618,7 +618,7 @@ pub mod PLA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x68, pla, 4, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("PLA", 0x68, pla, 4, 0, AddressingMode::Implied);
  }
 }
 
@@ -628,7 +628,7 @@ pub mod PHP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x08, php, 3, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("PHP", 0x08, php, 3, 0, AddressingMode::Implied);
  }
 }
 
@@ -638,7 +638,7 @@ pub mod PLP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0x28, plp, 4, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("PLP", 0x28, plp, 4, 0, AddressingMode::Implied);
  }
 }
 
@@ -648,9 +648,9 @@ pub mod STX {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x86, stx, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_Y: Operation = Operation::new(0x96, stx, 4, 0, AddressingMode::ZeroPageY);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x8E, stx, 4, 0, AddressingMode::Absolute);
+   pub static ref ZERO_PAGE: Operation = Operation::new("STX", 0x86, stx, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_Y: Operation = Operation::new("STX", 0x96, stx, 4, 0, AddressingMode::ZeroPageY);
+   pub static ref ABSOLUTE: Operation = Operation::new("STX", 0x8E, stx, 4, 0, AddressingMode::Absolute);
  }
 }
 
@@ -660,9 +660,9 @@ pub mod STY {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new(0x84, sty, 3, 0, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new(0x94, sty, 4, 0, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new(0x8C, sty, 4, 0, AddressingMode::Absolute);
+   pub static ref ZERO_PAGE: Operation = Operation::new("STY", 0x84, sty, 3, 0, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X: Operation = Operation::new("STY", 0x94, sty, 4, 0, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE: Operation = Operation::new("STY", 0x8C, sty, 4, 0, AddressingMode::Absolute);
  }
 }
 
@@ -672,7 +672,7 @@ pub mod UNDOC_NOP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new(0xEA, undoc_nop, 2, 0, AddressingMode::Implied);
+   pub static ref IMPLIED: Operation = Operation::new("UNDOC_NOP", 0xEA, undoc_nop, 2, 0, AddressingMode::Implied);
  }
 }
 

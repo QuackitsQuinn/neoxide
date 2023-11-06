@@ -45,7 +45,8 @@ fn main() {
         let inner = p;
         let cpu = inner.0; // very weird way to get cpu in scope
         //cpu.load_pgrm(vec![0xEA, 0xEA, 0xD0, 0xFC, 0xFF]);
-        cpu.load_pgrm(vec![0xEA,0x4C, 0x00, 0x00]); // intentionally invalid opcodes to test panic
+        let snake = include_bytes!("../res/snake.bin");
+        cpu.load_array(snake); // intentionally invalid opcodes to test panic
         cpu.pc.reset();
         loop {
             //debug!("Registers: A: {:#X} X: {:#X} Y: {:#X} PC: {:#X} ({})", cpu.a.read(), cpu.x.read(), cpu.y.read(), cpu.pc.read(), cpu.pc.read());

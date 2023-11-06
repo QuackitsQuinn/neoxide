@@ -92,7 +92,7 @@ impl JsonOp {
         code.push_str(" use super::*;\n\n");
         code.push_str(" lazy_static! {\n");
         for op in &self.ops {
-            code.push_str(&format!("   pub static ref {}: Operation = Operation::new({:#04X?}, {}, {}, {}, AddressingMode::{});\n", op.addressing_mode_const, op.code, self.name.to_lowercase(), op.cycles, op.page_cross_incr, op.addressing_mode));
+            code.push_str(&format!("   pub static ref {}: Operation = Operation::new(\"{}\", {:#04X?}, {}, {}, {}, AddressingMode::{});\n", op.addressing_mode_const, self.name, op.code, self.name.to_lowercase(), op.cycles, op.page_cross_incr, op.addressing_mode));
         }
         code.push_str(" }\n}\n\n");
         code = code.replace(r"\n", "\n");
