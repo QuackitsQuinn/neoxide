@@ -1,4 +1,4 @@
-use crate::{cpu::CPU, reg::Register, addressing::AddressingMode};
+use crate::{addressing::AddressingMode, cpu::CPU, reg::Register};
 
 use super::op::check_flags;
 
@@ -19,12 +19,6 @@ pub fn txa(cpu: &mut CPU, _: AddressingMode) {
     cpu.a.write(data);
     check_flags(cpu, data);
 }
-
-
-
-
-
-
 
 pub fn tya(cpu: &mut CPU, _: AddressingMode) {
     let data = cpu.y.read();

@@ -60,7 +60,7 @@ pub fn jsr(cpu: &mut CPU, _: AddressingMode) {
     let jump_addr = cpu.read_u16();
     let return_addr = cpu.pc.pc.wrapping_sub(1);
     cpu.stack.push_u16(return_addr);
-    cpu.pc.pc = jump_addr-1;
+    cpu.pc.pc = jump_addr - 1;
 }
 
 pub fn rts(cpu: &mut CPU, _: AddressingMode) {

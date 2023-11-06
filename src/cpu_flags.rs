@@ -85,6 +85,7 @@ impl Display for CPUStatus {
             .field("interrupt", &self.is_interrupt())
             .field("overflow", &self.is_overflow())
             .field("negative", &self.is_negative())
-            .field("decimal", &self.is_decimal()).finish()
+            .field("decimal", &self.is_decimal())
+            .finish()
     }
 }

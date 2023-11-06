@@ -4,9 +4,10 @@ use crate::{
     addressing::AddressingMode,
     constant::PGRM_LOAD_OFFSET,
     cpu_flags::CPUStatus,
+    mem_segment::MemorySegment,
     memory::Memory,
     reg::{ProgramCounter, Register, U8Register},
-    stack::Stack, mem_segment::MemorySegment,
+    stack::Stack,
 };
 /// A struct representing the CPU of the NES
 #[derive(Debug)]
@@ -142,8 +143,14 @@ impl CPU {
 
     pub fn load_array(&mut self, pgrm: &[u8]) {
         let pgrm_len = pgrm.len();
-        self.mem.mem[PGRM_LOAD_OFFSET as usize..PGRM_LOAD_OFFSET as usize + pgrm.len()].copy_from_slice(pgrm.into_iter().map(|x| MemorySegment::new(*x)).collect::<Vec<MemorySegment>>().as_slice());
-        self.pc.set_entry_point(PGRM_LOAD_OFFSET-1);
+        self.mem.mem[PGRM_LOAD_OFFSET as usize..PGRM_LOAD_OFFSET as usize + pgrm.len()]
+            .copy_from_slice(
+                pgrm.into_iter()
+                    .map(|x| MemorySegment::new(*x))
+                    .collect::<Vec<MemorySegment>>()
+                    .as_slice(),
+            );
+        self.pc.set_entry_point(PGRM_LOAD_OFFSET - 1);
         info!("Loaded program with length 0x{:X}", pgrm_len);
     }
     // returns a 64 byte slice of the memory centered around the program counter

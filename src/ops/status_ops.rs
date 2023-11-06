@@ -1,4 +1,4 @@
-use crate::{cpu::CPU, addressing::AddressingMode};
+use crate::{addressing::AddressingMode, cpu::CPU};
 
 pub fn clc(cpu: &mut CPU, _: AddressingMode) {
     cpu.status.set_carry(false);

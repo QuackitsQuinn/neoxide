@@ -6,7 +6,8 @@ extern crate lazy_static;
 use std::{
     fs::File,
     panic::{catch_unwind, AssertUnwindSafe},
-    path::Path, process::exit,
+    path::Path,
+    process::exit,
 };
 
 use cpu::CPU;
@@ -44,7 +45,7 @@ fn main() {
     let result = catch_unwind(|| {
         let inner = p;
         let cpu = inner.0; // very weird way to get cpu in scope
-        //cpu.load_pgrm(vec![0xEA, 0xEA, 0xD0, 0xFC, 0xFF]);
+                           //cpu.load_pgrm(vec![0xEA, 0xEA, 0xD0, 0xFC, 0xFF]);
         let snake = include_bytes!("../res/snake.bin");
         cpu.load_array(snake); // intentionally invalid opcodes to test panic
         cpu.pc.reset();
@@ -60,7 +61,7 @@ fn main() {
             info!("Closing Neoxide")
         }
         Err(_) => {
-           handle_crash(&mut cpu);
+            handle_crash(&mut cpu);
         }
     }
 }
@@ -98,12 +99,15 @@ fn handle_crash(cpu: &mut CPU) {
         println!("Program counter is at the start of memory");
     } else if off == 0xFFFF {
         println!("Program counter is at the end of memory");
-        slice_before = area[(0..(off-1) as usize)].to_vec();
+        slice_before = area[(0..(off - 1) as usize)].to_vec();
     } else {
-        println!("Program counter is at offset {:#X} from the start of the memory dump", off);
-        slice_before = area[(0..(off-1) as usize)].to_vec();
+        println!(
+            "Program counter is at offset {:#X} from the start of the memory dump",
+            off
+        );
+        slice_before = area[(0..(off - 1) as usize)].to_vec();
     }
-    let slice_after = &area[((off+1) as usize)..].to_vec();
+    let slice_after = &area[((off + 1) as usize)..].to_vec();
     println!("Program counter area:");
     print!("{:?}", slice_before);
     print!(" {:#X} (pc) ", area[off as usize]);

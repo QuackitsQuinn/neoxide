@@ -1,4 +1,4 @@
-use crate::{cpu::CPU, reg::Register, addressing::AddressingMode};
+use crate::{addressing::AddressingMode, cpu::CPU, reg::Register};
 
 pub fn pha(cpu: &mut CPU, _: AddressingMode) {
     let data = cpu.a.read();

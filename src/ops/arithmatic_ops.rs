@@ -89,7 +89,7 @@ pub fn asl(cpu: &mut CPU, mode: AddressingMode) {
     };
     check_flags(cpu, data);
 }
-// logical shift right 
+// logical shift right
 pub fn lsr(cpu: &mut CPU, mode: AddressingMode) {
     let data = match mode {
         AddressingMode::Implied => {
