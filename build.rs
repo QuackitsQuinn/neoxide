@@ -1,4 +1,4 @@
-use std::{array, io::Write, fmt::format};
+use std::{array, fmt::format, io::Write};
 
 use json::JsonValue;
 
@@ -28,6 +28,7 @@ struct Op {
     code: u8,
     cycles: u8,
     page_cross_incr: u8,
+    length: u8,
     addressing_mode: String, // enum is in project but cant be used from build script
     addressing_mode_const: String,
 }
@@ -37,6 +38,7 @@ impl Op {
         code: u8,
         cycles: u8,
         page_cross_incr: u8,
+        length: u8,
         addressing_mode: &str,
         addressing_mode_const: &str,
     ) -> Self {
@@ -44,6 +46,7 @@ impl Op {
             code,
             cycles,
             page_cross_incr,
+            length,
             addressing_mode: addressing_mode.to_owned(),
             addressing_mode_const: addressing_mode_const.to_owned(),
         }
@@ -63,6 +66,7 @@ impl From<&JsonValue> for Op {
             code: value["opcode"].as_u8().unwrap(),
             cycles: value["cycles"].as_u8().unwrap(),
             page_cross_incr: value["page_cross_incr"].as_u8().unwrap(),
+            length: value["length"].as_u8().unwrap(),
             addressing_mode: mode,
             addressing_mode_const: value["addr_mode"].as_str().unwrap().to_owned(),
         }
@@ -92,7 +96,7 @@ impl JsonOp {
         code.push_str(" use super::*;\n\n");
         code.push_str(" lazy_static! {\n");
         for op in &self.ops {
-            code.push_str(&format!("   pub static ref {}: Operation = Operation::new(\"{}\", {:#04X?}, {}, {}, {}, AddressingMode::{});\n", op.addressing_mode_const, self.name, op.code, self.name.to_lowercase(), op.cycles, op.page_cross_incr, op.addressing_mode));
+            code.push_str(&format!("   pub static ref {}: Operation = Operation::new(\"{}\", {:#04X?}, {}, {}, {}, {}, AddressingMode::{});\n", op.addressing_mode_const, self.name, op.code, self.name.to_lowercase(), op.cycles, op.page_cross_incr, op.length, op.addressing_mode));
         }
         code.push_str(" }\n}\n\n");
         code = code.replace(r"\n", "\n");
@@ -149,7 +153,7 @@ fn main() {
     let undoc_op = JsonOp::new(
         "UNDOC_NOP",
         "Undocumented No-Op",
-        vec![Op::new(0xEA, 2, 0, "Implied", "IMPLIED")],
+        vec![Op::new(0xEA, 2, 0,1, "Implied", "IMPLIED")],
     );
     code.push_str(&undoc_op.to_code());
     // build ender optable
