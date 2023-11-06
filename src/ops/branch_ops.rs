@@ -66,3 +66,18 @@ pub fn jsr(cpu: &mut CPU, _: AddressingMode) {
 pub fn rts(cpu: &mut CPU, _: AddressingMode) {
     cpu.pc.pc = cpu.stack.pop_u16().wrapping_add(1);
 }
+
+// break
+
+pub fn brk(cpu: &mut CPU, _: AddressingMode) {
+    cpu.pc.pc += 1;
+    cpu.stack.push_u16(cpu.pc.pc);
+    cpu.stack.push(cpu.status.status | 0b0011_0000);
+    cpu.status.set_interrupt(true);
+    cpu.pc.pc = cpu.read_u16();
+}
+
+pub fn rti(cpu: &mut CPU, _: AddressingMode) {
+    cpu.status.status = cpu.stack.pop() & 0b1101_1111;
+    cpu.pc.pc = cpu.stack.pop_u16();
+}

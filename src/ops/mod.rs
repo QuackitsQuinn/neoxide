@@ -1,4 +1,4 @@
-mod bit_ops;
+mod arithmatic_ops;
 mod branch_ops;
 mod load_ops;
 pub mod op;

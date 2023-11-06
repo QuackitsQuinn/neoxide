@@ -20,4 +20,12 @@ pub fn clv(cpu: &mut CPU, _: AddressingMode) {
     cpu.status.set_overflow(false);
 }
 
-// no cld or sed because decimal mode is not supported on the weird dialect of 6502 used by the NES
+// even though decimal mode is not supported, we still need to implement these because they still exist, just do nothing
+
+pub fn cld(cpu: &mut CPU, _: AddressingMode) {
+    cpu.status.set_decimal(false);
+}
+
+pub fn sed(cpu: &mut CPU, _: AddressingMode) {
+    cpu.status.set_decimal(true);
+}

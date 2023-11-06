@@ -1,23 +1,16 @@
-use crate::{addressing::AddressingMode, cpu::CPU};
+use crate::{addressing::AddressingMode, cpu::CPU, reg::Register};
 
-use super::{
-    bit_ops::{and, eor, ora},
-    branch_ops::{bcc, bcs, beq, bmi, bne, bpl, bvc, bvs, jmp, jsr, rts},
-    load_ops::{lda, ldx, ldy},
-    reg_ops::{dex, dey, inx, iny, tax, tay, tsx, txa, txs, tya},
-    stack_ops::{pha, php, pla, plp},
-    status_ops::{clc, cli, clv, sec, sei},
-    store_ops::{sta, stx, sty},
-};
+use super::opcodes;
+
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
 pub fn exec_op(cpu: &mut CPU) {
     let op = cpu.read_opbyte();
-    //info!("Executing opcode: {:#X}", op);
+    (opcodes::OPTABLE[op as usize].op)(cpu, opcodes::OPTABLE[op as usize].mode);
 }
 
 /// No op - does nothing
-fn nop(_cpu: &mut CPU, _: AddressingMode) {}
+pub(super) fn nop(_cpu: &mut CPU, _: AddressingMode) {}
 
 /// Checks the data for zero and negative flags and sets them accordingly
 pub(super) fn check_flags(cpu: &mut CPU, data: u8) {
@@ -32,4 +25,7 @@ pub(super) fn check_flags(cpu: &mut CPU, data: u8) {
     } else {
         cpu.status.set_negative(false);
     }
+}
+pub(super) fn undoc_nop(cpu: &mut CPU, _mode: AddressingMode) {
+    warn!("Undocumented opcode executed! Code: {:#X}", cpu.read(cpu.pc.read()));
 }

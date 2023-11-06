@@ -11,4 +11,5 @@ log = "0.4.20"
 simplelog = "0.12.1"
 
 [build-dependencies]
+array-init = "2.1.0"
 json = "0.12.4"

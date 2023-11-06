@@ -46,6 +46,11 @@ impl CPUStatus {
     pub fn is_negative(&self) -> bool {
         self.get_bit(0b1000_0000)
     }
+
+    pub fn is_decimal(&self) -> bool {
+        self.get_bit(0b0000_1000)
+    }
+
     /// Sets the carry flag
     pub fn set_carry(&mut self, value: bool) {
         self.set_bit(0b0000_0001, value);
@@ -66,6 +71,10 @@ impl CPUStatus {
     pub fn set_negative(&mut self, value: bool) {
         self.set_bit(0b1000_0000, value);
     }
+
+    pub fn set_decimal(&mut self, value: bool) {
+        self.set_bit(0b0000_1000, value);
+    }
 }
 
 impl Display for CPUStatus {
@@ -76,6 +85,6 @@ impl Display for CPUStatus {
             .field("interrupt", &self.is_interrupt())
             .field("overflow", &self.is_overflow())
             .field("negative", &self.is_negative())
-            .finish()
+            .field("decimal", &self.is_decimal()).finish()
     }
 }
