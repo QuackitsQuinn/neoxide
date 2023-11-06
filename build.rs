@@ -172,7 +172,7 @@ fn main() {
         }
     }
     // generate optable
-    code.push_str("lazy_static! {\n");
+    code.push_str("\n\n lazy_static! {\n");
     code.push_str(format!("\n {} \n", OPTABLE_HEADER).as_str());
     code.push_str("    pub static ref OPTABLE: [Operation; 255] = [\n");
     for op in optable {

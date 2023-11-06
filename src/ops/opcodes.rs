@@ -677,7 +677,9 @@ pub mod UNDOC_NOP {
  }
 }
 
-lazy_static! {
+
+
+ lazy_static! {
 
  
 /// This is the optable, which contains all of the opcodes for the 6502 CPU.
