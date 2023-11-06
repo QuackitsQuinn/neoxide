@@ -29,7 +29,7 @@ fn main() {
     TermLogger::init(
         LevelFilter::Debug,
         ConfigBuilder::new()
-            .set_location_level(LevelFilter::Error)
+            .set_location_level(LevelFilter::Trace)
             .build(),
         TerminalMode::Mixed,
         simplelog::ColorChoice::Auto,
@@ -93,7 +93,16 @@ fn handle_crash(cpu: &mut CPU) {
     let pg_area = cpu.get_pcounter_area();
     let area = pg_area.0;
     let off = pg_area.1;
-    let slice_before = &area[(0..(off-1) as usize)].to_vec();
+    let mut slice_before: Vec<u8> = vec![];
+    if off == 0 {
+        println!("Program counter is at the start of memory");
+    } else if off == 0xFFFF {
+        println!("Program counter is at the end of memory");
+        slice_before = area[(0..(off-1) as usize)].to_vec();
+    } else {
+        println!("Program counter is at offset {:#X} from the start of the memory dump", off);
+        slice_before = area[(0..(off-1) as usize)].to_vec();
+    }
     let slice_after = &area[((off+1) as usize)..].to_vec();
     println!("Program counter area:");
     print!("{:?}", slice_before);

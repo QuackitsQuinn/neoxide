@@ -1,11 +1,11 @@
 use crate::{addressing::AddressingMode, cpu::CPU};
 
 fn exec_branch(cpu: &mut CPU, condition: bool) {
-    let offset = cpu.read_i16();
-    //info!("Branching by {} bytes", offset);
+    let offset = cpu.read_i8();
+    info!("Branching by {} bytes", offset);
     if condition {
         if offset < 0 {
-            cpu.pc.pc = cpu.pc.pc.wrapping_sub(offset.unsigned_abs());
+            cpu.pc.pc = cpu.pc.pc.wrapping_sub(offset.abs() as u16);
         } else {
             cpu.pc.pc = cpu.pc.pc.wrapping_add(offset as u16);
         }
@@ -60,7 +60,7 @@ pub fn jsr(cpu: &mut CPU, _: AddressingMode) {
     let jump_addr = cpu.read_u16();
     let return_addr = cpu.pc.pc.wrapping_sub(1);
     cpu.stack.push_u16(return_addr);
-    cpu.pc.pc = jump_addr;
+    cpu.pc.pc = jump_addr-1;
 }
 
 pub fn rts(cpu: &mut CPU, _: AddressingMode) {

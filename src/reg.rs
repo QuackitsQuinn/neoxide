@@ -28,13 +28,13 @@ impl U8Register {
 
 impl ops::AddAssign<u8> for U8Register {
     fn add_assign(&mut self, rhs: u8) {
-        self.value += rhs;
+        self.value = self.value.wrapping_add(rhs);
     }
 }
 
 impl ops::SubAssign<u8> for U8Register {
     fn sub_assign(&mut self, rhs: u8) {
-        self.value -= rhs;
+        self.value = self.value.wrapping_sub(rhs);
     }
 }
 
@@ -47,10 +47,10 @@ impl Register<u8> for U8Register {
         self.value = value;
     }
     fn incr(&mut self) {
-        self.value += 1;
+        self.value = self.value.wrapping_add(1);
     }
     fn decr(&mut self) {
-        self.value -= 1;
+        self.value = self.value.wrapping_sub(1);
     }
 }
 impl From<U8Register> for u8 {

@@ -62,6 +62,11 @@ impl CPU {
         let high = self.mem.read_u8(self.pc.read()) as i16;
         (high << 8) | low
     }
+
+    pub fn read_i8(&mut self) -> i8 {
+        self.pc.incr();
+        self.mem.read_u8(self.pc.read()) as i8
+    }
     /// Read the value at the address specified by the parameter
     pub fn read(&mut self, addr: u16) -> u8 {
         self.mem.read_u8(addr)
@@ -137,8 +142,8 @@ impl CPU {
 
     pub fn load_array(&mut self, pgrm: &[u8]) {
         let pgrm_len = pgrm.len();
-        self.mem.mem[0x8000..0x8000 + pgrm.len()].copy_from_slice(pgrm.into_iter().map(|x| MemorySegment::new(*x)).collect::<Vec<MemorySegment>>().as_slice());
-        self.pc.set_entry_point(PGRM_LOAD_OFFSET);
+        self.mem.mem[PGRM_LOAD_OFFSET as usize..PGRM_LOAD_OFFSET as usize + pgrm.len()].copy_from_slice(pgrm.into_iter().map(|x| MemorySegment::new(*x)).collect::<Vec<MemorySegment>>().as_slice());
+        self.pc.set_entry_point(PGRM_LOAD_OFFSET-1);
         info!("Loaded program with length 0x{:X}", pgrm_len);
     }
     // returns a 64 byte slice of the memory centered around the program counter

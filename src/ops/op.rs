@@ -1,12 +1,29 @@
 use crate::{addressing::AddressingMode, cpu::CPU, reg::Register};
 
-use super::opcodes;
+use super::{opcodes, opcode::Operation};
 
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
 pub fn exec_op(cpu: &mut CPU) {
     let op = cpu.read_opbyte();
-    (opcodes::OPTABLE[op as usize].op)(cpu, opcodes::OPTABLE[op as usize].mode);
+    let init_pc = cpu.pc.read()-1;
+    let ex_op = opcodes::OPTABLE[op as usize];
+    #[cfg(debug_assertions)] // only log if we are in debug mode
+    log_opinfo(cpu, ex_op, init_pc);
+}
+
+fn log_opinfo(cpu: &mut CPU, ex_op: Operation, init_pc: u16) {
+    info!("Executing opcode: {:#X} ({}:{}) at address {:#4X}", ex_op.code, ex_op.name,ex_op.mode, cpu.pc.read() - 1);
+    (ex_op.op)(cpu, ex_op.mode);
+    if ex_op.optype != "branch" {
+        let pcsub = cpu.pc.read().wrapping_sub(init_pc);
+        info!("Consumed {:#X} bytes", pcsub);
+        if pcsub != ex_op.length as u16 {
+            warn!("Consumed {} bytes, expected {}", pcsub, ex_op.length);
+        }
+    } else {
+        info!("Jumped to {:#X}", cpu.pc.read());
+    }
 }
 
 /// No op - does nothing

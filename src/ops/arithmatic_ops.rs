@@ -81,7 +81,7 @@ pub fn asl(cpu: &mut CPU, mode: AddressingMode) {
         }
         _ => {
             let addr = cpu.get_addr(mode);
-            let data = cpu.read_addr(mode);
+            let data = cpu.read(addr); // read_addr increments the program counter. thats bad.
             cpu.status.set_carry(data & 0b1000_0000 != 0);
             cpu.write(addr, data);
             data << 1
@@ -100,7 +100,7 @@ pub fn lsr(cpu: &mut CPU, mode: AddressingMode) {
         }
         _ => {
             let addr = cpu.get_addr(mode);
-            let data = cpu.read_addr(mode);
+            let data = cpu.read(addr);
             cpu.status.set_carry(data & 0b0000_0001 != 0);
             cpu.write(addr, data);
             data >> 1
