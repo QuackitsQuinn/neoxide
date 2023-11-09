@@ -21,6 +21,12 @@ impl From<u8> for MemorySegment {
     }
 }
 
+impl From<MemorySegment> for u8 {
+    fn from(seg: MemorySegment) -> Self {
+        seg.byte
+    }
+}
+
 impl ops::BitAnd<u8> for MemorySegment {
     type Output = u8;
 

@@ -153,14 +153,14 @@ pub fn rol(cpu: &mut CPU, mode: AddressingMode) {
 
 pub fn inc(cpu: &mut CPU, mode: AddressingMode) {
     let addr = cpu.get_addr(mode);
-    let data = cpu.read_addr(mode);
+    let data = cpu.read(addr);
     cpu.write(addr, data.wrapping_add(1));
     check_flags(cpu, data.wrapping_add(1));
 }
 
 pub fn dec(cpu: &mut CPU, mode: AddressingMode) {
     let addr = cpu.get_addr(mode);
-    let data = cpu.read_addr(mode);
+    let data = cpu.read(addr);
     cpu.write(addr, data.wrapping_sub(1));
     check_flags(cpu, data.wrapping_sub(1));
 }

@@ -2,7 +2,7 @@ use crate::{addressing::AddressingMode, cpu::CPU};
 
 fn exec_branch(cpu: &mut CPU, condition: bool) {
     let offset = cpu.read_i8();
-    info!("Branching by {} bytes", offset);
+    //info!("Branching by {} bytes", offset);
     if condition {
         if offset < 0 {
             cpu.pc.pc = cpu.pc.pc.wrapping_sub(offset.abs() as u16);
@@ -18,8 +18,8 @@ pub fn jmp(cpu: &mut CPU, mode: AddressingMode) {
     } else {
         cpu.get_addr(mode)
     };
-    println!("JMP to {:X}", addr);
-    cpu.pc.pc = addr;
+    //println!("JMP to {:X}", addr);
+    cpu.pc.pc = addr-1;
 }
 
 pub fn bne(cpu: &mut CPU, _: AddressingMode) {

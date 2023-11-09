@@ -3,6 +3,7 @@ extern crate log;
 #[macro_use]
 extern crate lazy_static;
 
+
 use std::{
     fs::File,
     panic::{catch_unwind, AssertUnwindSafe},
@@ -14,6 +15,9 @@ use cpu::CPU;
 use log::{info, warn, LevelFilter};
 use ops::op::exec_op;
 use reg::Register;
+use render::screen::Screen;
+use sdl2::{pixels::Color, event::Event, keyboard::Keycode};
+use sdl2::pixels::PixelFormatEnum::RGB24;
 use simplelog::{ConfigBuilder, TermLogger, TerminalMode};
 
 mod addressing;
@@ -25,17 +29,21 @@ mod memory;
 mod ops;
 mod reg;
 mod stack;
+mod render;
 // no-op then jne to no op
 fn main() {
     TermLogger::init(
-        LevelFilter::Debug,
+        LevelFilter::Trace,
         ConfigBuilder::new()
-            .set_location_level(LevelFilter::Trace)
+            .set_location_level(LevelFilter::Warn)
             .build(),
         TerminalMode::Mixed,
         simplelog::ColorChoice::Auto,
     )
     .unwrap();
+
+    let sdl = sdl2::init().unwrap();
+    let video = sdl.video().unwrap();
     // this is not how this will work in the future, closer to CPU::new().load_pgrm(vec![0xEA, 0xEA, 0xD0,0xFC,0xFF] or file).run()
     // Because we expect that the cpu will be in an invalid state after a panic
     // we need to wrap it in an AssertUnwindSafe
@@ -47,14 +55,45 @@ fn main() {
         let cpu = inner.0; // very weird way to get cpu in scope
                            //cpu.load_pgrm(vec![0xEA, 0xEA, 0xD0, 0xFC, 0xFF]);
         let snake = include_bytes!("../res/snake.bin");
+        let mut pal = vec![];
+        // this is **very** temporary. just to throw together a quick demo
+        for i in 0..0x3f {
+            pal.push(Color::RGB(i*2, i*2 , i*2));
+        }
+        let window = video
+            .window("Neoxide", 512, 512)
+            .position_centered()
+            .build()
+            .unwrap();
+        
+        let mut canvas = window.into_canvas().build().unwrap();
+        let texture_creator = canvas.texture_creator();
+        let mut texture = texture_creator
+            .create_texture_target(RGB24, 32, 32).unwrap();
+        let mut out = Screen::new(32, 32, pal);
+        let mut pump = sdl.event_pump().unwrap();
         cpu.load_array(snake); // intentionally invalid opcodes to test panic
         cpu.pc.reset();
-        loop {
-            //debug!("Registers: A: {:#X} X: {:#X} Y: {:#X} PC: {:#X} ({})", cpu.a.read(), cpu.x.read(), cpu.y.read(), cpu.pc.read(), cpu.pc.read());
-            // new op system
-            // an 0x255 arr of trait impls that are the ops
+        'mainloop: loop {
             exec_op(cpu);
+            out.render_on_update(&mut texture, &cpu.mem.mem[0x0200..0x0200 + 32 * 32]);
+            for event in pump.poll_iter() {
+                match event {
+                    Event::Quit {..} |
+                    Event::KeyDown { keycode: Some(Keycode::Escape), .. } => {
+                        break 'mainloop
+                    },
+                    _ => {}
+                }
+            }
+            cpu.write(0xfe, rand::random());
+            canvas.copy(&texture, None, None).expect("Render failed");
+            canvas.present();
+            // sleep
+            //std::thread::sleep(std::time::Duration::from_millis(1));
         }
+        cpu.mem.dump(&mut File::create("dump.bin").unwrap());
+        //panic!();  // intentionally panic to test panic handling
     });
     match result {
         Ok(_) => {

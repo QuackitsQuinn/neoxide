@@ -137,6 +137,8 @@ impl From<&JsonValue> for JsonOp {
 }
 // generates the code for the nes opcodes
 fn main() {
+    // add homebrew sdl2 install
+    println!("cargo:rustc-link-search={}/homebrew/Cellar/sdl2/2.28.5/lib/", std::env::var("HOME").unwrap());
     // return if opcodes.rs exists
     if !std::path::Path::new("src/ops/opcodes.rs").exists() {
         return; // uncomment this to prevent overwriting opcodes.rs
@@ -162,7 +164,7 @@ fn main() {
     );
     code.push_str(&undoc_op.to_code());
     // build ender optable
-    let mut optable: [OptableEntry; 255] =
+    let mut optable: [OptableEntry; 256] =
         array_init::array_init(|i: usize| OptableEntry::new(i as u8, "UNDOC_NOP", "Implied"));
 
     for jop in code_ops {
@@ -174,7 +176,7 @@ fn main() {
     // generate optable
     code.push_str("\n\n lazy_static! {\n");
     code.push_str(format!("\n {} \n", OPTABLE_HEADER).as_str());
-    code.push_str("    pub static ref OPTABLE: [Operation; 255] = [\n");
+    code.push_str("    pub static ref OPTABLE: [Operation; 256] = [\n");
     for op in optable {
         code.push_str(&format!(
             "        *{}::{},\n",

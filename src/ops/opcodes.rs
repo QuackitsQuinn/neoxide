@@ -687,7 +687,7 @@ pub mod UNDOC_NOP {
 /// Any opcode marked as UNDOC_NOP is an undocumented opcode, and will be logged when executed, but will not do anything.
 /// The optable is like a huge match statement, but is **SIGNIFICANTLY** faster because it is a static array.
  
-    pub static ref OPTABLE: [Operation; 255] = [
+    pub static ref OPTABLE: [Operation; 256] = [
         *BRK::IMPLIED,
         *ORA::INDIRECT_X,
         *UNDOC_NOP::IMPLIED,
@@ -943,5 +943,6 @@ pub mod UNDOC_NOP {
         *UNDOC_NOP::IMPLIED,
         *SBC::ABSOLUTE_X,
         *INC::ABSOLUTE_X,
+        *UNDOC_NOP::IMPLIED,
     ];
 }
