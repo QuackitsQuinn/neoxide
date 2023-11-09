@@ -29,6 +29,7 @@ mod ops;
 mod reg;
 mod stack;
 mod render;
+mod nes;
 // no-op then jne to no op
 fn main() {
     TermLogger::init(
@@ -54,20 +55,6 @@ fn main() {
         let cpu = inner.0; // very weird way to get cpu in scope
                            //cpu.load_pgrm(vec![0xEA, 0xEA, 0xD0, 0xFC, 0xFF]);
         let snake = include_bytes!("../res/fillscr.bin");
-        let mut pal = vec![];
-        // this is **very** temporary. just to throw together a quick demo
-        for i in 0..0x3f {
-            let mut shifter = i;
-            let mut r = shifter & 0x3;
-            shifter >>= 2;
-            let mut g = shifter & 0x3;
-            shifter >>= 2;
-            let mut b = shifter & 0x3;
-            r = r * 0x55;
-            g = g * 0x55;
-            b = b * 0x55;
-            pal.push(Color::RGB(r,g,b));
-        }
         let window = video
             .window("Neoxide", 512, 512)
             .position_centered()
@@ -78,7 +65,7 @@ fn main() {
         let texture_creator = canvas.texture_creator();
         let mut texture = texture_creator
             .create_texture_target(RGB24, 32, 32).unwrap();
-        let mut out = Screen::new(32, 32, pal);
+        let mut out = Screen::new(32, 32, None);
         let mut pump = sdl.event_pump().unwrap();
         cpu.load_array(snake); // intentionally invalid opcodes to test panic
         cpu.pc.reset();
@@ -100,7 +87,7 @@ fn main() {
             // sleep
             //std::thread::sleep(std::time::Duration::from_millis(1));
         }
-        cpu.mem.dump(&mut File::create("dump.bin").unwrap());
+        cpu.mem.dump(&mut File::create("dump.bin").unwrap())
         //panic!();  // intentionally panic to test panic handling
     });
     match result {

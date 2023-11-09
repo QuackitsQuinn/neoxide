@@ -3,6 +3,8 @@ use std::cmp::min;
 
 use sdl2::{Sdl, video::{Window, WindowContext}, render::{Canvas, Texture, TextureCreator}, pixels::{PixelFormatEnum, Color}, rect::Rect};
 
+use super::pal::Palette;
+
 
 
 
@@ -14,19 +16,19 @@ pub struct Screen {
     pub height: u32,
     last_data: Vec<u8>,
     screen_data: Vec<u8>,
-    palette: Vec<Color>
+    palette: [Color; 64],
 
 }
 
 impl Screen {
     /// Create a new screen with the specified width and height
-    pub fn new(width: u32, height: u32, palette: Vec<Color>) -> Screen {
+    pub fn new(width: u32, height: u32, palette: Option<Palette>) -> Screen {
         Screen {
             width,
             height,
             last_data: vec![0; (width * height) as usize],
             screen_data: vec![0; (width * height * 3) as usize],
-            palette
+            palette: palette.unwrap_or_default().colors,
         }
         
         }
