@@ -3,7 +3,6 @@ use std::cmp::min;
 
 use sdl2::{Sdl, video::{Window, WindowContext}, render::{Canvas, Texture, TextureCreator}, pixels::{PixelFormatEnum, Color}, rect::Rect};
 
-use crate::mem_segment::MemorySegment;
 
 
 
@@ -59,9 +58,7 @@ impl Screen {
         false
     }
 
-    pub fn render_on_update(&mut self, text: &mut Texture, rawdata: &[MemorySegment]) {
-        let binding = rawdata.iter().map(|x| x.byte).collect::<Vec<u8>>();
-        let pixeldata = binding.as_slice();
+    pub fn render_on_update(&mut self, text: &mut Texture, pixeldata: &[u8]) {
         self.update(pixeldata);
         if self.should_update(pixeldata) {
             text.update(Rect::new(0,0,self.width,self.height), &self.screen_data, (self.width * 3) as usize).unwrap();

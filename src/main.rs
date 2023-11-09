@@ -24,7 +24,6 @@ mod addressing;
 mod constant;
 mod cpu;
 mod cpu_flags;
-mod mem_segment;
 mod memory;
 mod ops;
 mod reg;
@@ -54,11 +53,20 @@ fn main() {
         let inner = p;
         let cpu = inner.0; // very weird way to get cpu in scope
                            //cpu.load_pgrm(vec![0xEA, 0xEA, 0xD0, 0xFC, 0xFF]);
-        let snake = include_bytes!("../res/snake.bin");
+        let snake = include_bytes!("../res/fillscr.bin");
         let mut pal = vec![];
         // this is **very** temporary. just to throw together a quick demo
         for i in 0..0x3f {
-            pal.push(Color::RGB(i*2, i*2 , i*2));
+            let mut shifter = i;
+            let mut r = shifter & 0x3;
+            shifter >>= 2;
+            let mut g = shifter & 0x3;
+            shifter >>= 2;
+            let mut b = shifter & 0x3;
+            r = r * 0x55;
+            g = g * 0x55;
+            b = b * 0x55;
+            pal.push(Color::RGB(r,g,b));
         }
         let window = video
             .window("Neoxide", 512, 512)
