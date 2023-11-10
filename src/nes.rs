@@ -2,7 +2,7 @@
 use std::fs::File;
 
 use rand::{random, Rng};
-use sdl2::{video::Window, Sdl, event::Event, pixels::PixelFormatEnum, render::{Texture, Canvas}, EventPump};
+use sdl2::{video::Window, Sdl, event::Event, pixels::PixelFormatEnum, render::{Texture, Canvas}, EventPump, keyboard::Keycode};
 
 use crate::{cpu::CPU, render::screen::Screen, constant::{WINDOW_SIZE, TEXTURE_SIZE, SCREEN_DATA_OFFSET}, ops::op::exec_op};
 /// Create a texture target with the specified format, width, and height
@@ -61,7 +61,7 @@ impl NES {
         // either call the callback or use inlined nop for preformance
         let cb = callback.unwrap_or(NES::nop);
         // Create the canvas and texture (rust is slowly forcing me to use macros)
-        let mut canvas = window.into_canvas().accelerated().build().unwrap();
+        let mut canvas = window.into_canvas().accelerated().present_vsync().build().unwrap();
         let mut texutre_creator = canvas.texture_creator();
         let mut texture = create_texture_target!(texutre_creator,PixelFormatEnum::RGB24, TEXTURE_SIZE.0, TEXTURE_SIZE.1);
         let mut event_pump = self.sdl.event_pump().unwrap();
@@ -95,6 +95,13 @@ impl NES {
                 Event::Quit { .. } => true,
                 _ => false
             };
+            match event {
+                Event::KeyDown { keycode: Some(Keycode::Down), ..} => self.cpu.write(0xff, 0x77),
+                Event::KeyDown { keycode: Some(Keycode::Up), ..} => self.cpu.write(0xff, 0x73),
+                Event::KeyDown { keycode: Some(Keycode::Left), ..} => self.cpu.write(0xff, 0x61),
+                Event::KeyDown { keycode: Some(Keycode::Right), ..} => self.cpu.write(0xff, 0x64),
+                _ => {}
+            }
         };
         should_quit
     }
