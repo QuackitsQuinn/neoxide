@@ -1,2 +1,4 @@
 /target
-memory_dump.bin
+memdump.bin
+neoxide.log
+dump.bin

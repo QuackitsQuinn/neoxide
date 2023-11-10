@@ -33,6 +33,10 @@ impl Stack {
         self.sp += 1;
         self.stack[self.sp.read() as usize]
     }
+
+    pub fn peek(&self) -> u8 {
+        self.stack[self.sp.read() as usize]
+    }
 }
 
 #[cfg(test)]

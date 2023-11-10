@@ -139,11 +139,11 @@ impl CPU {
         self.pc.set_entry_point(PGRM_LOAD_OFFSET);
         info!("Loaded program with length 0x{:X}", pgrm_len);
     }
-
     pub fn load_array(&mut self, pgrm: &[u8]) {
         let pgrm_len = pgrm.len();
         self.mem.mem[PGRM_LOAD_OFFSET as usize..PGRM_LOAD_OFFSET as usize + pgrm.len()].copy_from_slice(pgrm);
         self.pc.set_entry_point(PGRM_LOAD_OFFSET - 1);
+        self.pc.reset();
         info!("Loaded program with length 0x{:X}", pgrm_len);
     }
     // returns a 64 byte slice of the memory centered around the program counter

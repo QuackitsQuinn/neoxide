@@ -6,23 +6,30 @@ use super::{opcode::Operation, opcodes};
 
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
-pub fn exec_op(cpu: &mut CPU) {
+pub fn exec_op(cpu: &mut CPU) -> bool{
     let op = cpu.read_opbyte();
+    if op == opcodes::BRK::IMPLIED.code {
+        // hey we hit a brk, return false to signal that we should stop
+        return false;
+    }
     let init_pc = cpu.pc.read() - 1;
     let ex_op = opcodes::OPTABLE[op as usize];
     let func = ex_op.op;
     func(cpu, ex_op.mode);
-    //#[cfg(debug_assertions)] // only log if we are in debug mode
-    //log_opinfo(cpu, ex_op, init_pc);
+    #[cfg(debug_assertions)] // only log if we are in debug mode
+    log_opinfo(cpu, ex_op, init_pc);
+    //trace!("pc: {:#X} ipc {:#X}, op:{}::{}", cpu.pc.read(),init_pc, ex_op.name, ex_op.mode);
+    true
 }
 
 fn log_opinfo(cpu: &mut CPU, ex_op: Operation, init_pc: u16) {
     info!(
-        "Executing opcode: {:#X} ({}:{}) at address {:#4X}",
+        "Executing opcode: {:#X} ({}:{}) at address {:#4X}:{:#4X}",
         ex_op.code,
         ex_op.name,
         ex_op.mode,
-        cpu.pc.read() - 1
+        init_pc,
+        cpu.read(init_pc+1),
     );
     if ex_op.optype != "branch" {
         let pcsub = cpu.pc.read().wrapping_sub(init_pc);
@@ -54,7 +61,8 @@ pub(super) fn check_flags(cpu: &mut CPU, data: u8) {
 }
 pub(super) fn undoc_nop(cpu: &mut CPU, _mode: AddressingMode) {
     warn!(
-        "Undocumented opcode executed! Code: {:#X}",
-        cpu.read(cpu.pc.read())
+        "Undocumented opcode executed! Code: {:#X} at address {:#X}",
+        cpu.read(cpu.pc.read()),
+        cpu.pc.read() - 1
     );
 }

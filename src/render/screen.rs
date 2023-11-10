@@ -32,13 +32,13 @@ impl Screen {
         }
         
         }
-
-    fn update(&mut self, pixeldata: &[u8]) {
+    /// Update the screen with the specified pixel data
+    pub fn update(&mut self, pixeldata: &[u8]) {
         let mut off = 0;
         for y in 0..self.height {
             for x in 0..self.width {
                 let pixel = pixeldata[(y * self.width + x) as usize];
-                let (r,g,b) = self.palette[min(pixel, 62) as usize].rgb();
+                let (r,g,b) = self.palette[min(pixel, 63) as usize].rgb();
                 self.screen_data[off] = r;
                 self.screen_data[off + 1] = g;
                 self.screen_data[off + 2] = b;
@@ -49,19 +49,19 @@ impl Screen {
     }
 
     pub fn should_update(&mut self, pixeldata: &[u8]) -> bool {
-        let mut off = 0;
-        for px in pixeldata {
-            if *px != self.last_data[off] {
-                self.last_data[off] = *px;
-                return true;
-            }
-            off += 1;
+        // soo idk how fast build in equality checking is, but this is probably faster than what i would write
+        if self.last_data == pixeldata {
+            self.last_data = pixeldata.to_vec();
+            return false
         }
-        false
+        true
+    }
+
+    pub fn render(&mut self, text: &mut Texture, pixeldata: &[u8]) {
+        text.update(Rect::new(0,0,self.width,self.height), &self.screen_data, (self.width * 3) as usize).unwrap();
     }
 
     pub fn render_on_update(&mut self, text: &mut Texture, pixeldata: &[u8]) {
-        self.update(pixeldata);
         if self.should_update(pixeldata) {
             text.update(Rect::new(0,0,self.width,self.height), &self.screen_data, (self.width * 3) as usize).unwrap();
         }

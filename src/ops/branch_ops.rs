@@ -1,7 +1,8 @@
-use crate::{addressing::AddressingMode, cpu::CPU};
+use crate::{addressing::AddressingMode, cpu::CPU, constant::PGRM_LOAD_OFFSET};
 
 fn exec_branch(cpu: &mut CPU, condition: bool) {
     let offset = cpu.read_i8();
+    let pc = cpu.pc.pc;
     //info!("Branching by {} bytes", offset);
     if condition {
         if offset < 0 {
@@ -9,6 +10,10 @@ fn exec_branch(cpu: &mut CPU, condition: bool) {
         } else {
             cpu.pc.pc = cpu.pc.pc.wrapping_add(offset as u16);
         }
+    }
+    if cpu.pc.pc < PGRM_LOAD_OFFSET {
+        warn!("Jumped to address {:#X} which is before the program load offset", cpu.pc.pc);
+        warn!("Instruction addr: {:#X}", pc-1);
     }
 }
 
@@ -18,7 +23,10 @@ pub fn jmp(cpu: &mut CPU, mode: AddressingMode) {
     } else {
         cpu.get_addr(mode)
     };
-    //println!("JMP to {:X}", addr);
+    if addr < PGRM_LOAD_OFFSET {
+        warn!("Jumped to address {:#X} which is before the program load offset", addr);
+        warn!("Instruction addr: {:#X}", cpu.pc.pc-1);
+    }
     cpu.pc.pc = addr-1;
 }
 
@@ -64,7 +72,11 @@ pub fn jsr(cpu: &mut CPU, _: AddressingMode) {
 }
 
 pub fn rts(cpu: &mut CPU, _: AddressingMode) {
-    cpu.pc.pc = cpu.stack.pop_u16().wrapping_add(1);
+    let return_addr = cpu.stack.pop_u16();
+    if return_addr == 0x0 {
+        warn!("Stack cleared or no RTS instruction found!");
+    }
+    cpu.pc.pc = return_addr.wrapping_add(1);
 }
 
 // break
@@ -74,7 +86,6 @@ pub fn brk(cpu: &mut CPU, _: AddressingMode) {
     cpu.stack.push_u16(cpu.pc.pc);
     cpu.stack.push(cpu.status.status | 0b0011_0000);
     cpu.status.set_interrupt(true);
-    cpu.pc.pc = cpu.read_u16();
 }
 
 pub fn rti(cpu: &mut CPU, _: AddressingMode) {

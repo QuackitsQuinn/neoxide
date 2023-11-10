@@ -138,6 +138,7 @@ impl From<&JsonValue> for JsonOp {
 // generates the code for the nes opcodes
 fn main() {
     // add homebrew sdl2 install
+    // aka this is a weird solution to get neoxide to compile on a school lock-downed mac
     println!("cargo:rustc-link-search={}/homebrew/Cellar/sdl2/2.28.5/lib/", std::env::var("HOME").unwrap());
     // return if opcodes.rs exists
     if !std::path::Path::new("src/ops/opcodes.rs").exists() {
