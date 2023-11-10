@@ -15,12 +15,12 @@ pub fn exec_op(cpu: &mut CPU) -> bool {
     let func = ex_op.op;
     func(cpu, ex_op.mode);
     #[cfg(debug_assertions)] // only log if we are in debug mode
-    log_opinfo(cpu, ex_op, init_pc);
+    log_op(cpu, ex_op, init_pc);
     //trace!("pc: {:#X} ipc {:#X}, op:{}::{}", cpu.pc.read(),init_pc, ex_op.name, ex_op.mode);
     true
 }
 
-fn log_opinfo(cpu: &mut CPU, ex_op: Operation, init_pc: u16) {
+pub fn log_op(cpu: &mut CPU, ex_op: Operation, init_pc: u16) {
     info!(
         "Executing opcode: {:#X} ({}:{}) at address {:#4X}:{:#4X}",
         ex_op.code,

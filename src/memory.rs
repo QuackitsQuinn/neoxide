@@ -33,13 +33,13 @@ impl Memory {
         }
     }
 
-    pub fn load_pgrm(&mut self, pgrm: Vec<u8>) {
+    pub fn load_pgrm(&mut self, pgrm: Vec<u8>, offset: u16) {
         assert!(
-            pgrm.len() <= 0xFFFF - PGRM_LOAD_OFFSET as usize,
+            pgrm.len() <= 0xFFFF - offset as usize,
             "Program too large to fit in memory"
         );
         for (i, byte) in pgrm.iter().enumerate() {
-            self.mem[PGRM_LOAD_OFFSET as usize + i] = *byte;
+            self.mem[offset as usize + i] = *byte;
         }
     }
 

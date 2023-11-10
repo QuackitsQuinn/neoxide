@@ -1,10 +1,12 @@
+use rand::Rng;
+
 use crate::{
     addressing::AddressingMode,
     constant::PGRM_LOAD_OFFSET,
     cpu_flags::CPUStatus,
     memory::Memory,
     reg::{ProgramCounter, Register, U8Register},
-    stack::Stack,
+    stack::Stack, ops::op::exec_op,
 };
 /// A struct representing the CPU of the NES
 #[derive(Debug)]
@@ -16,6 +18,7 @@ pub struct CPU {
     pub mem: Memory,
     pub status: CPUStatus,
     pub stack: Stack,
+    load_offset: u16,
 }
 
 impl CPU {
@@ -29,6 +32,7 @@ impl CPU {
             mem: Memory::new(),
             status: CPUStatus::new(),
             stack: Stack::new(),
+            load_offset: PGRM_LOAD_OFFSET
         }
     }
     /// Reset the CPU to its initial state
@@ -133,15 +137,15 @@ impl CPU {
 
     pub fn load_vec(&mut self, pgrm: Vec<u8>) {
         let pgrm_len = pgrm.len();
-        self.mem.load_pgrm(pgrm);
-        self.pc.set_entry_point(PGRM_LOAD_OFFSET);
+        self.mem.load_pgrm(pgrm, self.load_offset);
+        self.pc.set_entry_point(self.load_offset);
         info!("Loaded program with length 0x{:X}", pgrm_len);
     }
     pub fn load_array(&mut self, pgrm: &[u8]) {
         let pgrm_len = pgrm.len();
-        self.mem.mem[PGRM_LOAD_OFFSET as usize..PGRM_LOAD_OFFSET as usize + pgrm.len()]
+        self.mem.mem[self.load_offset as usize..self.load_offset as usize + pgrm.len()]
             .copy_from_slice(pgrm);
-        self.pc.set_entry_point(PGRM_LOAD_OFFSET - 1);
+        self.pc.set_entry_point(self.load_offset - 1);
         self.pc.reset();
         info!("Loaded program with length 0x{:X}", pgrm_len);
     }
@@ -165,6 +169,29 @@ impl CPU {
         let mem = self.mem.mem[start as usize..end as usize].to_vec();
 
         (mem, start_offset)
+    }
+    /// Set the load offset of the CPU (where the program will be loaded)
+    pub fn set_load_offset(&mut self, offset: u16) {
+        self.load_offset = offset;
+        self.pc.set_entry_point(offset);
+    }
+    /// Step the CPU by one instruction
+    pub fn step(&mut self, set_random: bool) {
+        if set_random {
+            self.write(0xFE, rand::thread_rng().gen_range(1..16));
+        }
+        exec_op(self);
+    }
+    /// Run the CPU for the specified number of cycles. This does account for the number of cycles that the last instruction took.
+    pub fn run_cycles(&mut self, cycles: u64, set_random: bool) {
+        if set_random {
+            self.write(0xFE, rand::thread_rng().gen_range(1..16));
+        }
+        for _ in 0..cycles {
+            if !exec_op(self) {
+                break;
+            }
+        }
     }
 }
 
