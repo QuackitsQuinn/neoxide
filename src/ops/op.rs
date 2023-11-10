@@ -1,12 +1,10 @@
-use std::cmp::min;
-
 use crate::{addressing::AddressingMode, cpu::CPU, reg::Register};
 
 use super::{opcode::Operation, opcodes};
 
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
-pub fn exec_op(cpu: &mut CPU) -> bool{
+pub fn exec_op(cpu: &mut CPU) -> bool {
     let op = cpu.read_opbyte();
     if op == opcodes::BRK::IMPLIED.code {
         // hey we hit a brk, return false to signal that we should stop
@@ -29,7 +27,7 @@ fn log_opinfo(cpu: &mut CPU, ex_op: Operation, init_pc: u16) {
         ex_op.name,
         ex_op.mode,
         init_pc,
-        cpu.read(init_pc+1),
+        cpu.read(init_pc + 1),
     );
     if ex_op.optype != "branch" {
         let pcsub = cpu.pc.read().wrapping_sub(init_pc);

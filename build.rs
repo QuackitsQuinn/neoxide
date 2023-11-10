@@ -1,4 +1,4 @@
-use std::{array, fmt::format, io::Write};
+use std::io::Write;
 
 use json::JsonValue;
 
@@ -59,7 +59,7 @@ impl From<&JsonValue> for Op {
         // empty return because switching json file structure
         // convert CAP_CASE to PascalCase
         let mut mode = String::new();
-        for word in value["addr_mode"].as_str().unwrap().split("_") {
+        for word in value["addr_mode"].as_str().unwrap().split('_') {
             mode.push_str(&word[..1].to_uppercase());
             mode.push_str(&word[1..].to_lowercase());
         }
@@ -94,7 +94,7 @@ impl JsonOp {
         let mut code = String::new();
         code.push_str(&format!("/// {}\n", self.doc));
         // disable snake case linting for this line
-        code.push_str(&format!("#[allow(non_snake_case)]\n"));
+        code.push_str(&"#[allow(non_snake_case)]\n".to_string());
         code.push_str(&format!("pub mod {} {{\n", self.name.to_uppercase()));
         code.push_str(" use super::*;\n\n");
         code.push_str(" lazy_static! {\n");
@@ -139,7 +139,10 @@ impl From<&JsonValue> for JsonOp {
 fn main() {
     // add homebrew sdl2 install
     // aka this is a weird solution to get neoxide to compile on a school lock-downed mac
-    println!("cargo:rustc-link-search={}/homebrew/Cellar/sdl2/2.28.5/lib/", std::env::var("HOME").unwrap());
+    println!(
+        "cargo:rustc-link-search={}/homebrew/Cellar/sdl2/2.28.5/lib/",
+        std::env::var("HOME").unwrap()
+    );
     // return if opcodes.rs exists
     if !std::path::Path::new("src/ops/opcodes.rs").exists() {
         return; // uncomment this to prevent overwriting opcodes.rs

@@ -1,4 +1,4 @@
-use crate::{addressing::AddressingMode, cpu::CPU, constant::PGRM_LOAD_OFFSET};
+use crate::{addressing::AddressingMode, constant::PGRM_LOAD_OFFSET, cpu::CPU};
 
 fn exec_branch(cpu: &mut CPU, condition: bool) {
     let offset = cpu.read_i8();
@@ -6,14 +6,17 @@ fn exec_branch(cpu: &mut CPU, condition: bool) {
     //info!("Branching by {} bytes", offset);
     if condition {
         if offset < 0 {
-            cpu.pc.pc = cpu.pc.pc.wrapping_sub(offset.abs() as u16);
+            cpu.pc.pc = cpu.pc.pc.wrapping_sub(offset.unsigned_abs() as u16);
         } else {
             cpu.pc.pc = cpu.pc.pc.wrapping_add(offset as u16);
         }
     }
     if cpu.pc.pc < PGRM_LOAD_OFFSET {
-        warn!("Jumped to address {:#X} which is before the program load offset", cpu.pc.pc);
-        warn!("Instruction addr: {:#X}", pc-1);
+        warn!(
+            "Jumped to address {:#X} which is before the program load offset",
+            cpu.pc.pc
+        );
+        warn!("Instruction addr: {:#X}", pc - 1);
     }
 }
 
@@ -24,10 +27,13 @@ pub fn jmp(cpu: &mut CPU, mode: AddressingMode) {
         cpu.get_addr(mode)
     };
     if addr < PGRM_LOAD_OFFSET {
-        warn!("Jumped to address {:#X} which is before the program load offset", addr);
-        warn!("Instruction addr: {:#X}", cpu.pc.pc-1);
+        warn!(
+            "Jumped to address {:#X} which is before the program load offset",
+            addr
+        );
+        warn!("Instruction addr: {:#X}", cpu.pc.pc - 1);
     }
-    cpu.pc.pc = addr-1;
+    cpu.pc.pc = addr - 1;
 }
 
 pub fn bne(cpu: &mut CPU, _: AddressingMode) {

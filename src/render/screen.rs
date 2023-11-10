@@ -1,12 +1,8 @@
-
 use std::cmp::min;
 
-use sdl2::{Sdl, video::{Window, WindowContext}, render::{Canvas, Texture, TextureCreator}, pixels::{PixelFormatEnum, Color}, rect::Rect};
+use sdl2::{pixels::Color, rect::Rect, render::Texture};
 
 use super::pal::Palette;
-
-
-
 
 /// A struct representing a screen.
 /// Stores the width and height of the screen, as well as the pixel memory as a direct reference to the array.
@@ -17,7 +13,6 @@ pub struct Screen {
     last_data: Vec<u8>,
     screen_data: Vec<u8>,
     palette: [Color; 64],
-
 }
 
 impl Screen {
@@ -30,15 +25,14 @@ impl Screen {
             screen_data: vec![0; (width * height * 3) as usize],
             palette: palette.unwrap_or_default().colors,
         }
-        
-        }
+    }
     /// Update the screen with the specified pixel data
     pub fn update(&mut self, pixeldata: &[u8]) {
         let mut off = 0;
         for y in 0..self.height {
             for x in 0..self.width {
                 let pixel = pixeldata[(y * self.width + x) as usize];
-                let (r,g,b) = self.palette[min(pixel, 63) as usize].rgb();
+                let (r, g, b) = self.palette[min(pixel, 63) as usize].rgb();
                 self.screen_data[off] = r;
                 self.screen_data[off + 1] = g;
                 self.screen_data[off + 2] = b;
@@ -52,19 +46,28 @@ impl Screen {
         // soo idk how fast build in equality checking is, but this is probably faster than what i would write
         if self.last_data == pixeldata {
             self.last_data = pixeldata.to_vec();
-            return false
+            return false;
         }
         true
     }
 
-    pub fn render(&mut self, text: &mut Texture, pixeldata: &[u8]) {
-        text.update(Rect::new(0,0,self.width,self.height), &self.screen_data, (self.width * 3) as usize).unwrap();
+    pub fn render(&mut self, text: &mut Texture, _pixeldata: &[u8]) {
+        text.update(
+            Rect::new(0, 0, self.width, self.height),
+            &self.screen_data,
+            (self.width * 3) as usize,
+        )
+        .unwrap();
     }
 
     pub fn render_on_update(&mut self, text: &mut Texture, pixeldata: &[u8]) {
         if self.should_update(pixeldata) {
-            text.update(Rect::new(0,0,self.width,self.height), &self.screen_data, (self.width * 3) as usize).unwrap();
+            text.update(
+                Rect::new(0, 0, self.width, self.height),
+                &self.screen_data,
+                (self.width * 3) as usize,
+            )
+            .unwrap();
         }
     }
 }
-

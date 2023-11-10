@@ -2,10 +2,6 @@ use sdl2::pixels::Color;
 
 /// Various things for .pal files and just nes palettes in general
 
-
-
-
-
 pub struct Palette {
     pub colors: [Color; 64],
 }
@@ -13,7 +9,11 @@ pub struct Palette {
 impl Palette {
     pub fn from_bytes(bytes: &[u8]) -> Palette {
         // allow for pal files with deimphasis colors, even if we don't use them
-        assert!(bytes.len() >= 64 * 3, "Palette file too small: {} bytes", bytes.len());
+        assert!(
+            bytes.len() >= 64 * 3,
+            "Palette file too small: {} bytes",
+            bytes.len()
+        );
         let mut colors = [Color::RGB(0, 0, 0); 64];
         for i in 0..64 {
             let r = bytes[i * 3];

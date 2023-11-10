@@ -1,4 +1,4 @@
-use crate::{constant::PGRM_LOAD_OFFSET};
+use crate::constant::PGRM_LOAD_OFFSET;
 use core::fmt::Debug;
 use std::{
     fs::File,
@@ -12,9 +12,7 @@ pub struct Memory {
 
 impl Memory {
     pub fn new() -> Self {
-        Memory {
-            mem: [0; 0xFFFF],
-        }
+        Memory { mem: [0; 0xFFFF] }
     }
 
     pub fn read(&self, addr: u16) -> u8 {

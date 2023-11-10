@@ -3,58 +3,57 @@ extern crate log;
 #[macro_use]
 extern crate lazy_static;
 
-
-use std::{
-    fs::File,
-    panic::{catch_unwind, AssertUnwindSafe},
-    path::Path,
-    process::exit,
-};
+use std::{fs::File, path::Path, process::exit};
 
 use cpu::CPU;
-use log::{info, warn, LevelFilter};
+use log::{info, LevelFilter};
 use nes::NES;
-use ops::op::exec_op;
+
 use reg::Register;
-use render::screen::Screen;
-use sdl2::{pixels::Color, event::Event, keyboard::Keycode};
-use sdl2::pixels::PixelFormatEnum::RGB24;
-use simplelog::{ConfigBuilder, TermLogger, TerminalMode, CombinedLogger};
+
+use simplelog::{CombinedLogger, ConfigBuilder, TermLogger, TerminalMode};
 
 mod addressing;
 mod constant;
 mod cpu;
 mod cpu_flags;
 mod memory;
+mod nes;
 mod ops;
 mod reg;
-mod stack;
 mod render;
-mod nes;
+mod stack;
 // no-op then jne to no op
 fn log(cpu: &mut CPU) {
-    info!("A: {:02X} X: {:02X} Y: {:02X} PC: {:04X} SP: {:02X} Flags: {}", cpu.a.read(), cpu.x.read(), cpu.y.read(), cpu.pc.read(), cpu.stack.peek(), cpu.status);
+    info!(
+        "A: {:02X} X: {:02X} Y: {:02X} PC: {:04X} SP: {:02X} Flags: {}",
+        cpu.a.read(),
+        cpu.x.read(),
+        cpu.y.read(),
+        cpu.pc.read(),
+        cpu.stack.peek(),
+        cpu.status
+    );
 }
 fn main() {
-    CombinedLogger::init(
-        vec![
-            TermLogger::new(
-                LevelFilter::Trace,
-                ConfigBuilder::new()
-                    .set_location_level(LevelFilter::Warn)
-                    .build(),
-                TerminalMode::Mixed,
-                simplelog::ColorChoice::Auto,
-            ),
-            simplelog::WriteLogger::new(
-                LevelFilter::Trace,
-                ConfigBuilder::new()
-                    .set_location_level(LevelFilter::Warn)
-                    .build(),
-                File::create("neoxide.log").unwrap(),
-            ),
-        ]
-    ).unwrap();
+    CombinedLogger::init(vec![
+        TermLogger::new(
+            LevelFilter::Trace,
+            ConfigBuilder::new()
+                .set_location_level(LevelFilter::Warn)
+                .build(),
+            TerminalMode::Mixed,
+            simplelog::ColorChoice::Auto,
+        ),
+        simplelog::WriteLogger::new(
+            LevelFilter::Trace,
+            ConfigBuilder::new()
+                .set_location_level(LevelFilter::Warn)
+                .build(),
+            File::create("neoxide.log").unwrap(),
+        ),
+    ])
+    .unwrap();
     let sdl = sdl2::init().unwrap();
 
     let mut nes = NES::new(sdl);
@@ -62,7 +61,6 @@ fn main() {
     nes.load_raw(include_bytes!("../res/snake.bin"));
 
     nes.run(None);
-
 }
 /// Handles a crash by printing out the state of the CPU and dumping memory to a file
 fn handle_crash(cpu: &mut CPU) {

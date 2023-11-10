@@ -8,4 +8,3 @@ pub type WindowSize = (u32, u32);
 
 pub const WINDOW_SIZE: WindowSize = (512, 512);
 pub const TEXTURE_SIZE: WindowSize = (32, 32);
-

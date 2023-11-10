@@ -1,5 +1,3 @@
-use std::cmp::{max, min};
-
 use crate::{
     addressing::AddressingMode,
     constant::PGRM_LOAD_OFFSET,
@@ -141,7 +139,8 @@ impl CPU {
     }
     pub fn load_array(&mut self, pgrm: &[u8]) {
         let pgrm_len = pgrm.len();
-        self.mem.mem[PGRM_LOAD_OFFSET as usize..PGRM_LOAD_OFFSET as usize + pgrm.len()].copy_from_slice(pgrm);
+        self.mem.mem[PGRM_LOAD_OFFSET as usize..PGRM_LOAD_OFFSET as usize + pgrm.len()]
+            .copy_from_slice(pgrm);
         self.pc.set_entry_point(PGRM_LOAD_OFFSET - 1);
         self.pc.reset();
         info!("Loaded program with length 0x{:X}", pgrm_len);
@@ -162,8 +161,6 @@ impl CPU {
         } else {
             self.pc.read() + 32
         };
-
-        let is_start_off = start != 0;
 
         let mem = self.mem.mem[start as usize..end as usize].to_vec();
 
