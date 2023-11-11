@@ -14,7 +14,7 @@ const HEADER: &str = r#"
 //
 //  lazy_static! thank you for existing
 
-use crate::{addressing::AddressingMode, cpu::CPU, ops::{opcode::Operation,op::{nop,undoc_nop},load_ops::*,store_ops::*,reg_ops::*,arithmatic_ops::*,branch_ops::*,stack_ops::*,status_ops::*}};
+use crate::{addressing::AddressingMode, ops::{opcode::{OpCode,Operation},op::{nop,undoc_nop},load_ops::*,store_ops::*,reg_ops::*,arithmatic_ops::*,branch_ops::*,stack_ops::*,status_ops::*}};
 
 "#;
 
@@ -58,20 +58,22 @@ impl From<&JsonValue> for Op {
     fn from(value: &JsonValue) -> Self {
         // empty return because switching json file structure
         // convert CAP_CASE to PascalCase
+        let mut const_mode = value["addr_mode"].as_str().unwrap().to_owned();
         let mut mode = String::new();
         for word in value["addr_mode"].as_str().unwrap().split('_') {
             mode.push_str(&word[..1].to_uppercase());
             mode.push_str(&word[1..].to_lowercase());
         }
+        let mut padded_const = const_mode.clone() + " ".repeat(12 - const_mode.len()).as_str();
         Self {
             code: value["opcode"].as_u8().unwrap(),
             cycles: value["cycles"].as_u8().unwrap(),
             page_cross_incr: value["page_cross_incr"].as_u8().unwrap(),
             length: value["length"].as_u8().unwrap(),
             addressing_mode: mode,
-            addressing_mode_const: value["addr_mode"].as_str().unwrap().to_owned(),
-        }
+            addressing_mode_const: padded_const,
     }
+}
 }
 #[derive(Debug, Clone)]
 struct JsonOp {
@@ -92,6 +94,14 @@ impl JsonOp {
     }
     fn to_code(&self) -> String {
         let mut code = String::new();
+        let mut opcodes = String::from("   pub static ref ");
+        opcodes.push_str(&self.name.to_uppercase());
+        opcodes.push_str(": Operation = Operation::new(\"");
+        opcodes.push_str(&self.name);
+        opcodes.push_str("\", \"");
+        opcodes.push_str(&self.optype);
+        opcodes.push_str("\", vec![");
+
         code.push_str(&format!("/// {}\n", self.doc));
         // disable snake case linting for this line
         code.push_str(&"#[allow(non_snake_case)]\n".to_string());
@@ -99,8 +109,12 @@ impl JsonOp {
         code.push_str(" use super::*;\n\n");
         code.push_str(" lazy_static! {\n");
         for op in &self.ops {
-            code.push_str(&format!("   pub static ref {}: Operation = Operation::new(\"{}\", \"{}\", {:#04X?}, {}, {}, {}, {}, AddressingMode::{});\n", op.addressing_mode_const, self.name, self.optype, op.code, self.name.to_lowercase(), op.cycles, op.page_cross_incr, op.length, op.addressing_mode));
+            code.push_str(&format!("   pub static ref {}: OpCode = OpCode::new(\"{}\", \"{}\", {:#04X?}, {}, {}, {}, {}, AddressingMode::{});\n", op.addressing_mode_const, self.name, self.optype, op.code, self.name.to_lowercase(), op.cycles, op.page_cross_incr, op.length, op.addressing_mode));
+            opcodes.push_str(format!("*{},", op.addressing_mode_const.replace(" ", "")).as_str());
         }
+        opcodes.push_str("]);\\n\n");
+        code.push_str(" \n");
+        code.push_str(&opcodes);
         code.push_str(" }\n}\n\n");
         code = code.replace(r"\n", "\n");
         code
@@ -174,13 +188,13 @@ fn main() {
     for jop in code_ops {
         for op in jop.ops {
             optable[op.code as usize] =
-                OptableEntry::new(op.code, &jop.name.to_uppercase(), &op.addressing_mode_const);
+                OptableEntry::new(op.code, &jop.name.to_uppercase(), &op.addressing_mode_const.replace(" ", ""));
         }
     }
     // generate optable
     code.push_str("\n\n lazy_static! {\n");
     code.push_str(format!("\n {} \n", OPTABLE_HEADER).as_str());
-    code.push_str("    pub static ref OPTABLE: [Operation; 256] = [\n");
+    code.push_str("    pub static ref OPTABLE: [OpCode; 256] = [\n");
     for op in optable {
         code.push_str(&format!(
             "        *{}::{},\n",

@@ -2,7 +2,7 @@ mod arithmatic_ops;
 mod branch_ops;
 mod load_ops;
 pub mod op;
-mod opcode;
+pub(crate) mod opcode;
 pub(crate) mod opcodes;
 mod reg_ops;
 mod stack_ops;

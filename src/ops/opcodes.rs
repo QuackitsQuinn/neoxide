@@ -10,7 +10,7 @@
 //
 //  lazy_static! thank you for existing
 
-use crate::{addressing::AddressingMode, cpu::CPU, ops::{opcode::Operation,op::{nop,undoc_nop},load_ops::*,store_ops::*,reg_ops::*,arithmatic_ops::*,branch_ops::*,stack_ops::*,status_ops::*}};
+use crate::{addressing::AddressingMode, ops::{opcode::{OpCode,Operation},op::{nop,undoc_nop},load_ops::*,store_ops::*,reg_ops::*,arithmatic_ops::*,branch_ops::*,stack_ops::*,status_ops::*}};
 
 /// ADd with Carry
 #[allow(non_snake_case)]
@@ -18,14 +18,17 @@ pub mod ADC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("ADC", "arithmatic", 0x69, adc, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("ADC", "arithmatic", 0x65, adc, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("ADC", "arithmatic", 0x75, adc, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("ADC", "arithmatic", 0x6D, adc, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("ADC", "arithmatic", 0x7D, adc, 4, 1, 3, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("ADC", "arithmatic", 0x79, adc, 4, 1, 3, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new("ADC", "arithmatic", 0x61, adc, 6, 0, 2, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new("ADC", "arithmatic", 0x71, adc, 5, 1, 2, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("ADC", "arithmatic", 0x69, adc, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("ADC", "arithmatic", 0x65, adc, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("ADC", "arithmatic", 0x75, adc, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("ADC", "arithmatic", 0x6D, adc, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("ADC", "arithmatic", 0x7D, adc, 4, 1, 3, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("ADC", "arithmatic", 0x79, adc, 4, 1, 3, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X  : OpCode = OpCode::new("ADC", "arithmatic", 0x61, adc, 6, 0, 2, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y  : OpCode = OpCode::new("ADC", "arithmatic", 0x71, adc, 5, 1, 2, AddressingMode::IndirectY);
+ 
+   pub static ref ADC: Operation = Operation::new("ADC", "arithmatic", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,*ABSOLUTE_Y,*INDIRECT_X,*INDIRECT_Y,]);
+
  }
 }
 
@@ -35,14 +38,17 @@ pub mod AND {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("AND", "arithmatic", 0x29, and, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("AND", "arithmatic", 0x25, and, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("AND", "arithmatic", 0x35, and, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("AND", "arithmatic", 0x2D, and, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("AND", "arithmatic", 0x3D, and, 4, 1, 3, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("AND", "arithmatic", 0x39, and, 4, 1, 3, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new("AND", "arithmatic", 0x21, and, 6, 0, 2, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new("AND", "arithmatic", 0x31, and, 5, 1, 2, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("AND", "arithmatic", 0x29, and, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("AND", "arithmatic", 0x25, and, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("AND", "arithmatic", 0x35, and, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("AND", "arithmatic", 0x2D, and, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("AND", "arithmatic", 0x3D, and, 4, 1, 3, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("AND", "arithmatic", 0x39, and, 4, 1, 3, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X  : OpCode = OpCode::new("AND", "arithmatic", 0x21, and, 6, 0, 2, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y  : OpCode = OpCode::new("AND", "arithmatic", 0x31, and, 5, 1, 2, AddressingMode::IndirectY);
+ 
+   pub static ref AND: Operation = Operation::new("AND", "arithmatic", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,*ABSOLUTE_Y,*INDIRECT_X,*INDIRECT_Y,]);
+
  }
 }
 
@@ -52,11 +58,14 @@ pub mod ASL {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("ASL", "arithmatic", 0x0A, asl, 2, 0, 1, AddressingMode::Implied);
-   pub static ref ZERO_PAGE: Operation = Operation::new("ASL", "arithmatic", 0x06, asl, 5, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("ASL", "arithmatic", 0x16, asl, 6, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("ASL", "arithmatic", 0x0E, asl, 6, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("ASL", "arithmatic", 0x1E, asl, 7, 0, 3, AddressingMode::AbsoluteX);
+   pub static ref IMPLIED     : OpCode = OpCode::new("ASL", "arithmatic", 0x0A, asl, 2, 0, 1, AddressingMode::Implied);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("ASL", "arithmatic", 0x06, asl, 5, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("ASL", "arithmatic", 0x16, asl, 6, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("ASL", "arithmatic", 0x0E, asl, 6, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("ASL", "arithmatic", 0x1E, asl, 7, 0, 3, AddressingMode::AbsoluteX);
+ 
+   pub static ref ASL: Operation = Operation::new("ASL", "arithmatic", vec![*IMPLIED,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,]);
+
  }
 }
 
@@ -66,8 +75,11 @@ pub mod BIT {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new("BIT", "logical", 0x24, bit, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ABSOLUTE: Operation = Operation::new("BIT", "logical", 0x2C, bit, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("BIT", "logical", 0x24, bit, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("BIT", "logical", 0x2C, bit, 4, 0, 3, AddressingMode::Absolute);
+ 
+   pub static ref BIT: Operation = Operation::new("BIT", "logical", vec![*ZERO_PAGE,*ABSOLUTE,]);
+
  }
 }
 
@@ -77,7 +89,10 @@ pub mod BPL {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BPL", "branch", 0x10, bpl, 2, 1, 2, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BPL", "branch", 0x10, bpl, 2, 1, 2, AddressingMode::Implied);
+ 
+   pub static ref BPL: Operation = Operation::new("BPL", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -87,7 +102,10 @@ pub mod BMI {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BMI", "branch", 0x30, bmi, 2, 1, 2, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BMI", "branch", 0x30, bmi, 2, 1, 2, AddressingMode::Implied);
+ 
+   pub static ref BMI: Operation = Operation::new("BMI", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -97,7 +115,10 @@ pub mod BVC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BVC", "branch", 0x50, bvc, 2, 1, 2, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BVC", "branch", 0x50, bvc, 2, 1, 2, AddressingMode::Implied);
+ 
+   pub static ref BVC: Operation = Operation::new("BVC", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -107,7 +128,10 @@ pub mod BVS {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BVS", "branch", 0x70, bvs, 2, 1, 2, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BVS", "branch", 0x70, bvs, 2, 1, 2, AddressingMode::Implied);
+ 
+   pub static ref BVS: Operation = Operation::new("BVS", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -117,7 +141,10 @@ pub mod BCC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BCC", "branch", 0x90, bcc, 2, 1, 2, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BCC", "branch", 0x90, bcc, 2, 1, 2, AddressingMode::Implied);
+ 
+   pub static ref BCC: Operation = Operation::new("BCC", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -127,7 +154,10 @@ pub mod BCS {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BCS", "branch", 0xB0, bcs, 2, 1, 2, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BCS", "branch", 0xB0, bcs, 2, 1, 2, AddressingMode::Implied);
+ 
+   pub static ref BCS: Operation = Operation::new("BCS", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -137,7 +167,10 @@ pub mod BNE {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BNE", "branch", 0xD0, bne, 2, 1, 2, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BNE", "branch", 0xD0, bne, 2, 1, 2, AddressingMode::Implied);
+ 
+   pub static ref BNE: Operation = Operation::new("BNE", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -147,7 +180,10 @@ pub mod BEQ {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BEQ", "branch", 0xF0, beq, 2, 1, 2, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BEQ", "branch", 0xF0, beq, 2, 1, 2, AddressingMode::Implied);
+ 
+   pub static ref BEQ: Operation = Operation::new("BEQ", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -157,7 +193,10 @@ pub mod BRK {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("BRK", "branch", 0x00, brk, 7, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("BRK", "branch", 0x00, brk, 7, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref BRK: Operation = Operation::new("BRK", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -167,14 +206,17 @@ pub mod CMP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("CMP", "logical", 0xC9, cmp, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("CMP", "logical", 0xC5, cmp, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("CMP", "logical", 0xD5, cmp, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("CMP", "logical", 0xCD, cmp, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("CMP", "logical", 0xDD, cmp, 4, 1, 3, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("CMP", "logical", 0xD9, cmp, 4, 1, 3, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new("CMP", "logical", 0xC1, cmp, 6, 0, 2, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new("CMP", "logical", 0xD1, cmp, 5, 1, 2, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("CMP", "logical", 0xC9, cmp, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("CMP", "logical", 0xC5, cmp, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("CMP", "logical", 0xD5, cmp, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("CMP", "logical", 0xCD, cmp, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("CMP", "logical", 0xDD, cmp, 4, 1, 3, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("CMP", "logical", 0xD9, cmp, 4, 1, 3, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X  : OpCode = OpCode::new("CMP", "logical", 0xC1, cmp, 6, 0, 2, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y  : OpCode = OpCode::new("CMP", "logical", 0xD1, cmp, 5, 1, 2, AddressingMode::IndirectY);
+ 
+   pub static ref CMP: Operation = Operation::new("CMP", "logical", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,*ABSOLUTE_Y,*INDIRECT_X,*INDIRECT_Y,]);
+
  }
 }
 
@@ -184,9 +226,12 @@ pub mod CPX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("CPX", "logical", 0xE0, cpx, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("CPX", "logical", 0xE4, cpx, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ABSOLUTE: Operation = Operation::new("CPX", "logical", 0xEC, cpx, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("CPX", "logical", 0xE0, cpx, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("CPX", "logical", 0xE4, cpx, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("CPX", "logical", 0xEC, cpx, 4, 0, 3, AddressingMode::Absolute);
+ 
+   pub static ref CPX: Operation = Operation::new("CPX", "logical", vec![*IMMEDIATE,*ZERO_PAGE,*ABSOLUTE,]);
+
  }
 }
 
@@ -196,9 +241,12 @@ pub mod CPY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("CPY", "logical", 0xC0, cpy, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("CPY", "logical", 0xC4, cpy, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ABSOLUTE: Operation = Operation::new("CPY", "logical", 0xCC, cpy, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("CPY", "logical", 0xC0, cpy, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("CPY", "logical", 0xC4, cpy, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("CPY", "logical", 0xCC, cpy, 4, 0, 3, AddressingMode::Absolute);
+ 
+   pub static ref CPY: Operation = Operation::new("CPY", "logical", vec![*IMMEDIATE,*ZERO_PAGE,*ABSOLUTE,]);
+
  }
 }
 
@@ -208,10 +256,13 @@ pub mod DEC {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new("DEC", "arithmatic", 0xC6, dec, 5, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("DEC", "arithmatic", 0xD6, dec, 6, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("DEC", "arithmatic", 0xCE, dec, 6, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("DEC", "arithmatic", 0xDE, dec, 7, 0, 3, AddressingMode::AbsoluteX);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("DEC", "arithmatic", 0xC6, dec, 5, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("DEC", "arithmatic", 0xD6, dec, 6, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("DEC", "arithmatic", 0xCE, dec, 6, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("DEC", "arithmatic", 0xDE, dec, 7, 0, 3, AddressingMode::AbsoluteX);
+ 
+   pub static ref DEC: Operation = Operation::new("DEC", "arithmatic", vec![*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,]);
+
  }
 }
 
@@ -221,14 +272,17 @@ pub mod EOR {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("EOR", "arithmatic", 0x49, eor, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("EOR", "arithmatic", 0x45, eor, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("EOR", "arithmatic", 0x55, eor, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("EOR", "arithmatic", 0x4D, eor, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("EOR", "arithmatic", 0x5D, eor, 4, 1, 3, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("EOR", "arithmatic", 0x59, eor, 4, 1, 3, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new("EOR", "arithmatic", 0x41, eor, 6, 0, 2, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new("EOR", "arithmatic", 0x51, eor, 5, 1, 2, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("EOR", "arithmatic", 0x49, eor, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("EOR", "arithmatic", 0x45, eor, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("EOR", "arithmatic", 0x55, eor, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("EOR", "arithmatic", 0x4D, eor, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("EOR", "arithmatic", 0x5D, eor, 4, 1, 3, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("EOR", "arithmatic", 0x59, eor, 4, 1, 3, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X  : OpCode = OpCode::new("EOR", "arithmatic", 0x41, eor, 6, 0, 2, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y  : OpCode = OpCode::new("EOR", "arithmatic", 0x51, eor, 5, 1, 2, AddressingMode::IndirectY);
+ 
+   pub static ref EOR: Operation = Operation::new("EOR", "arithmatic", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,*ABSOLUTE_Y,*INDIRECT_X,*INDIRECT_Y,]);
+
  }
 }
 
@@ -238,7 +292,10 @@ pub mod CLC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("CLC", "flag", 0x18, clc, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("CLC", "flag", 0x18, clc, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref CLC: Operation = Operation::new("CLC", "flag", vec![*IMPLIED,]);
+
  }
 }
 
@@ -248,7 +305,10 @@ pub mod SEC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("SEC", "flag", 0x38, sec, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("SEC", "flag", 0x38, sec, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref SEC: Operation = Operation::new("SEC", "flag", vec![*IMPLIED,]);
+
  }
 }
 
@@ -258,7 +318,10 @@ pub mod CLI {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("CLI", "flag", 0x58, cli, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("CLI", "flag", 0x58, cli, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref CLI: Operation = Operation::new("CLI", "flag", vec![*IMPLIED,]);
+
  }
 }
 
@@ -268,7 +331,10 @@ pub mod SEI {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("SEI", "flag", 0x78, sei, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("SEI", "flag", 0x78, sei, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref SEI: Operation = Operation::new("SEI", "flag", vec![*IMPLIED,]);
+
  }
 }
 
@@ -278,7 +344,10 @@ pub mod CLV {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("CLV", "flag", 0xB8, clv, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("CLV", "flag", 0xB8, clv, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref CLV: Operation = Operation::new("CLV", "flag", vec![*IMPLIED,]);
+
  }
 }
 
@@ -288,7 +357,10 @@ pub mod CLD {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("CLD", "flag", 0xD8, cld, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("CLD", "flag", 0xD8, cld, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref CLD: Operation = Operation::new("CLD", "flag", vec![*IMPLIED,]);
+
  }
 }
 
@@ -298,7 +370,10 @@ pub mod SED {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("SED", "flag", 0xF8, sed, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("SED", "flag", 0xF8, sed, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref SED: Operation = Operation::new("SED", "flag", vec![*IMPLIED,]);
+
  }
 }
 
@@ -308,10 +383,13 @@ pub mod INC {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new("INC", "arithmatic", 0xE6, inc, 5, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("INC", "arithmatic", 0xF6, inc, 6, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("INC", "arithmatic", 0xEE, inc, 6, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("INC", "arithmatic", 0xFE, inc, 7, 0, 3, AddressingMode::AbsoluteX);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("INC", "arithmatic", 0xE6, inc, 5, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("INC", "arithmatic", 0xF6, inc, 6, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("INC", "arithmatic", 0xEE, inc, 6, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("INC", "arithmatic", 0xFE, inc, 7, 0, 3, AddressingMode::AbsoluteX);
+ 
+   pub static ref INC: Operation = Operation::new("INC", "arithmatic", vec![*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,]);
+
  }
 }
 
@@ -321,8 +399,11 @@ pub mod JMP {
  use super::*;
 
  lazy_static! {
-   pub static ref ABSOLUTE: Operation = Operation::new("JMP", "branch", 0x4C, jmp, 3, 0, 3, AddressingMode::Absolute);
-   pub static ref INDIRECT: Operation = Operation::new("JMP", "branch", 0x6C, jmp, 5, 0, 3, AddressingMode::Indirect);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("JMP", "branch", 0x4C, jmp, 3, 0, 3, AddressingMode::Absolute);
+   pub static ref INDIRECT    : OpCode = OpCode::new("JMP", "branch", 0x6C, jmp, 5, 0, 3, AddressingMode::Indirect);
+ 
+   pub static ref JMP: Operation = Operation::new("JMP", "branch", vec![*ABSOLUTE,*INDIRECT,]);
+
  }
 }
 
@@ -332,7 +413,10 @@ pub mod JSR {
  use super::*;
 
  lazy_static! {
-   pub static ref ABSOLUTE: Operation = Operation::new("JSR", "branch", 0x20, jsr, 6, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("JSR", "branch", 0x20, jsr, 6, 0, 3, AddressingMode::Absolute);
+ 
+   pub static ref JSR: Operation = Operation::new("JSR", "branch", vec![*ABSOLUTE,]);
+
  }
 }
 
@@ -342,14 +426,17 @@ pub mod LDA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("LDA", "movement", 0xA9, lda, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("LDA", "movement", 0xA5, lda, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("LDA", "movement", 0xB5, lda, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("LDA", "movement", 0xAD, lda, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("LDA", "movement", 0xBD, lda, 4, 1, 3, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("LDA", "movement", 0xB9, lda, 4, 1, 3, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new("LDA", "movement", 0xA1, lda, 6, 0, 2, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new("LDA", "movement", 0xB1, lda, 5, 1, 2, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("LDA", "movement", 0xA9, lda, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("LDA", "movement", 0xA5, lda, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("LDA", "movement", 0xB5, lda, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("LDA", "movement", 0xAD, lda, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("LDA", "movement", 0xBD, lda, 4, 1, 3, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("LDA", "movement", 0xB9, lda, 4, 1, 3, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X  : OpCode = OpCode::new("LDA", "movement", 0xA1, lda, 6, 0, 2, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y  : OpCode = OpCode::new("LDA", "movement", 0xB1, lda, 5, 1, 2, AddressingMode::IndirectY);
+ 
+   pub static ref LDA: Operation = Operation::new("LDA", "movement", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,*ABSOLUTE_Y,*INDIRECT_X,*INDIRECT_Y,]);
+
  }
 }
 
@@ -359,11 +446,14 @@ pub mod LDX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("LDX", "movement", 0xA2, ldx, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("LDX", "movement", 0xA6, ldx, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_Y: Operation = Operation::new("LDX", "movement", 0xB6, ldx, 4, 0, 2, AddressingMode::ZeroPageY);
-   pub static ref ABSOLUTE: Operation = Operation::new("LDX", "movement", 0xAE, ldx, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("LDX", "movement", 0xBE, ldx, 4, 1, 3, AddressingMode::AbsoluteY);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("LDX", "movement", 0xA2, ldx, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("LDX", "movement", 0xA6, ldx, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_Y : OpCode = OpCode::new("LDX", "movement", 0xB6, ldx, 4, 0, 2, AddressingMode::ZeroPageY);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("LDX", "movement", 0xAE, ldx, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("LDX", "movement", 0xBE, ldx, 4, 1, 3, AddressingMode::AbsoluteY);
+ 
+   pub static ref LDX: Operation = Operation::new("LDX", "movement", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_Y,*ABSOLUTE,*ABSOLUTE_Y,]);
+
  }
 }
 
@@ -373,11 +463,14 @@ pub mod LDY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("LDY", "movement", 0xA0, ldy, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("LDY", "movement", 0xA4, ldy, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("LDY", "movement", 0xB4, ldy, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("LDY", "movement", 0xAC, ldy, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("LDY", "movement", 0xBC, ldy, 4, 1, 3, AddressingMode::AbsoluteX);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("LDY", "movement", 0xA0, ldy, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("LDY", "movement", 0xA4, ldy, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("LDY", "movement", 0xB4, ldy, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("LDY", "movement", 0xAC, ldy, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("LDY", "movement", 0xBC, ldy, 4, 1, 3, AddressingMode::AbsoluteX);
+ 
+   pub static ref LDY: Operation = Operation::new("LDY", "movement", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,]);
+
  }
 }
 
@@ -387,11 +480,14 @@ pub mod LSR {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("LSR", "arithmatic", 0x4A, lsr, 2, 0, 1, AddressingMode::Implied);
-   pub static ref ZERO_PAGE: Operation = Operation::new("LSR", "arithmatic", 0x46, lsr, 5, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("LSR", "arithmatic", 0x56, lsr, 6, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("LSR", "arithmatic", 0x4E, lsr, 6, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("LSR", "arithmatic", 0x5E, lsr, 7, 0, 3, AddressingMode::AbsoluteX);
+   pub static ref IMPLIED     : OpCode = OpCode::new("LSR", "arithmatic", 0x4A, lsr, 2, 0, 1, AddressingMode::Implied);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("LSR", "arithmatic", 0x46, lsr, 5, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("LSR", "arithmatic", 0x56, lsr, 6, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("LSR", "arithmatic", 0x4E, lsr, 6, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("LSR", "arithmatic", 0x5E, lsr, 7, 0, 3, AddressingMode::AbsoluteX);
+ 
+   pub static ref LSR: Operation = Operation::new("LSR", "arithmatic", vec![*IMPLIED,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,]);
+
  }
 }
 
@@ -401,7 +497,10 @@ pub mod NOP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("NOP", "movement", 0xEA, nop, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("NOP", "movement", 0xEA, nop, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref NOP: Operation = Operation::new("NOP", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -411,14 +510,17 @@ pub mod ORA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("ORA", "arithmatic", 0x09, ora, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("ORA", "arithmatic", 0x05, ora, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("ORA", "arithmatic", 0x15, ora, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("ORA", "arithmatic", 0x0D, ora, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("ORA", "arithmatic", 0x1D, ora, 4, 1, 3, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("ORA", "arithmatic", 0x19, ora, 4, 1, 3, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new("ORA", "arithmatic", 0x01, ora, 6, 0, 2, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new("ORA", "arithmatic", 0x11, ora, 5, 1, 2, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("ORA", "arithmatic", 0x09, ora, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("ORA", "arithmatic", 0x05, ora, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("ORA", "arithmatic", 0x15, ora, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("ORA", "arithmatic", 0x0D, ora, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("ORA", "arithmatic", 0x1D, ora, 4, 1, 3, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("ORA", "arithmatic", 0x19, ora, 4, 1, 3, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X  : OpCode = OpCode::new("ORA", "arithmatic", 0x01, ora, 6, 0, 2, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y  : OpCode = OpCode::new("ORA", "arithmatic", 0x11, ora, 5, 1, 2, AddressingMode::IndirectY);
+ 
+   pub static ref ORA: Operation = Operation::new("ORA", "arithmatic", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,*ABSOLUTE_Y,*INDIRECT_X,*INDIRECT_Y,]);
+
  }
 }
 
@@ -428,7 +530,10 @@ pub mod TAX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("TAX", "movement", 0xAA, tax, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("TAX", "movement", 0xAA, tax, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref TAX: Operation = Operation::new("TAX", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -438,7 +543,10 @@ pub mod TXA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("TXA", "movement", 0x8A, txa, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("TXA", "movement", 0x8A, txa, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref TXA: Operation = Operation::new("TXA", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -448,7 +556,10 @@ pub mod DEX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("DEX", "movement", 0xCA, dex, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("DEX", "movement", 0xCA, dex, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref DEX: Operation = Operation::new("DEX", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -458,7 +569,10 @@ pub mod INX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("INX", "movement", 0xE8, inx, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("INX", "movement", 0xE8, inx, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref INX: Operation = Operation::new("INX", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -468,7 +582,10 @@ pub mod TAY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("TAY", "movement", 0xA8, tay, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("TAY", "movement", 0xA8, tay, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref TAY: Operation = Operation::new("TAY", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -478,7 +595,10 @@ pub mod TYA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("TYA", "movement", 0x98, tya, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("TYA", "movement", 0x98, tya, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref TYA: Operation = Operation::new("TYA", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -488,7 +608,10 @@ pub mod DEY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("DEY", "movement", 0x88, dey, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("DEY", "movement", 0x88, dey, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref DEY: Operation = Operation::new("DEY", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -498,7 +621,10 @@ pub mod INY {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("INY", "movement", 0xC8, iny, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("INY", "movement", 0xC8, iny, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref INY: Operation = Operation::new("INY", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -508,11 +634,14 @@ pub mod ROL {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("ROL", "arithmatic", 0x2A, rol, 2, 0, 1, AddressingMode::Implied);
-   pub static ref ZERO_PAGE: Operation = Operation::new("ROL", "arithmatic", 0x26, rol, 5, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("ROL", "arithmatic", 0x36, rol, 6, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("ROL", "arithmatic", 0x2E, rol, 6, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("ROL", "arithmatic", 0x3E, rol, 7, 0, 3, AddressingMode::AbsoluteX);
+   pub static ref IMPLIED     : OpCode = OpCode::new("ROL", "arithmatic", 0x2A, rol, 2, 0, 1, AddressingMode::Implied);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("ROL", "arithmatic", 0x26, rol, 5, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("ROL", "arithmatic", 0x36, rol, 6, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("ROL", "arithmatic", 0x2E, rol, 6, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("ROL", "arithmatic", 0x3E, rol, 7, 0, 3, AddressingMode::AbsoluteX);
+ 
+   pub static ref ROL: Operation = Operation::new("ROL", "arithmatic", vec![*IMPLIED,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,]);
+
  }
 }
 
@@ -522,11 +651,14 @@ pub mod ROR {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("ROR", "arithmatic", 0x6A, ror, 2, 0, 1, AddressingMode::Implied);
-   pub static ref ZERO_PAGE: Operation = Operation::new("ROR", "arithmatic", 0x66, ror, 5, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("ROR", "arithmatic", 0x76, ror, 6, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("ROR", "arithmatic", 0x6E, ror, 6, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("ROR", "arithmatic", 0x7E, ror, 7, 0, 3, AddressingMode::AbsoluteX);
+   pub static ref IMPLIED     : OpCode = OpCode::new("ROR", "arithmatic", 0x6A, ror, 2, 0, 1, AddressingMode::Implied);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("ROR", "arithmatic", 0x66, ror, 5, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("ROR", "arithmatic", 0x76, ror, 6, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("ROR", "arithmatic", 0x6E, ror, 6, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("ROR", "arithmatic", 0x7E, ror, 7, 0, 3, AddressingMode::AbsoluteX);
+ 
+   pub static ref ROR: Operation = Operation::new("ROR", "arithmatic", vec![*IMPLIED,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,]);
+
  }
 }
 
@@ -536,7 +668,10 @@ pub mod RTI {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("RTI", "branch", 0x40, rti, 6, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("RTI", "branch", 0x40, rti, 6, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref RTI: Operation = Operation::new("RTI", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -546,7 +681,10 @@ pub mod RTS {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("RTS", "branch", 0x60, rts, 6, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("RTS", "branch", 0x60, rts, 6, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref RTS: Operation = Operation::new("RTS", "branch", vec![*IMPLIED,]);
+
  }
 }
 
@@ -556,14 +694,17 @@ pub mod SBC {
  use super::*;
 
  lazy_static! {
-   pub static ref IMMEDIATE: Operation = Operation::new("SBC", "arithmatic", 0xE9, sbc, 2, 0, 2, AddressingMode::Immediate);
-   pub static ref ZERO_PAGE: Operation = Operation::new("SBC", "arithmatic", 0xE5, sbc, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("SBC", "arithmatic", 0xF5, sbc, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("SBC", "arithmatic", 0xED, sbc, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("SBC", "arithmatic", 0xFD, sbc, 4, 1, 3, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("SBC", "arithmatic", 0xF9, sbc, 4, 1, 3, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new("SBC", "arithmatic", 0xE1, sbc, 6, 0, 2, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new("SBC", "arithmatic", 0xF1, sbc, 5, 1, 2, AddressingMode::IndirectY);
+   pub static ref IMMEDIATE   : OpCode = OpCode::new("SBC", "arithmatic", 0xE9, sbc, 2, 0, 2, AddressingMode::Immediate);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("SBC", "arithmatic", 0xE5, sbc, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("SBC", "arithmatic", 0xF5, sbc, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("SBC", "arithmatic", 0xED, sbc, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("SBC", "arithmatic", 0xFD, sbc, 4, 1, 3, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("SBC", "arithmatic", 0xF9, sbc, 4, 1, 3, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X  : OpCode = OpCode::new("SBC", "arithmatic", 0xE1, sbc, 6, 0, 2, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y  : OpCode = OpCode::new("SBC", "arithmatic", 0xF1, sbc, 5, 1, 2, AddressingMode::IndirectY);
+ 
+   pub static ref SBC: Operation = Operation::new("SBC", "arithmatic", vec![*IMMEDIATE,*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,*ABSOLUTE_Y,*INDIRECT_X,*INDIRECT_Y,]);
+
  }
 }
 
@@ -573,13 +714,16 @@ pub mod STA {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new("STA", "movement", 0x85, sta, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("STA", "movement", 0x95, sta, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("STA", "movement", 0x8D, sta, 4, 0, 3, AddressingMode::Absolute);
-   pub static ref ABSOLUTE_X: Operation = Operation::new("STA", "movement", 0x9D, sta, 5, 0, 3, AddressingMode::AbsoluteX);
-   pub static ref ABSOLUTE_Y: Operation = Operation::new("STA", "movement", 0x99, sta, 5, 0, 3, AddressingMode::AbsoluteY);
-   pub static ref INDIRECT_X: Operation = Operation::new("STA", "movement", 0x81, sta, 6, 0, 2, AddressingMode::IndirectX);
-   pub static ref INDIRECT_Y: Operation = Operation::new("STA", "movement", 0x91, sta, 6, 0, 2, AddressingMode::IndirectY);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("STA", "movement", 0x85, sta, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("STA", "movement", 0x95, sta, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("STA", "movement", 0x8D, sta, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ABSOLUTE_X  : OpCode = OpCode::new("STA", "movement", 0x9D, sta, 5, 0, 3, AddressingMode::AbsoluteX);
+   pub static ref ABSOLUTE_Y  : OpCode = OpCode::new("STA", "movement", 0x99, sta, 5, 0, 3, AddressingMode::AbsoluteY);
+   pub static ref INDIRECT_X  : OpCode = OpCode::new("STA", "movement", 0x81, sta, 6, 0, 2, AddressingMode::IndirectX);
+   pub static ref INDIRECT_Y  : OpCode = OpCode::new("STA", "movement", 0x91, sta, 6, 0, 2, AddressingMode::IndirectY);
+ 
+   pub static ref STA: Operation = Operation::new("STA", "movement", vec![*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,*ABSOLUTE_X,*ABSOLUTE_Y,*INDIRECT_X,*INDIRECT_Y,]);
+
  }
 }
 
@@ -589,7 +733,10 @@ pub mod TXS {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("TXS", "movement", 0x9A, txs, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("TXS", "movement", 0x9A, txs, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref TXS: Operation = Operation::new("TXS", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -599,7 +746,10 @@ pub mod TSX {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("TSX", "movement", 0xBA, tsx, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("TSX", "movement", 0xBA, tsx, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref TSX: Operation = Operation::new("TSX", "movement", vec![*IMPLIED,]);
+
  }
 }
 
@@ -609,7 +759,10 @@ pub mod PHA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("PHA", "stack", 0x48, pha, 3, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("PHA", "stack", 0x48, pha, 3, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref PHA: Operation = Operation::new("PHA", "stack", vec![*IMPLIED,]);
+
  }
 }
 
@@ -619,7 +772,10 @@ pub mod PLA {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("PLA", "stack", 0x68, pla, 4, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("PLA", "stack", 0x68, pla, 4, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref PLA: Operation = Operation::new("PLA", "stack", vec![*IMPLIED,]);
+
  }
 }
 
@@ -629,7 +785,10 @@ pub mod PHP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("PHP", "stack", 0x08, php, 3, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("PHP", "stack", 0x08, php, 3, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref PHP: Operation = Operation::new("PHP", "stack", vec![*IMPLIED,]);
+
  }
 }
 
@@ -639,7 +798,10 @@ pub mod PLP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("PLP", "stack", 0x28, plp, 4, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED     : OpCode = OpCode::new("PLP", "stack", 0x28, plp, 4, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref PLP: Operation = Operation::new("PLP", "stack", vec![*IMPLIED,]);
+
  }
 }
 
@@ -649,9 +811,12 @@ pub mod STX {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new("STX", "movement", 0x86, stx, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_Y: Operation = Operation::new("STX", "movement", 0x96, stx, 4, 0, 2, AddressingMode::ZeroPageY);
-   pub static ref ABSOLUTE: Operation = Operation::new("STX", "movement", 0x8E, stx, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("STX", "movement", 0x86, stx, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_Y : OpCode = OpCode::new("STX", "movement", 0x96, stx, 4, 0, 2, AddressingMode::ZeroPageY);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("STX", "movement", 0x8E, stx, 4, 0, 3, AddressingMode::Absolute);
+ 
+   pub static ref STX: Operation = Operation::new("STX", "movement", vec![*ZERO_PAGE,*ZERO_PAGE_Y,*ABSOLUTE,]);
+
  }
 }
 
@@ -661,9 +826,12 @@ pub mod STY {
  use super::*;
 
  lazy_static! {
-   pub static ref ZERO_PAGE: Operation = Operation::new("STY", "movement", 0x84, sty, 3, 0, 2, AddressingMode::ZeroPage);
-   pub static ref ZERO_PAGE_X: Operation = Operation::new("STY", "movement", 0x94, sty, 4, 0, 2, AddressingMode::ZeroPageX);
-   pub static ref ABSOLUTE: Operation = Operation::new("STY", "movement", 0x8C, sty, 4, 0, 3, AddressingMode::Absolute);
+   pub static ref ZERO_PAGE   : OpCode = OpCode::new("STY", "movement", 0x84, sty, 3, 0, 2, AddressingMode::ZeroPage);
+   pub static ref ZERO_PAGE_X : OpCode = OpCode::new("STY", "movement", 0x94, sty, 4, 0, 2, AddressingMode::ZeroPageX);
+   pub static ref ABSOLUTE    : OpCode = OpCode::new("STY", "movement", 0x8C, sty, 4, 0, 3, AddressingMode::Absolute);
+ 
+   pub static ref STY: Operation = Operation::new("STY", "movement", vec![*ZERO_PAGE,*ZERO_PAGE_X,*ABSOLUTE,]);
+
  }
 }
 
@@ -673,7 +841,10 @@ pub mod UNDOC_NOP {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: Operation = Operation::new("UNDOC_NOP", "no-op", 0xEA, undoc_nop, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: OpCode = OpCode::new("UNDOC_NOP", "no-op", 0xEA, undoc_nop, 2, 0, 1, AddressingMode::Implied);
+ 
+   pub static ref UNDOC_NOP: Operation = Operation::new("UNDOC_NOP", "no-op", vec![*IMPLIED,]);
+
  }
 }
 
@@ -687,7 +858,7 @@ pub mod UNDOC_NOP {
 /// Any opcode marked as UNDOC_NOP is an undocumented opcode, and will be logged when executed, but will not do anything.
 /// The optable is like a huge match statement, but is **SIGNIFICANTLY** faster because it is a static array.
  
-    pub static ref OPTABLE: [Operation; 256] = [
+    pub static ref OPTABLE: [OpCode; 256] = [
         *BRK::IMPLIED,
         *ORA::INDIRECT_X,
         *UNDOC_NOP::IMPLIED,

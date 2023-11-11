@@ -23,6 +23,7 @@ mod ops;
 mod reg;
 mod render;
 mod stack;
+mod test;
 // no-op then jne to no op
 fn log(cpu: &mut CPU) {
     info!(

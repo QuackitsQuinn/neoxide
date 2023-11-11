@@ -1,7 +1,7 @@
 use crate::{addressing::AddressingMode, cpu::CPU};
 
 #[derive(Clone, Copy)]
-pub struct Operation {
+pub struct OpCode {
     pub name: &'static str,
     pub optype: &'static str,
     pub code: u8,
@@ -13,7 +13,7 @@ pub struct Operation {
     pub mode: AddressingMode,
 }
 
-impl Operation {
+impl OpCode {
     pub fn new(
         name: &'static str,
         optype: &'static str,
@@ -36,4 +36,30 @@ impl Operation {
         }
     }
 }
-// ideally this will be generated from a build script (do build scripts )
+impl From<OpCode> for u8 {
+    fn from(op: OpCode) -> Self {
+        op.code
+    }
+}
+/// Contains all the opcodes for a certain operation
+pub struct Operation {
+    pub name: &'static str,
+    pub type_name: &'static str,
+    pub ops: Vec<OpCode>,
+    pub codes: Vec<u8>,
+}
+
+impl Operation {
+    pub fn new(name: &'static str, type_name: &'static str, ops: Vec<OpCode>) -> Self {
+        let mut codes = Vec::new();
+        for op in &ops {
+            codes.push(op.code);
+        }
+        Self {
+            name,
+            type_name,
+            ops,
+            codes,
+        }
+    }
+}

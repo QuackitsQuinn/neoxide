@@ -1,6 +1,6 @@
 use crate::{addressing::AddressingMode, cpu::CPU, reg::Register};
 
-use super::{opcode::Operation, opcodes};
+use super::{opcode::OpCode, opcodes};
 
 /// Delegates the execution of the next operation to the appropriate function.  
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
@@ -20,7 +20,7 @@ pub fn exec_op(cpu: &mut CPU) -> bool {
     true
 }
 
-pub fn log_op(cpu: &mut CPU, ex_op: Operation, init_pc: u16) {
+pub fn log_op(cpu: &mut CPU, ex_op: OpCode, init_pc: u16) {
     info!(
         "Executing opcode: {:#X} ({}:{}) at address {:#4X}:{:#4X}",
         ex_op.code,
