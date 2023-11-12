@@ -36,11 +36,13 @@ impl OpCode {
         }
     }
 }
+
 impl From<OpCode> for u8 {
     fn from(op: OpCode) -> Self {
         op.code
     }
 }
+
 /// Contains all the opcodes for a certain operation
 pub struct Operation {
     pub name: &'static str,

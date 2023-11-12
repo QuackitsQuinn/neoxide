@@ -104,17 +104,15 @@ impl CPU {
             AddressingMode::IndirectX => {
                 // i like ptrptr
                 let ptrptr = self.read_opbyte().wrapping_add(self.x.read());
-                let ptr = self.read(ptrptr as u16) as u16;
-                let low = self.read(ptr) as u16;
-                let high = self.read(ptr.wrapping_add(1)) as u16;
+                let low = self.read(ptrptr as u16) as u16;
+                let high = self.read(ptrptr.wrapping_add(1) as u16) as u16;
                 (high << 8) | low
             }
             AddressingMode::IndirectY => {
-                let ptrptr = self.read_opbyte().wrapping_add(self.y.read());
-                let ptr = self.read(ptrptr as u16) as u16;
-                let low = self.read(ptr) as u16;
-                let high = self.read(ptr.wrapping_add(1)) as u16;
-                (high << 8) | low
+                let ptrptr = self.read_opbyte();
+                let low = self.read(ptrptr as u16) as u16;
+                let high = self.read(ptrptr.wrapping_add(1) as u16) as u16;
+                (high << 8) | low + self.y.read() as u16
             }
             AddressingMode::Indirect => {
                 let ptr = self.read_u16();
@@ -213,4 +211,69 @@ mod cpu_tests {
         assert_eq!(cpu.pc.read(), 0);
         assert_eq!(cpu.mem.read_u8(0xFF), 0);
     }
-}
+
+    mod test_get_addr {
+        use crate::{test::{config_cpu, ProgramBuilder}, ops::opcode::OpCode};
+
+        use super::*;
+        #[test]
+        fn test_get_addr_zp() {
+            let mut cpu = config_cpu(vec![0,0x45]);
+            dbg!(&cpu.mem.mem[0..20]);
+            dbg!(&cpu.pc.read());
+            assert_eq!(cpu.get_addr(AddressingMode::ZeroPage), 0x45);
+        }
+        #[test]
+        fn test_get_addr_zpx() {
+            let mut cpu = config_cpu(vec![0,0x45]);
+            cpu.x.write(0x10);
+            assert_eq!(cpu.get_addr(AddressingMode::ZeroPageX), 0x55);
+        }
+
+        #[test]
+        fn test_get_addr_zpy() {
+            let mut cpu = config_cpu(vec![0,0x45]);
+            cpu.y.write(0x10);
+            assert_eq!(cpu.get_addr(AddressingMode::ZeroPageY), 0x55);
+        }
+
+        #[test]
+        fn test_get_addr_abs() {
+            let mut cpu = config_cpu(vec![0,0x45,0x45]);
+            assert_eq!(cpu.get_addr(AddressingMode::Absolute), 0x4545);
+        }
+
+        #[test]
+        fn test_get_addr_absx() {
+            let mut cpu = config_cpu(vec![0,0x45,0x45]);
+            cpu.x.write(0x10);
+            assert_eq!(cpu.get_addr(AddressingMode::AbsoluteX), 0x4555);
+        }
+
+        #[test]
+        fn test_get_addr_absy() {
+            let mut cpu = config_cpu(vec![0,0x45,0x45]);
+            cpu.y.write(0x10);
+            assert_eq!(cpu.get_addr(AddressingMode::AbsoluteY), 0x4555);
+        }
+
+        #[test]
+        fn test_get_addr_indx() {
+            let mut cpu = config_cpu(vec![0,0x45]);
+            cpu.x.write(0x10);
+            cpu.mem.write(0x55, 0x45);
+            cpu.mem.write(0x56, 0x45);
+            assert_eq!(cpu.get_addr(AddressingMode::IndirectX), 0x4545);
+        }
+
+        #[test]
+        fn test_get_addr_indy() {
+            let mut cpu = config_cpu(vec![0,0x45]);
+            cpu.y.write(0x05);
+            cpu.mem.write(0x50, 0x55);
+            cpu.mem.write(0x51, 0x45);
+            assert_eq!(cpu.get_addr(AddressingMode::IndirectY), 0x4555);
+        }
+        
+
+}}

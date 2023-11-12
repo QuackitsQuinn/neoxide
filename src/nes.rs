@@ -68,7 +68,6 @@ impl NES {
         let mut canvas = window
             .into_canvas()
             .accelerated()
-            .present_vsync()
             .build()
             .unwrap();
         let texutre_creator = canvas.texture_creator();
@@ -113,11 +112,11 @@ impl NES {
                 Event::KeyDown {
                     keycode: Some(Keycode::Down),
                     ..
-                } => self.cpu.write(0xff, 0x77),
+                } => self.cpu.write(0xff, 0x73),
                 Event::KeyDown {
                     keycode: Some(Keycode::Up),
                     ..
-                } => self.cpu.write(0xff, 0x73),
+                } => self.cpu.write(0xff, 0x77),
                 Event::KeyDown {
                     keycode: Some(Keycode::Left),
                     ..

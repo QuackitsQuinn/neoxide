@@ -9,6 +9,7 @@ pub fn config_cpu(ops: Vec<u8>) -> CPU {
     let mut cpu = CPU::new();
     cpu.set_load_offset(0);
     cpu.load_vec(ops);
+    cpu.pc.reset();
     cpu
 }
 /// Helpful struct for building 6502 programs
