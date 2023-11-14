@@ -13,7 +13,7 @@ pub fn config_cpu(ops: Vec<u8>) -> CPU {
     cpu
 }
 /// Helpful struct for building 6502 programs
-pub struct ProgramBuilder(Vec<u8>);
+pub(crate) struct ProgramBuilder(Vec<u8>);
 
 impl Default for ProgramBuilder {
     fn default() -> Self {

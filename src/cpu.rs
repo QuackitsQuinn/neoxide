@@ -270,9 +270,8 @@ mod cpu_tests {
         fn test_get_addr_indy() {
             let mut cpu = config_cpu(vec![0,0x45]);
             cpu.y.write(0x05);
-            cpu.mem.write(0x50, 0x55);
-            cpu.mem.write(0x51, 0x45);
-            assert_eq!(cpu.get_addr(AddressingMode::IndirectY), 0x4555);
+            cpu.mem.write(0x45, 0x05);
+            assert_eq!(cpu.get_addr(AddressingMode::IndirectY), 0x0A);
         }
         
 

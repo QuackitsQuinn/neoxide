@@ -150,7 +150,9 @@ impl From<&JsonValue> for JsonOp {
     }
 }
 const UNDOC_NOP: &str = "undoc_nop";
-// generates the code for the nes opcodes
+/// Generates the code for the nes opcodes.
+/// This is ran on build, and generates the opcodes.rs file.
+/// It doesnt check for changes, but its quick enough that it doesnt matter.
 fn main() {
     // add homebrew sdl2 install
     // aka this is a weird solution to get neoxide to compile on a school lock-downed mac
