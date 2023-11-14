@@ -21,7 +21,7 @@ use crate::{addressing::AddressingMode, ops::{opcode::{OpCode,Operation},op::{no
 const OPTABLE_HEADER: &str = r#"
 /// This is the optable, which contains all of the opcodes for the 6502 CPU.
 /// The order of the ops is **EXTREMELY** important, as the index is the opcode byte.
-/// Any opcode marked as UNDOC_NOP is an undocumented opcode, and will be logged when executed, but will not do anything.
+/// Any opcode marked as undoc_nop is an undocumented opcode, and will be logged when executed, but will not do anything.
 /// The optable is like a huge match statement, but is **SIGNIFICANTLY** faster because it is a static array.
 "#;
 #[derive(Debug, Clone)]
@@ -105,7 +105,7 @@ impl JsonOp {
         code.push_str(&format!("/// {}\n", self.doc));
         // disable snake case linting for this line
         code.push_str(&"#[allow(non_snake_case)]\n".to_string());
-        code.push_str(&format!("pub mod {} {{\n", self.name.to_uppercase()));
+        code.push_str(&format!("pub mod {} {{\n", self.name.to_lowercase()));
         code.push_str(" use super::*;\n\n");
         code.push_str(" lazy_static! {\n");
         for op in &self.ops {
@@ -149,6 +149,7 @@ impl From<&JsonValue> for JsonOp {
         Self::new(name, doc, optype, ops)
     }
 }
+const UNDOC_NOP: &str = "undoc_nop";
 // generates the code for the nes opcodes
 fn main() {
     // add homebrew sdl2 install
@@ -157,41 +158,43 @@ fn main() {
         "cargo:rustc-link-search={}/homebrew/Cellar/sdl2/2.28.5/lib/",
         std::env::var("HOME").unwrap()
     );
-    // return if opcodes.rs exists
-    if !std::path::Path::new("src/ops/opcodes.rs").exists() {
-        return; // uncomment this to prevent overwriting opcodes.rs
-    }
+    // create opcodes.rs
     let mut codefile = std::fs::File::create("src/ops/opcodes.rs").unwrap();
+    // write header
     let mut code = String::from(HEADER);
+    // read json file
     let ops = json::parse(include_str!("res/6502.json")).unwrap();
+    // convert json to ops
     let mut code_ops: Vec<JsonOp> = Vec::new();
+    // iterate over ops and convert to JsonOps (into is so cool)
     for op in ops.members() {
         let op: JsonOp = op.into();
         code_ops.push(op);
     }
-
+    // write ops to code buffer
     for op in &code_ops {
         code.push_str(&op.to_code());
     }
-
+    // add undocumented no-op (the json file i wrote doesnt include undocumented opcodes)
     let undoc_op = JsonOp::new(
-        "UNDOC_NOP",
+        UNDOC_NOP,
         "Undocumented No-Op",
         "no-op",
         vec![Op::new(0xEA, 2, 0, 1, "Implied", "IMPLIED")],
     );
+    // write undocumented no-op to code buffer
     code.push_str(&undoc_op.to_code());
-    // build ender optable
+    // fill optable with undocumented no-op (this is so that the optable is always filled)
     let mut optable: [OptableEntry; 256] =
-        array_init::array_init(|i: usize| OptableEntry::new(i as u8, "UNDOC_NOP", "Implied"));
-
+        array_init::array_init(|i: usize| OptableEntry::new(i as u8, UNDOC_NOP, "Implied"));
+    // fill optable with generated opcodes
     for jop in code_ops {
         for op in jop.ops {
             optable[op.code as usize] =
-                OptableEntry::new(op.code, &jop.name.to_uppercase(), &op.addressing_mode_const.replace(" ", ""));
+                OptableEntry::new(op.code, &jop.name.to_lowercase(), &op.addressing_mode_const.replace(" ", ""));
         }
     }
-    // generate optable
+    // generate optable code
     code.push_str("\n\n lazy_static! {\n");
     code.push_str(format!("\n {} \n", OPTABLE_HEADER).as_str());
     code.push_str("    pub static ref OPTABLE: [OpCode; 256] = [\n");
@@ -203,5 +206,6 @@ fn main() {
         ));
     }
     code.push_str("    ];\n}\n");
+    // write code to file
     codefile.write_all(code.as_bytes()).unwrap();
 }

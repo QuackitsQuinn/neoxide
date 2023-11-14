@@ -14,7 +14,7 @@ use crate::{addressing::AddressingMode, ops::{opcode::{OpCode,Operation},op::{no
 
 /// ADd with Carry
 #[allow(non_snake_case)]
-pub mod ADC {
+pub mod adc {
  use super::*;
 
  lazy_static! {
@@ -34,7 +34,7 @@ pub mod ADC {
 
 /// bitwise AND with accumulator
 #[allow(non_snake_case)]
-pub mod AND {
+pub mod and {
  use super::*;
 
  lazy_static! {
@@ -54,7 +54,7 @@ pub mod AND {
 
 /// Arithmatic Shift Left
 #[allow(non_snake_case)]
-pub mod ASL {
+pub mod asl {
  use super::*;
 
  lazy_static! {
@@ -71,7 +71,7 @@ pub mod ASL {
 
 /// test BITs
 #[allow(non_snake_case)]
-pub mod BIT {
+pub mod bit {
  use super::*;
 
  lazy_static! {
@@ -85,7 +85,7 @@ pub mod BIT {
 
 /// Branch on PLus
 #[allow(non_snake_case)]
-pub mod BPL {
+pub mod bpl {
  use super::*;
 
  lazy_static! {
@@ -98,7 +98,7 @@ pub mod BPL {
 
 /// Branch on MInus
 #[allow(non_snake_case)]
-pub mod BMI {
+pub mod bmi {
  use super::*;
 
  lazy_static! {
@@ -111,7 +111,7 @@ pub mod BMI {
 
 /// Branch on oVerflow Clear
 #[allow(non_snake_case)]
-pub mod BVC {
+pub mod bvc {
  use super::*;
 
  lazy_static! {
@@ -124,7 +124,7 @@ pub mod BVC {
 
 /// Branch on oVerflow Set
 #[allow(non_snake_case)]
-pub mod BVS {
+pub mod bvs {
  use super::*;
 
  lazy_static! {
@@ -137,7 +137,7 @@ pub mod BVS {
 
 /// Branch on Carry Clear
 #[allow(non_snake_case)]
-pub mod BCC {
+pub mod bcc {
  use super::*;
 
  lazy_static! {
@@ -150,7 +150,7 @@ pub mod BCC {
 
 /// Branch on Carry Set
 #[allow(non_snake_case)]
-pub mod BCS {
+pub mod bcs {
  use super::*;
 
  lazy_static! {
@@ -163,7 +163,7 @@ pub mod BCS {
 
 /// Branch on Not Equal
 #[allow(non_snake_case)]
-pub mod BNE {
+pub mod bne {
  use super::*;
 
  lazy_static! {
@@ -176,7 +176,7 @@ pub mod BNE {
 
 /// Branch on EQual
 #[allow(non_snake_case)]
-pub mod BEQ {
+pub mod beq {
  use super::*;
 
  lazy_static! {
@@ -189,7 +189,7 @@ pub mod BEQ {
 
 /// BReaK
 #[allow(non_snake_case)]
-pub mod BRK {
+pub mod brk {
  use super::*;
 
  lazy_static! {
@@ -202,7 +202,7 @@ pub mod BRK {
 
 /// CoMPare accumulator
 #[allow(non_snake_case)]
-pub mod CMP {
+pub mod cmp {
  use super::*;
 
  lazy_static! {
@@ -222,7 +222,7 @@ pub mod CMP {
 
 /// ComPare X register
 #[allow(non_snake_case)]
-pub mod CPX {
+pub mod cpx {
  use super::*;
 
  lazy_static! {
@@ -237,7 +237,7 @@ pub mod CPX {
 
 /// ComPare Y register
 #[allow(non_snake_case)]
-pub mod CPY {
+pub mod cpy {
  use super::*;
 
  lazy_static! {
@@ -252,7 +252,7 @@ pub mod CPY {
 
 /// DECrement memory
 #[allow(non_snake_case)]
-pub mod DEC {
+pub mod dec {
  use super::*;
 
  lazy_static! {
@@ -268,7 +268,7 @@ pub mod DEC {
 
 /// bitwise Exclusive OR
 #[allow(non_snake_case)]
-pub mod EOR {
+pub mod eor {
  use super::*;
 
  lazy_static! {
@@ -288,7 +288,7 @@ pub mod EOR {
 
 /// CLear Carry
 #[allow(non_snake_case)]
-pub mod CLC {
+pub mod clc {
  use super::*;
 
  lazy_static! {
@@ -301,7 +301,7 @@ pub mod CLC {
 
 /// SEt Carry
 #[allow(non_snake_case)]
-pub mod SEC {
+pub mod sec {
  use super::*;
 
  lazy_static! {
@@ -314,7 +314,7 @@ pub mod SEC {
 
 /// CLear Interrupt
 #[allow(non_snake_case)]
-pub mod CLI {
+pub mod cli {
  use super::*;
 
  lazy_static! {
@@ -327,7 +327,7 @@ pub mod CLI {
 
 /// SEt Interrupt
 #[allow(non_snake_case)]
-pub mod SEI {
+pub mod sei {
  use super::*;
 
  lazy_static! {
@@ -340,7 +340,7 @@ pub mod SEI {
 
 /// CLear oVerflow
 #[allow(non_snake_case)]
-pub mod CLV {
+pub mod clv {
  use super::*;
 
  lazy_static! {
@@ -353,7 +353,7 @@ pub mod CLV {
 
 /// CLear Decimal
 #[allow(non_snake_case)]
-pub mod CLD {
+pub mod cld {
  use super::*;
 
  lazy_static! {
@@ -366,7 +366,7 @@ pub mod CLD {
 
 /// SEt Decimal
 #[allow(non_snake_case)]
-pub mod SED {
+pub mod sed {
  use super::*;
 
  lazy_static! {
@@ -379,7 +379,7 @@ pub mod SED {
 
 /// INCrement memory
 #[allow(non_snake_case)]
-pub mod INC {
+pub mod inc {
  use super::*;
 
  lazy_static! {
@@ -395,7 +395,7 @@ pub mod INC {
 
 /// JuMP
 #[allow(non_snake_case)]
-pub mod JMP {
+pub mod jmp {
  use super::*;
 
  lazy_static! {
@@ -409,7 +409,7 @@ pub mod JMP {
 
 /// Jump to SubRoutine
 #[allow(non_snake_case)]
-pub mod JSR {
+pub mod jsr {
  use super::*;
 
  lazy_static! {
@@ -422,7 +422,7 @@ pub mod JSR {
 
 /// LoaD Accumulator
 #[allow(non_snake_case)]
-pub mod LDA {
+pub mod lda {
  use super::*;
 
  lazy_static! {
@@ -442,7 +442,7 @@ pub mod LDA {
 
 /// LoaD X register
 #[allow(non_snake_case)]
-pub mod LDX {
+pub mod ldx {
  use super::*;
 
  lazy_static! {
@@ -459,7 +459,7 @@ pub mod LDX {
 
 /// LoaD Y register
 #[allow(non_snake_case)]
-pub mod LDY {
+pub mod ldy {
  use super::*;
 
  lazy_static! {
@@ -476,7 +476,7 @@ pub mod LDY {
 
 /// Logical Shift Right
 #[allow(non_snake_case)]
-pub mod LSR {
+pub mod lsr {
  use super::*;
 
  lazy_static! {
@@ -493,7 +493,7 @@ pub mod LSR {
 
 /// No OPeration
 #[allow(non_snake_case)]
-pub mod NOP {
+pub mod nop {
  use super::*;
 
  lazy_static! {
@@ -506,7 +506,7 @@ pub mod NOP {
 
 /// bitwise OR with Accumulator
 #[allow(non_snake_case)]
-pub mod ORA {
+pub mod ora {
  use super::*;
 
  lazy_static! {
@@ -526,7 +526,7 @@ pub mod ORA {
 
 /// Transfer Accumulator to X
 #[allow(non_snake_case)]
-pub mod TAX {
+pub mod tax {
  use super::*;
 
  lazy_static! {
@@ -539,7 +539,7 @@ pub mod TAX {
 
 /// Transfer X to Accumulator
 #[allow(non_snake_case)]
-pub mod TXA {
+pub mod txa {
  use super::*;
 
  lazy_static! {
@@ -552,7 +552,7 @@ pub mod TXA {
 
 /// DEcrement X
 #[allow(non_snake_case)]
-pub mod DEX {
+pub mod dex {
  use super::*;
 
  lazy_static! {
@@ -565,7 +565,7 @@ pub mod DEX {
 
 /// INcrement X
 #[allow(non_snake_case)]
-pub mod INX {
+pub mod inx {
  use super::*;
 
  lazy_static! {
@@ -578,7 +578,7 @@ pub mod INX {
 
 /// Transfer Accumulator to Y
 #[allow(non_snake_case)]
-pub mod TAY {
+pub mod tay {
  use super::*;
 
  lazy_static! {
@@ -591,7 +591,7 @@ pub mod TAY {
 
 /// Transfer Y to Accumulator
 #[allow(non_snake_case)]
-pub mod TYA {
+pub mod tya {
  use super::*;
 
  lazy_static! {
@@ -604,7 +604,7 @@ pub mod TYA {
 
 /// DEcrement Y
 #[allow(non_snake_case)]
-pub mod DEY {
+pub mod dey {
  use super::*;
 
  lazy_static! {
@@ -617,7 +617,7 @@ pub mod DEY {
 
 /// INcrement Y
 #[allow(non_snake_case)]
-pub mod INY {
+pub mod iny {
  use super::*;
 
  lazy_static! {
@@ -630,7 +630,7 @@ pub mod INY {
 
 /// ROtate Left
 #[allow(non_snake_case)]
-pub mod ROL {
+pub mod rol {
  use super::*;
 
  lazy_static! {
@@ -647,7 +647,7 @@ pub mod ROL {
 
 /// ROtate Right
 #[allow(non_snake_case)]
-pub mod ROR {
+pub mod ror {
  use super::*;
 
  lazy_static! {
@@ -664,7 +664,7 @@ pub mod ROR {
 
 /// ReTurn from Interrupt
 #[allow(non_snake_case)]
-pub mod RTI {
+pub mod rti {
  use super::*;
 
  lazy_static! {
@@ -677,7 +677,7 @@ pub mod RTI {
 
 /// ReTurn from Subroutine
 #[allow(non_snake_case)]
-pub mod RTS {
+pub mod rts {
  use super::*;
 
  lazy_static! {
@@ -690,7 +690,7 @@ pub mod RTS {
 
 /// SuBtract with Carry
 #[allow(non_snake_case)]
-pub mod SBC {
+pub mod sbc {
  use super::*;
 
  lazy_static! {
@@ -710,7 +710,7 @@ pub mod SBC {
 
 /// STore Accumulator
 #[allow(non_snake_case)]
-pub mod STA {
+pub mod sta {
  use super::*;
 
  lazy_static! {
@@ -729,7 +729,7 @@ pub mod STA {
 
 /// Transfer X to Stack ptr
 #[allow(non_snake_case)]
-pub mod TXS {
+pub mod txs {
  use super::*;
 
  lazy_static! {
@@ -742,7 +742,7 @@ pub mod TXS {
 
 /// Transfer Stack ptr to X
 #[allow(non_snake_case)]
-pub mod TSX {
+pub mod tsx {
  use super::*;
 
  lazy_static! {
@@ -755,7 +755,7 @@ pub mod TSX {
 
 /// PusH Accumulator
 #[allow(non_snake_case)]
-pub mod PHA {
+pub mod pha {
  use super::*;
 
  lazy_static! {
@@ -768,7 +768,7 @@ pub mod PHA {
 
 /// PuLl Accumulator
 #[allow(non_snake_case)]
-pub mod PLA {
+pub mod pla {
  use super::*;
 
  lazy_static! {
@@ -781,7 +781,7 @@ pub mod PLA {
 
 /// PusH Processor status
 #[allow(non_snake_case)]
-pub mod PHP {
+pub mod php {
  use super::*;
 
  lazy_static! {
@@ -794,7 +794,7 @@ pub mod PHP {
 
 /// PuLl Processor status
 #[allow(non_snake_case)]
-pub mod PLP {
+pub mod plp {
  use super::*;
 
  lazy_static! {
@@ -807,7 +807,7 @@ pub mod PLP {
 
 /// STore X register
 #[allow(non_snake_case)]
-pub mod STX {
+pub mod stx {
  use super::*;
 
  lazy_static! {
@@ -822,7 +822,7 @@ pub mod STX {
 
 /// STore Y register
 #[allow(non_snake_case)]
-pub mod STY {
+pub mod sty {
  use super::*;
 
  lazy_static! {
@@ -837,13 +837,13 @@ pub mod STY {
 
 /// Undocumented No-Op
 #[allow(non_snake_case)]
-pub mod UNDOC_NOP {
+pub mod undoc_nop {
  use super::*;
 
  lazy_static! {
-   pub static ref IMPLIED: OpCode = OpCode::new("UNDOC_NOP", "no-op", 0xEA, undoc_nop, 2, 0, 1, AddressingMode::Implied);
+   pub static ref IMPLIED: OpCode = OpCode::new("undoc_nop", "no-op", 0xEA, undoc_nop, 2, 0, 1, AddressingMode::Implied);
  
-   pub static ref UNDOC_NOP: Operation = Operation::new("UNDOC_NOP", "no-op", vec![*IMPLIED,]);
+   pub static ref UNDOC_NOP: Operation = Operation::new("undoc_nop", "no-op", vec![*IMPLIED,]);
 
  }
 }
@@ -855,265 +855,265 @@ pub mod UNDOC_NOP {
  
 /// This is the optable, which contains all of the opcodes for the 6502 CPU.
 /// The order of the ops is **EXTREMELY** important, as the index is the opcode byte.
-/// Any opcode marked as UNDOC_NOP is an undocumented opcode, and will be logged when executed, but will not do anything.
+/// Any opcode marked as undoc_nop is an undocumented opcode, and will be logged when executed, but will not do anything.
 /// The optable is like a huge match statement, but is **SIGNIFICANTLY** faster because it is a static array.
  
     pub static ref OPTABLE: [OpCode; 256] = [
-        *BRK::IMPLIED,
-        *ORA::INDIRECT_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *ORA::ZERO_PAGE,
-        *ASL::ZERO_PAGE,
-        *UNDOC_NOP::IMPLIED,
-        *PHP::IMPLIED,
-        *ORA::IMMEDIATE,
-        *ASL::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *ORA::ABSOLUTE,
-        *ASL::ABSOLUTE,
-        *UNDOC_NOP::IMPLIED,
-        *BPL::IMPLIED,
-        *ORA::INDIRECT_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *ORA::ZERO_PAGE_X,
-        *ASL::ZERO_PAGE_X,
-        *UNDOC_NOP::IMPLIED,
-        *CLC::IMPLIED,
-        *ORA::ABSOLUTE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *ORA::ABSOLUTE_X,
-        *ASL::ABSOLUTE_X,
-        *UNDOC_NOP::IMPLIED,
-        *JSR::ABSOLUTE,
-        *AND::INDIRECT_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *BIT::ZERO_PAGE,
-        *AND::ZERO_PAGE,
-        *ROL::ZERO_PAGE,
-        *UNDOC_NOP::IMPLIED,
-        *PLP::IMPLIED,
-        *AND::IMMEDIATE,
-        *ROL::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *BIT::ABSOLUTE,
-        *AND::ABSOLUTE,
-        *ROL::ABSOLUTE,
-        *UNDOC_NOP::IMPLIED,
-        *BMI::IMPLIED,
-        *AND::INDIRECT_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *AND::ZERO_PAGE_X,
-        *ROL::ZERO_PAGE_X,
-        *UNDOC_NOP::IMPLIED,
-        *SEC::IMPLIED,
-        *AND::ABSOLUTE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *AND::ABSOLUTE_X,
-        *ROL::ABSOLUTE_X,
-        *UNDOC_NOP::IMPLIED,
-        *RTI::IMPLIED,
-        *EOR::INDIRECT_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *EOR::ZERO_PAGE,
-        *LSR::ZERO_PAGE,
-        *UNDOC_NOP::IMPLIED,
-        *PHA::IMPLIED,
-        *EOR::IMMEDIATE,
-        *LSR::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *JMP::ABSOLUTE,
-        *EOR::ABSOLUTE,
-        *LSR::ABSOLUTE,
-        *UNDOC_NOP::IMPLIED,
-        *BVC::IMPLIED,
-        *EOR::INDIRECT_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *EOR::ZERO_PAGE_X,
-        *LSR::ZERO_PAGE_X,
-        *UNDOC_NOP::IMPLIED,
-        *CLI::IMPLIED,
-        *EOR::ABSOLUTE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *EOR::ABSOLUTE_X,
-        *LSR::ABSOLUTE_X,
-        *UNDOC_NOP::IMPLIED,
-        *RTS::IMPLIED,
-        *ADC::INDIRECT_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *ADC::ZERO_PAGE,
-        *ROR::ZERO_PAGE,
-        *UNDOC_NOP::IMPLIED,
-        *PLA::IMPLIED,
-        *ADC::IMMEDIATE,
-        *ROR::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *JMP::INDIRECT,
-        *ADC::ABSOLUTE,
-        *ROR::ABSOLUTE,
-        *UNDOC_NOP::IMPLIED,
-        *BVS::IMPLIED,
-        *ADC::INDIRECT_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *ADC::ZERO_PAGE_X,
-        *ROR::ZERO_PAGE_X,
-        *UNDOC_NOP::IMPLIED,
-        *SEI::IMPLIED,
-        *ADC::ABSOLUTE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *ADC::ABSOLUTE_X,
-        *ROR::ABSOLUTE_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *STA::INDIRECT_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *STY::ZERO_PAGE,
-        *STA::ZERO_PAGE,
-        *STX::ZERO_PAGE,
-        *UNDOC_NOP::IMPLIED,
-        *DEY::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *TXA::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *STY::ABSOLUTE,
-        *STA::ABSOLUTE,
-        *STX::ABSOLUTE,
-        *UNDOC_NOP::IMPLIED,
-        *BCC::IMPLIED,
-        *STA::INDIRECT_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *STY::ZERO_PAGE_X,
-        *STA::ZERO_PAGE_X,
-        *STX::ZERO_PAGE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *TYA::IMPLIED,
-        *STA::ABSOLUTE_Y,
-        *TXS::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *STA::ABSOLUTE_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *LDY::IMMEDIATE,
-        *LDA::INDIRECT_X,
-        *LDX::IMMEDIATE,
-        *UNDOC_NOP::IMPLIED,
-        *LDY::ZERO_PAGE,
-        *LDA::ZERO_PAGE,
-        *LDX::ZERO_PAGE,
-        *UNDOC_NOP::IMPLIED,
-        *TAY::IMPLIED,
-        *LDA::IMMEDIATE,
-        *TAX::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *LDY::ABSOLUTE,
-        *LDA::ABSOLUTE,
-        *LDX::ABSOLUTE,
-        *UNDOC_NOP::IMPLIED,
-        *BCS::IMPLIED,
-        *LDA::INDIRECT_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *LDY::ZERO_PAGE_X,
-        *LDA::ZERO_PAGE_X,
-        *LDX::ZERO_PAGE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *CLV::IMPLIED,
-        *LDA::ABSOLUTE_Y,
-        *TSX::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *LDY::ABSOLUTE_X,
-        *LDA::ABSOLUTE_X,
-        *LDX::ABSOLUTE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *CPY::IMMEDIATE,
-        *CMP::INDIRECT_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *CPY::ZERO_PAGE,
-        *CMP::ZERO_PAGE,
-        *DEC::ZERO_PAGE,
-        *UNDOC_NOP::IMPLIED,
-        *INY::IMPLIED,
-        *CMP::IMMEDIATE,
-        *DEX::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *CPY::ABSOLUTE,
-        *CMP::ABSOLUTE,
-        *DEC::ABSOLUTE,
-        *UNDOC_NOP::IMPLIED,
-        *BNE::IMPLIED,
-        *CMP::INDIRECT_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *CMP::ZERO_PAGE_X,
-        *DEC::ZERO_PAGE_X,
-        *UNDOC_NOP::IMPLIED,
-        *CLD::IMPLIED,
-        *CMP::ABSOLUTE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *CMP::ABSOLUTE_X,
-        *DEC::ABSOLUTE_X,
-        *UNDOC_NOP::IMPLIED,
-        *CPX::IMMEDIATE,
-        *SBC::INDIRECT_X,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *CPX::ZERO_PAGE,
-        *SBC::ZERO_PAGE,
-        *INC::ZERO_PAGE,
-        *UNDOC_NOP::IMPLIED,
-        *INX::IMPLIED,
-        *SBC::IMMEDIATE,
-        *NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *CPX::ABSOLUTE,
-        *SBC::ABSOLUTE,
-        *INC::ABSOLUTE,
-        *UNDOC_NOP::IMPLIED,
-        *BEQ::IMPLIED,
-        *SBC::INDIRECT_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *SBC::ZERO_PAGE_X,
-        *INC::ZERO_PAGE_X,
-        *UNDOC_NOP::IMPLIED,
-        *SED::IMPLIED,
-        *SBC::ABSOLUTE_Y,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *UNDOC_NOP::IMPLIED,
-        *SBC::ABSOLUTE_X,
-        *INC::ABSOLUTE_X,
-        *UNDOC_NOP::IMPLIED,
+        *brk::IMPLIED,
+        *ora::INDIRECT_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *ora::ZERO_PAGE,
+        *asl::ZERO_PAGE,
+        *undoc_nop::IMPLIED,
+        *php::IMPLIED,
+        *ora::IMMEDIATE,
+        *asl::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *ora::ABSOLUTE,
+        *asl::ABSOLUTE,
+        *undoc_nop::IMPLIED,
+        *bpl::IMPLIED,
+        *ora::INDIRECT_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *ora::ZERO_PAGE_X,
+        *asl::ZERO_PAGE_X,
+        *undoc_nop::IMPLIED,
+        *clc::IMPLIED,
+        *ora::ABSOLUTE_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *ora::ABSOLUTE_X,
+        *asl::ABSOLUTE_X,
+        *undoc_nop::IMPLIED,
+        *jsr::ABSOLUTE,
+        *and::INDIRECT_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *bit::ZERO_PAGE,
+        *and::ZERO_PAGE,
+        *rol::ZERO_PAGE,
+        *undoc_nop::IMPLIED,
+        *plp::IMPLIED,
+        *and::IMMEDIATE,
+        *rol::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *bit::ABSOLUTE,
+        *and::ABSOLUTE,
+        *rol::ABSOLUTE,
+        *undoc_nop::IMPLIED,
+        *bmi::IMPLIED,
+        *and::INDIRECT_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *and::ZERO_PAGE_X,
+        *rol::ZERO_PAGE_X,
+        *undoc_nop::IMPLIED,
+        *sec::IMPLIED,
+        *and::ABSOLUTE_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *and::ABSOLUTE_X,
+        *rol::ABSOLUTE_X,
+        *undoc_nop::IMPLIED,
+        *rti::IMPLIED,
+        *eor::INDIRECT_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *eor::ZERO_PAGE,
+        *lsr::ZERO_PAGE,
+        *undoc_nop::IMPLIED,
+        *pha::IMPLIED,
+        *eor::IMMEDIATE,
+        *lsr::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *jmp::ABSOLUTE,
+        *eor::ABSOLUTE,
+        *lsr::ABSOLUTE,
+        *undoc_nop::IMPLIED,
+        *bvc::IMPLIED,
+        *eor::INDIRECT_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *eor::ZERO_PAGE_X,
+        *lsr::ZERO_PAGE_X,
+        *undoc_nop::IMPLIED,
+        *cli::IMPLIED,
+        *eor::ABSOLUTE_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *eor::ABSOLUTE_X,
+        *lsr::ABSOLUTE_X,
+        *undoc_nop::IMPLIED,
+        *rts::IMPLIED,
+        *adc::INDIRECT_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *adc::ZERO_PAGE,
+        *ror::ZERO_PAGE,
+        *undoc_nop::IMPLIED,
+        *pla::IMPLIED,
+        *adc::IMMEDIATE,
+        *ror::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *jmp::INDIRECT,
+        *adc::ABSOLUTE,
+        *ror::ABSOLUTE,
+        *undoc_nop::IMPLIED,
+        *bvs::IMPLIED,
+        *adc::INDIRECT_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *adc::ZERO_PAGE_X,
+        *ror::ZERO_PAGE_X,
+        *undoc_nop::IMPLIED,
+        *sei::IMPLIED,
+        *adc::ABSOLUTE_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *adc::ABSOLUTE_X,
+        *ror::ABSOLUTE_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *sta::INDIRECT_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *sty::ZERO_PAGE,
+        *sta::ZERO_PAGE,
+        *stx::ZERO_PAGE,
+        *undoc_nop::IMPLIED,
+        *dey::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *txa::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *sty::ABSOLUTE,
+        *sta::ABSOLUTE,
+        *stx::ABSOLUTE,
+        *undoc_nop::IMPLIED,
+        *bcc::IMPLIED,
+        *sta::INDIRECT_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *sty::ZERO_PAGE_X,
+        *sta::ZERO_PAGE_X,
+        *stx::ZERO_PAGE_Y,
+        *undoc_nop::IMPLIED,
+        *tya::IMPLIED,
+        *sta::ABSOLUTE_Y,
+        *txs::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *sta::ABSOLUTE_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *ldy::IMMEDIATE,
+        *lda::INDIRECT_X,
+        *ldx::IMMEDIATE,
+        *undoc_nop::IMPLIED,
+        *ldy::ZERO_PAGE,
+        *lda::ZERO_PAGE,
+        *ldx::ZERO_PAGE,
+        *undoc_nop::IMPLIED,
+        *tay::IMPLIED,
+        *lda::IMMEDIATE,
+        *tax::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *ldy::ABSOLUTE,
+        *lda::ABSOLUTE,
+        *ldx::ABSOLUTE,
+        *undoc_nop::IMPLIED,
+        *bcs::IMPLIED,
+        *lda::INDIRECT_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *ldy::ZERO_PAGE_X,
+        *lda::ZERO_PAGE_X,
+        *ldx::ZERO_PAGE_Y,
+        *undoc_nop::IMPLIED,
+        *clv::IMPLIED,
+        *lda::ABSOLUTE_Y,
+        *tsx::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *ldy::ABSOLUTE_X,
+        *lda::ABSOLUTE_X,
+        *ldx::ABSOLUTE_Y,
+        *undoc_nop::IMPLIED,
+        *cpy::IMMEDIATE,
+        *cmp::INDIRECT_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *cpy::ZERO_PAGE,
+        *cmp::ZERO_PAGE,
+        *dec::ZERO_PAGE,
+        *undoc_nop::IMPLIED,
+        *iny::IMPLIED,
+        *cmp::IMMEDIATE,
+        *dex::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *cpy::ABSOLUTE,
+        *cmp::ABSOLUTE,
+        *dec::ABSOLUTE,
+        *undoc_nop::IMPLIED,
+        *bne::IMPLIED,
+        *cmp::INDIRECT_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *cmp::ZERO_PAGE_X,
+        *dec::ZERO_PAGE_X,
+        *undoc_nop::IMPLIED,
+        *cld::IMPLIED,
+        *cmp::ABSOLUTE_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *cmp::ABSOLUTE_X,
+        *dec::ABSOLUTE_X,
+        *undoc_nop::IMPLIED,
+        *cpx::IMMEDIATE,
+        *sbc::INDIRECT_X,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *cpx::ZERO_PAGE,
+        *sbc::ZERO_PAGE,
+        *inc::ZERO_PAGE,
+        *undoc_nop::IMPLIED,
+        *inx::IMPLIED,
+        *sbc::IMMEDIATE,
+        *nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *cpx::ABSOLUTE,
+        *sbc::ABSOLUTE,
+        *inc::ABSOLUTE,
+        *undoc_nop::IMPLIED,
+        *beq::IMPLIED,
+        *sbc::INDIRECT_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *sbc::ZERO_PAGE_X,
+        *inc::ZERO_PAGE_X,
+        *undoc_nop::IMPLIED,
+        *sed::IMPLIED,
+        *sbc::ABSOLUTE_Y,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *undoc_nop::IMPLIED,
+        *sbc::ABSOLUTE_X,
+        *inc::ABSOLUTE_X,
+        *undoc_nop::IMPLIED,
     ];
 }

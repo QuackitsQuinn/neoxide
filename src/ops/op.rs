@@ -6,7 +6,7 @@ use super::{opcode::OpCode, opcodes};
 /// This function is here because a 255 line match statement is not very readable to be in cpu.rs
 pub fn exec_op(cpu: &mut CPU) -> bool {
     let op = cpu.read_opbyte();
-    if op == opcodes::BRK::IMPLIED.code {
+    if op == opcodes::brk::IMPLIED.code {
         // hey we hit a brk, return false to signal that we should stop
         return false;
     }
